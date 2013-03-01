@@ -26,6 +26,7 @@ public class TestDatabase {
 			Dish a = manager.getDish(id);
 			Dish b = manager.getDish(id);
 			// We would like to test if remove works, but I dunno...
+			// Merged
 			//dish.remove();
 		}
 		catch (SQLException e) {

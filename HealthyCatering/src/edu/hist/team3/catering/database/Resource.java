@@ -32,7 +32,7 @@ public class Resource extends DatabaseRow {
 			ps.executeUpdate();
 			try (ResultSet rs = ps.getGeneratedKeys()) {
 				if (rs.next()) {
-					ret = new Resource(manager, rs.getInt(1));
+					ret = manager.getResource(rs.getInt(1));
 				}
 			}
 		}

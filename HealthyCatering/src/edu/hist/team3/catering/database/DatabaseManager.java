@@ -97,7 +97,7 @@ public class DatabaseManager {
 	 */
 	public Employee createEmployee(Customer customer, Job job) throws SQLException {
 		assert(customer != null);
-		return Employee.createDefault(this, customer.getId(), job);
+		return Employee.createDefault(this, customer, job);
 	}
 	
 	public Employee getEmployee(Customer customer) {
@@ -112,7 +112,7 @@ public class DatabaseManager {
 			ret = ref.get();
 		}
 		if (ret == null || ret.isRemoved()) {
-			ret = new Employee(this, id);
+			ret = new Employee(this, getCustomer(id));
 			employees.put(id, new WeakReference<Employee>(ret));
 		}
 		return ret;

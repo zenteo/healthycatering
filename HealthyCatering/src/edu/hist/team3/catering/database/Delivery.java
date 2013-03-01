@@ -42,7 +42,7 @@ public class Delivery extends DatabaseRow {
 			ps.executeUpdate();
 			try (ResultSet rs = ps.getGeneratedKeys()) {
 				if (rs.next()) {
-					ret = new Delivery(manager, rs.getInt(1));
+					ret = manager.getDelivery(rs.getInt(1));
 				}
 			}
 		}

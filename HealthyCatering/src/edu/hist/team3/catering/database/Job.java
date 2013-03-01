@@ -31,7 +31,7 @@ public class Job extends DatabaseRow {
 			ps.executeUpdate();
 			try (ResultSet rs = ps.getGeneratedKeys()) {
 				if (rs.next()) {
-					ret = new Job(manager, rs.getInt(1));
+					ret = manager.getJob(rs.getInt(1));
 				}
 			}
 		}

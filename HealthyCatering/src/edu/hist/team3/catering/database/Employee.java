@@ -7,7 +7,8 @@ import java.sql.Date;
 /**
  * This class is to describe the employee
  */
-public class Employee extends Customer {	// customer_id		INT				NOT NULL
+public class Employee extends DatabaseRow {
+	private Customer customer;				// customer_id		INT				NOT NULL
 	private Job job;						// job_id			INT				NOT NULL
 	private String username;				// username			VARCHAR(32)		NOT NULL
 	private String password;				// password			VARCHAR(32)		NOT NULL
@@ -19,25 +20,26 @@ public class Employee extends Customer {	// customer_id		INT				NOT NULL
 	 * This is the constructor for this class
 	 * @param id is an integer used as the primary key for employee/Customer
 	 */
-	protected Employee(DatabaseManager manager, int id) {
-		super(manager, id);
+	protected Employee(DatabaseManager manager, Customer customer) {
+		super(manager);
+		this.customer = customer;
 	}
 	
-	public static Employee createDefault(DatabaseManager manager, int id, Job job) throws SQLException {
+	public static Employee createDefault(DatabaseManager manager, Customer customer, Job job) throws SQLException {
 		String sql = "INSERT INTO Employee" +
 				"(customer_id, job_id, username, password, email, employment_date, session_hours)" +
-				"VALUES (" + id + ", " + job.getId() + ", '', '', '', '2000-01-01', 0)";
+				"VALUES (" + customer.getId() + ", " + job.getId() + ", '', '', '', '2000-01-01', 0)";
 		try (PreparedStatement ps = manager.prepareStatement(sql)) {
 			ps.executeUpdate();
 		}
-		Employee ret = new Employee(manager, id);
+		Employee ret = manager.getEmployee(customer);
 		return ret;
 	}
 	
 	@Override
 	public void fetch() throws SQLException {
 		super.fetch();
-		String sql = "SELECT job_id, username, password, email, employment_date, session_hours FROM Employee WHERE customer_id = " + getId();
+		String sql = "SELECT job_id, username, password, email, employment_date, session_hours FROM Employee WHERE customer_id = " + customer.getId();
 		try (PreparedStatement ps = getManager().prepareStatement(sql)) {
 			try (ResultSet rs = ps.executeQuery()) {
 				if (rs.next()) {
@@ -62,7 +64,7 @@ public class Employee extends Customer {	// customer_id		INT				NOT NULL
 		sql += ", email = '" + email + "'";
 		sql += ", employment_date = '" + employmentDate.toString() + "'";
 		sql += ", session_hours = " + sessionHours;
-		sql += " WHERE customer_id = " + getId();
+		sql += " WHERE customer_id = " + customer.getId();
 		try (PreparedStatement ps = getManager().prepareStatement(sql)) {
 			ps.executeUpdate();
 		}
@@ -71,11 +73,15 @@ public class Employee extends Customer {	// customer_id		INT				NOT NULL
 	@Override
 	public void remove() throws SQLException {
 		super.setRemoved(); // Wont to call super.remove(), because then customer would be removed from database.
-		String sql = "DELETE FROM Employee WHERE CUSTOMER_ID = " + super.getId();
+		String sql = "DELETE FROM Employee WHERE CUSTOMER_ID = " + customer.getId();
 		try (PreparedStatement ps = getManager().prepareStatement(sql)) {
 			ps.executeUpdate();
 		}
 	}
+	
+    public Customer getCustomer() {
+    	return customer;
+    }
 	
 	/**
 	 * Gives us the Job ID
@@ -192,11 +198,11 @@ public class Employee extends Customer {	// customer_id		INT				NOT NULL
     	super.setChanged();
 		this.sessionHours = sessionHours;
 	}
-
+    
     public boolean equals(Object other){
     	if (other == null || !(other instanceof Employee))
     		return false;
-		return getId() == ((Employee)other).getId();
+		return customer.equals(((Employee)other).customer);
 	}
 
 	public String toString() {

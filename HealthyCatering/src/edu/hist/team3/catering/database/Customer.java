@@ -26,7 +26,7 @@ public class Customer extends DatabaseRow {
 			ps.executeUpdate();
 			try (ResultSet rs = ps.getGeneratedKeys()) {
 				if (rs.next()) {
-					ret = new Customer(manager, rs.getInt(1));
+					ret = manager.getCustomer(rs.getInt(1));
 				}
 			}
 		}

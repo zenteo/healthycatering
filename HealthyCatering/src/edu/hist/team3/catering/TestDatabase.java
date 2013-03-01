@@ -25,7 +25,7 @@ public class TestDatabase {
 			dish = null;
 			Dish a = manager.getDish(id);
 			Dish b = manager.getDish(id);
-			// Rollme
+			// Rollme advasdf
 		}
 		catch (SQLException e) {
 			e.printStackTrace();

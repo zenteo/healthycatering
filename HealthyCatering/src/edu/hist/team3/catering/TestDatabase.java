@@ -26,7 +26,7 @@ public class TestDatabase {
 			Dish a = manager.getDish(id);
 			Dish b = manager.getDish(id);
 			//Hellodfasdf
-			// NO!
+			// NO!a dsfasdf
 			//dish.remove();
 		}
 		catch (SQLException e) {

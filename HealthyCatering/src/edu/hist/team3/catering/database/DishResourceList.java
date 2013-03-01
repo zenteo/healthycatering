@@ -1,5 +1,8 @@
 package edu.hist.team3.catering.database;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -16,7 +19,7 @@ public class DishResourceList {
 		return dish;
 	}
 	
-	public DishResource add(Resource resource) {
+	public DishResource add(Resource resource) throws SQLException {
 		assert(dish != null);
 		DishResource link = dish.getManager().createDishResource(dish, resource);
 		if (links != null && link != null) {
@@ -30,7 +33,7 @@ public class DishResourceList {
 		return dish.getManager().getDishResource(dish, resource);
 	}
 	
-	public void remove(Resource resource) {
+	public void remove(Resource resource) throws SQLException {
 		assert(dish != null);
 		DishResource link = dish.getManager().getDishResource(dish, resource);
 		link.remove();
@@ -39,7 +42,7 @@ public class DishResourceList {
 		}
 	}
 	
-	public void removeAll() {
+	public void removeAll() throws SQLException {
 		Iterator<DishResource> it = iterator();
 		while (it.hasNext()) {
 			it.next().remove();
@@ -63,12 +66,29 @@ public class DishResourceList {
 	}
 	
 	protected void tryFetch() {
-		if (links == null)
-			fetch();
+		if (links == null) {
+			try {
+				fetch();
+			}
+			catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
-	public void fetch() {
-		//TODO: Give me a body!!!
+	public void fetch() throws SQLException {
+		String sql = "SELECT resource_id FROM Dish_Resource WHERE dish_id = " + dish.getId();
+		try (PreparedStatement ps = dish.getManager().prepareStatement(sql)) {
+			try (ResultSet rs = ps.executeQuery()) {
+				links = new HashSet<DishResource>();
+				while (rs.next()) {
+					Resource resource = dish.getManager().getResource(rs.getInt(1));
+					DishResource dishResource = dish.getManager().getDishResource(dish, resource);
+					links.add(dishResource);
+				}
+			}
+		}
 	}
 	
 	@Override

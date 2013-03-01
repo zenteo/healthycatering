@@ -1,8 +1,9 @@
 package edu.hist.team3.catering.database;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Calendar;
+import java.sql.Date;
 /**
  * This class is to describe the employee
  */
@@ -11,7 +12,7 @@ public class Employee extends Customer {	// customer_id		INT				NOT NULL
 	private String username;				// username			VARCHAR(32)		NOT NULL
 	private String password;				// password			VARCHAR(32)		NOT NULL
 	private String email;					// email			VARCHAR(256)	NOT NULL
-	private Calendar employmentDate;		// employment_date	DATE			NOT NULL
+	private Date employmentDate;			// employment_date	DATE			NOT NULL
 	private double sessionHours;			// session_hours	DOUBLE			NOT NULL
 	
 	/**
@@ -24,7 +25,7 @@ public class Employee extends Customer {	// customer_id		INT				NOT NULL
 	
 	public static Employee createDefault(DatabaseManager manager, int id, Job job) throws SQLException {
 		String sql = "INSERT INTO Employee" +
-				"(CUSTOMER_ID, JOB_ID, USERNAME, PASSWORD, EMAIL, EMPLOYMENT_DATE, SESSION_HOURS)" +
+				"(customer_id, job_id, username, password, email, employment_date, session_hours)" +
 				"VALUES (" + id + ", " + job.getId() + ", '', '', '', '2000-01-01', 0)";
 		try (PreparedStatement ps = manager.prepareStatement(sql)) {
 			ps.executeUpdate();
@@ -34,18 +35,42 @@ public class Employee extends Customer {	// customer_id		INT				NOT NULL
 	}
 	
 	@Override
-	public void fetch() {
-		//TODO: Give me a body!!!
+	public void fetch() throws SQLException {
+		super.fetch();
+		String sql = "SELECT job_id, username, password, email, employment_date, session_hours FROM Employee WHERE customer_id = " + getId();
+		try (PreparedStatement ps = getManager().prepareStatement(sql)) {
+			try (ResultSet rs = ps.executeQuery()) {
+				if (rs.next()) {
+					this.job = getManager().getJob(rs.getInt(1));
+					this.username = rs.getString(2);
+					this.password = rs.getString(3);
+					this.email = rs.getString(4);
+					this.employmentDate = rs.getDate(5);
+					this.sessionHours = rs.getDouble(6);
+				}
+			}
+		}
 	}
 	
 	@Override
-	public void commit() {
-		//TODO: Give me a body!!!
+	public void commit() throws SQLException {
+		super.commit();
+		String sql = "UPDATE Employee SET ";
+		sql += "job_id = " + job.getId();
+		sql += ", username = '" + username + "'";
+		sql += ", password = '" + password + "'";
+		sql += ", email = '" + email + "'";
+		sql += ", employment_date = '" + employmentDate.toString() + "'";
+		sql += ", session_hours = " + sessionHours;
+		sql += " WHERE customer_id = " + getId();
+		try (PreparedStatement ps = getManager().prepareStatement(sql)) {
+			ps.executeUpdate();
+		}
 	}
 	
 	@Override
 	public void remove() throws SQLException {
-		super.setRemoved(); // Wont to call super.remove(), because then customer would be removed.
+		super.setRemoved(); // Wont to call super.remove(), because then customer would be removed from database.
 		String sql = "DELETE FROM Employee WHERE CUSTOMER_ID = " + super.getId();
 		try (PreparedStatement ps = getManager().prepareStatement(sql)) {
 			ps.executeUpdate();
@@ -135,7 +160,7 @@ public class Employee extends Customer {	// customer_id		INT				NOT NULL
 	 * Gives us the startdate of employment
 	 * @return employmentDate 
 	 */
-    public Calendar getEmploymentDate() {
+    public Date getEmploymentDate() {
     	super.tryFetch();
 		return employmentDate;
 	}
@@ -144,7 +169,7 @@ public class Employee extends Customer {	// customer_id		INT				NOT NULL
      * Sets the startdate of employment
      * @param employmentDate
      */
-	public void setEmploymentDate(Calendar employmentDate) {
+	public void setEmploymentDate(Date employmentDate) {
 		assert(employmentDate != null);
 		super.setChanged();				// NOT NULL
 	   	this.employmentDate = employmentDate;

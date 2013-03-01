@@ -46,7 +46,6 @@ public abstract class DatabaseRow {
 
 	public void commit() throws SQLException {
 		assert(status != STATUS_REMOVED);
-		tryFetch();
 		status = STATUS_FETCHED;
 	}
 	
@@ -64,6 +63,7 @@ public abstract class DatabaseRow {
 	
 	protected void setChanged() {
 		assert(status != STATUS_REMOVED);
+		tryFetch();
 		status = STATUS_CHANGED;
 	}
 	

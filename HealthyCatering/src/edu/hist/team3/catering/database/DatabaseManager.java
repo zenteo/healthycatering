@@ -1,13 +1,10 @@
 package edu.hist.team3.catering.database;
 
 import java.lang.ref.WeakReference;
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DatabaseManager {
@@ -168,8 +165,9 @@ public class DatabaseManager {
 	/**
 	 * Creates a new delivery-dish link.
 	 * @return a new instance of DeliveryDish
+	 * @throws SQLException 
 	 */
-	public DeliveryDish createDeliveryDish(Delivery delivery, Dish dish) {
+	public DeliveryDish createDeliveryDish(Delivery delivery, Dish dish) throws SQLException {
 		return DeliveryDish.createDefault(this, delivery, dish);
 	}
 	
@@ -180,8 +178,9 @@ public class DatabaseManager {
 	/**
 	 * Creates a new dish-resource link.
 	 * @return a new instance of DishResouce
+	 * @throws SQLException 
 	 */
-	public DishResource createDishResource(Dish dish, Resource resource) {
+	public DishResource createDishResource(Dish dish, Resource resource) throws SQLException {
 		return DishResource.createDefault(this, dish, resource);
 	}
 	

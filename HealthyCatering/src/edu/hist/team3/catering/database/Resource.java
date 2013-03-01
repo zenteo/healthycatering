@@ -15,7 +15,7 @@ public class Resource extends DatabaseRow {
 	private double costs;		// costs		DOUBLE
 	private double amount;		// amount		DOUBLE
 	private double weight;		// weight		DOUBLE
-	private double volum;		// volum		DOUBLE
+	private double volume;		// volume		DOUBLE
 	private double calories;	// calories		DOUBLE
 	private double healthiness;	// healthiness	DOUBLE
 	
@@ -25,8 +25,8 @@ public class Resource extends DatabaseRow {
 	}
 	
 	public static Resource createDefault(DatabaseManager manager) throws SQLException {
-		String sql = "INSERT INTO Resource (NAME, CATEGORY, DESCRIPTION, PRODUCER, SOURCE, STOCK_COUNT, COSTS, AMOUNT, WEIGHT, VOLUM, CALORIES, HEALTHINESS)" +
-				"VALUES ('', null, null, null, null, 1, 0, 0, 0, 0, 0, 0)";
+		String sql = "INSERT INTO Resource (name, category, description, producer, source, stock_count, costs, amount, weight, volume, calories, healthiness)" +
+				"VALUES ('', null, null, null, null, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)";
 		Resource ret = null;
 		try (PreparedStatement ps = manager.prepareStatement(sql, "id")) {
 			ps.executeUpdate();
@@ -42,11 +42,72 @@ public class Resource extends DatabaseRow {
 	@Override
 	public void fetch() throws SQLException {
 		super.fetch();
+		String sql = "SELECT name, category, description, producer, source, stock_count, costs, amount, weight, volume, calories, healthiness FROM Resource WHERE id = " + id;
+		try (PreparedStatement ps = getManager().prepareStatement(sql)) {
+			try (ResultSet rs = ps.executeQuery()) {
+				if (rs.next()) {
+					this.name = rs.getString(1);
+					this.category = rs.getString(2);
+					this.description = rs.getString(3);
+					this.producer = rs.getString(4);
+					this.source = rs.getString(5);
+					this.stockCount = rs.getDouble(6);
+					this.costs = rs.getDouble(7);
+					this.weight = rs.getDouble(8);
+					this.calories = rs.getDouble(9);
+					this.healthiness = rs.getDouble(10);
+				}
+			}
+		}
 	}
 	
 	@Override
 	public void commit() throws SQLException {
 		super.commit();
+		
+		String sql = "UPDATE Resource SET ";
+		sql += "name = '" + name + "'";
+		
+		if (category == null) {
+			sql += ", category = NULL";
+		}
+		else {
+			sql += ", category = '" + category + "'";
+		}
+		
+		if (description == null) {
+			sql += ", description = NULL";
+		}
+		else {
+			sql += ", description = '" + description + "'";
+		}
+		
+		if (producer == null) {
+			sql += ", producer = NULL";
+		}
+		else {
+			sql += ", producer = '" + producer + "'";
+		}
+		
+		if (source == null) {
+			sql += ", source = NULL";
+		}
+		else {
+			sql += ", source = '" + source + "'";
+		}
+		
+		sql += ", stock_count = " + stockCount;
+		sql += ", costs = " + costs;
+		sql += ", amount = " + amount;
+		sql += ", weight = " + weight;
+		sql += ", volume = " + volume;
+		sql += ", calories = " + calories;
+		sql += ", healthiness = " + healthiness;
+		sql += " WHERE id = " + id;
+		
+		try (PreparedStatement ps = getManager().prepareStatement(sql)) {
+			ps.executeUpdate();
+		}
 	}
 	
 	@Override
@@ -154,14 +215,14 @@ public class Resource extends DatabaseRow {
 		this.weight = weight;
 	}
 
-	public double getVolum() {
+	public double getVolume() {
 		super.tryFetch();
-		return volum;
+		return volume;
 	}
 
-	public void setVolum(double volum) {
+	public void setVolume(double volum) {
 		super.setChanged();
-		this.volum = volum;
+		this.volume = volum;
 	}
 
 	public double getCalories() {
@@ -200,7 +261,7 @@ public class Resource extends DatabaseRow {
 				+ category + "'; description = '" + description + "'; producer = '"
 				+ producer + "'; source = " + source + "; stockCount = "
 				+ stockCount + "; costs = " + costs + "; amount = " + amount
-				+ "; weight = " + weight + "; volum = " + volum + "; calories = "
+				+ "; weight = " + weight + "; volum = " + volume + "; calories = "
 				+ calories + "; healthiness = " + healthiness + "]";
 	}
 }

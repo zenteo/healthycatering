@@ -24,7 +24,7 @@ public class Job extends DatabaseRow {
 	}
 
 	public static Job createDefault(DatabaseManager manager) throws SQLException {
-		String sql = "INSERT INTO Job (NAME, YEARLY_SALARY, HOURLY_SALARY, PERCENT_SALES)" +
+		String sql = "INSERT INTO Job (name, yearly_salary, hourly_salary, percent_sales)" +
 				"VALUES ('', 0, 0, 0)";
 		Job ret = null;
 		try (PreparedStatement ps = manager.prepareStatement(sql, "id")) {
@@ -39,13 +39,33 @@ public class Job extends DatabaseRow {
 	}
 	
 	@Override
-	public void fetch() {
-		//TODO: Give me a body!!!
+	public void fetch() throws SQLException {
+		super.fetch();
+		String sql = "SELECT name, yearly_salary, hourly_salary, percent_sales FROM Job WHERE id = " + id;
+		try (PreparedStatement ps = getManager().prepareStatement(sql)) {
+			try (ResultSet rs = ps.executeQuery()) {
+				if (rs.next()) {
+					this.name = rs.getString(1);
+					this.yearlySalary = rs.getDouble(2);
+					this.hourlySalary = rs.getDouble(3);
+					this.percentSales = rs.getDouble(4);
+				}
+			}
+		}
 	}
 	
 	@Override
-	public void commit() {
-		//TODO: Give me a body!!!
+	public void commit() throws SQLException {
+		super.commit();
+		String sql = "UPDATE Job SET ";
+		sql += "name = '" + name + "'";
+		sql += ", yearly_salary = " + yearlySalary;
+		sql += ", hourly_salary = " + hourlySalary;
+		sql += ", percent_sales = " + percentSales;
+		sql += " WHERE id = " + id;
+		try (PreparedStatement ps = getManager().prepareStatement(sql)) {
+			ps.executeUpdate();
+		}
 	}
 	
 	@Override

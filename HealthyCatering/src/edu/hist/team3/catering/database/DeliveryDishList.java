@@ -1,5 +1,8 @@
 package edu.hist.team3.catering.database;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -16,7 +19,7 @@ public class DeliveryDishList {
 		return delivery;
 	}
 	
-	public DeliveryDish add(Dish dish) {
+	public DeliveryDish add(Dish dish) throws SQLException {
 		assert(dish != null);
 		DeliveryDish link = delivery.getManager().createDeliveryDish(delivery, dish);
 		if (links != null && link != null) {
@@ -30,7 +33,7 @@ public class DeliveryDishList {
 		return delivery.getManager().getDeliveryDish(delivery, dish);
 	}
 	
-	public void remove(Dish dish) {
+	public void remove(Dish dish) throws SQLException {
 		assert(dish != null);
 		DeliveryDish link = delivery.getManager().getDeliveryDish(delivery, dish);
 		link.remove();
@@ -39,7 +42,7 @@ public class DeliveryDishList {
 		}
 	}
 	
-	public void removeAll() {
+	public void removeAll() throws SQLException {
 		Iterator<DeliveryDish> it = iterator();
 		while (it.hasNext()) {
 			it.next().remove();
@@ -63,12 +66,28 @@ public class DeliveryDishList {
 	}
 	
 	protected void tryFetch() {
-		if (links == null)
-			fetch();
+		if (links == null) {
+			try {
+				fetch();
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
-	public void fetch() {
-		//TODO: Give me a body!!!
+	public void fetch() throws SQLException {
+		String sql = "SELECT dish_id FROM Delivery_Dish WHERE delivery_id = " + delivery.getId();
+		try (PreparedStatement ps = delivery.getManager().prepareStatement(sql)) {
+			try (ResultSet rs = ps.executeQuery()) {
+				links = new HashSet<DeliveryDish>();
+				while (rs.next()) {
+					Dish dish = delivery.getManager().getDish(rs.getInt(1));
+					DeliveryDish deliveryDish = delivery.getManager().getDeliveryDish(delivery, dish);
+					links.add(deliveryDish);
+				}
+			}
+		}
 	}
 	
 	@Override

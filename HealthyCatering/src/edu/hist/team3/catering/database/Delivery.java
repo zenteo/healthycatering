@@ -277,7 +277,7 @@ public class Delivery extends DatabaseRow {
 	
 	/**
 	 * Gets the list of dishes linked to this delivery.
-	 * @param A list of DeliveryDish-links
+	 * @return A list of DeliveryDish-links
 	 */
 	public DeliveryDishList getDishes() {
 		assert(!isRemoved());

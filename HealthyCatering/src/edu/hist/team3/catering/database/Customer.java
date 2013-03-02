@@ -27,8 +27,7 @@ public class Customer extends DatabaseRow {
 	/**
 	 * Create a new default row in the Customer-table.
 	 * @param manager	The DatabaseManager for a connection to a database
-	 * @param customer	The Customer owning the delivery
-	 * @return			A instance of a Delivery
+	 * @return			A instance of a Customer
 	 * @throws SQLException
 	 */
 	public static Customer createDefault(DatabaseManager manager) throws SQLException {

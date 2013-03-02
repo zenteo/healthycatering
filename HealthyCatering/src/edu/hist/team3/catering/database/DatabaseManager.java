@@ -186,7 +186,7 @@ public class DatabaseManager {
 	
 	/**
 	 * Get a dish with a specific ID.
-	 * @param customer	The ID of the dish
+	 * @param id	The ID of the dish
 	 * @return 			A instance of Dish
 	 */
 	public Dish getDish(int id) {

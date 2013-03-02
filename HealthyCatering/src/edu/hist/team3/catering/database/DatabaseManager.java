@@ -32,6 +32,7 @@ public class DatabaseManager {
 	 */
 	private final HashMap<Integer, WeakReference<Customer>> customers;
 	private final HashMap<Integer, WeakReference<Employee>> employees;
+	private final HashMap<Integer, WeakReference<Plan>> plans;
 	private final HashMap<Integer, WeakReference<Delivery>> deliveries;
 	private final HashMap<Integer, WeakReference<Dish>> dishes;
 	private final HashMap<Integer, WeakReference<Job>> jobs;
@@ -42,7 +43,6 @@ public class DatabaseManager {
 	/**
 	 * Constructs a DatabaseManager with a new SQL connection.
 	 * @param url				The URL we want to connect to
-	 * @param username			The username required for the connection
 	 * @param password			The password required for the connection
 	 * @throws SQLException		If it failed to connect to the database
 	 */
@@ -59,6 +59,7 @@ public class DatabaseManager {
 		
 		customers = new HashMap<Integer, WeakReference<Customer>>();
 		employees = new HashMap<Integer, WeakReference<Employee>>();
+		plans = new HashMap<Integer, WeakReference<Plan>>();
 		deliveries = new HashMap<Integer, WeakReference<Delivery>>();
 		dishes = new HashMap<Integer, WeakReference<Dish>>();
 		jobs = new HashMap<Integer, WeakReference<Job>>();
@@ -205,12 +206,43 @@ public class DatabaseManager {
 	}
 	
 	/**
+	 * Creates a new plan.
+	 * @param customer The Customer ordering this plan
+	 * @return A instance of Plan
+	 * @throws SQLException 
+	 */
+	public Plan createPlan(Customer customer) throws SQLException {
+		return Plan.createDefault(this, customer);
+	}
+	
+	/**
+	 * Get a plan with a specific ID.
+	 * @param id		The id of the plan
+	 * @return 			A instance of Plan
+	 */
+	public Plan getPlan(int id) {
+		Plan ret = null;
+		// Checks if it is already loaded.
+		if (plans.containsKey(id)) {
+			WeakReference<Plan> ref = plans.get(id);
+			ret = ref.get(); // returns 'null' if it is deleted by garbage collector.
+		}
+		// Checks if it is not loaded or removed(by user and by collector).
+		if (ret == null || ret.isRemoved()) {
+			ret = new Plan(this, id);
+			plans.put(id, new WeakReference<Plan>(ret));
+		}
+		return ret;
+	}
+	
+	/**
 	 * Creates a new delivery.
+	 * @param plan The plan
 	 * @return A instance of Delivery
 	 * @throws SQLException 
 	 */
-	public Delivery createDelivery(Customer customer) throws SQLException {
-		return Delivery.createDefault(this, customer);
+	public Delivery createDelivery(Plan plan) throws SQLException {
+		return Delivery.createDefault(this, plan);
 	}
 	
 	/**
@@ -234,22 +266,22 @@ public class DatabaseManager {
 	}
 	
 	/**
-	 * Creates a new DeliveryDish-link.
-	 * @return A instance of DeliveryDish
+	 * Creates a new PlanDish-link.
+	 * @return A instance of PlanDish
 	 * @throws SQLException 
 	 */
-	public DeliveryDish createDeliveryDish(Delivery delivery, Dish dish) throws SQLException {
-		return DeliveryDish.createDefault(this, delivery, dish);
+	public PlanDish createPlanDish(Plan plan, Dish dish) throws SQLException {
+		return PlanDish.createDefault(this, plan, dish);
 	}
 	
 	/**
-	 * Get a DeliveryDish-link by combining a delivery and a dish.
-	 * @param delivery	The first part of a DeliveryDish-link
-	 * @param dish		The other part of a DeliveryDish-link
-	 * @return 			A instance of DeliveryDish
+	 * Get a PlanDish-link by combining a plan and a dish.
+	 * @param plan		The first part of a PlanDish-link
+	 * @param dish		The other part of a PlanDish-link
+	 * @return 			A instance of PlanDish
 	 */
-	public DeliveryDish getDeliveryDish(Delivery delivery, Dish dish) {
-		return new DeliveryDish(this, delivery, dish);
+	public PlanDish getPlanDish(Plan plan, Dish dish) {
+		return new PlanDish(this, plan, dish);
 	}
 	
 	/**
@@ -263,8 +295,8 @@ public class DatabaseManager {
 	
 	/**
 	 * Get a DishResource-link by combining a dish and a resource.
-	 * @param dish		The first part of a DeliveryDish-link
-	 * @param resource	The other part of a DeliveryDish-link
+	 * @param dish		The first part of a DishResource-link
+	 * @param resource	The other part of a DishResource-link
 	 * @return 			A instance of DishResource
 	 */
 	public DishResource getDishResource(Dish dish, Resource resource) {

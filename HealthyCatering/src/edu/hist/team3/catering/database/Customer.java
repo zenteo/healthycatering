@@ -13,6 +13,7 @@ public class Customer extends DatabaseRow {
 	private String address; 	// address			VARCHAR(128)	NOT NULL
 	private String phone;		// phone			VARCHAR(64)		NOT NULL
 	private Date creationDate;	// creation_date	DATE			NOT NULL
+	private short type;			// type				SMALLINT		NOT NULL
 	
 	/**
 	 * Creates a new instance of Customer
@@ -31,8 +32,8 @@ public class Customer extends DatabaseRow {
 	 * @throws SQLException
 	 */
 	public static Customer createDefault(DatabaseManager manager) throws SQLException {
-		String sql = "INSERT INTO Customer(first_name, last_name, address, phone, creation_date)" +
-				"VALUES ('', '', '', '', '2013-03-01')";
+		String sql = "INSERT INTO Customer(first_name, last_name, address, phone, creation_date, type)" +
+				"VALUES ('', '', '', '', '2013-03-01', 0)";
 		Customer ret = null;
 		try (PreparedStatement ps = manager.prepareStatement(sql, "id")) {
 			ps.executeUpdate();
@@ -48,7 +49,7 @@ public class Customer extends DatabaseRow {
 	@Override
 	public void fetch() throws SQLException {
 		super.fetch();
-		String sql = "SELECT first_name, last_name, address, phone, creation_date FROM Customer WHERE id = " + id;
+		String sql = "SELECT first_name, last_name, address, phone, creation_date, type FROM Customer WHERE id = " + id;
 		try (PreparedStatement ps = getManager().prepareStatement(sql)) {
 			try (ResultSet rs = ps.executeQuery()) {
 				if (rs.next()) {
@@ -57,6 +58,7 @@ public class Customer extends DatabaseRow {
 					this.address = rs.getString(3);
 					this.phone = rs.getString(4);
 					this.creationDate = rs.getDate(5);
+					this.type = rs.getShort(6);
 				}
 			}
 		}
@@ -71,6 +73,7 @@ public class Customer extends DatabaseRow {
 		sql += ", address = '" + address + "'";
 		sql += ", phone = '" + phone + "'";
 		sql += ", creation_date = '" + creationDate.toString() + "'";
+		sql += ", type = " + type;
 		sql += " WHERE id = " + id;
 		try (PreparedStatement ps = getManager().prepareStatement(sql)) {
 			ps.executeUpdate();
@@ -191,6 +194,22 @@ public class Customer extends DatabaseRow {
 		assert(phone != null); 			// NOT NULL
 		super.setChanged();
 		this.creationDate = date;
+	}
+	
+	/**
+	 * Gets the type.
+	 * @return The type
+	 */
+	public short getType() {
+		return type;
+	}
+
+	/**
+	 * Sets the type to a new value.
+	 * @param type The new type value
+	 */
+	public void setType(short type) {
+		this.type = type;
 	}
 	
 	public boolean equals(Object other){

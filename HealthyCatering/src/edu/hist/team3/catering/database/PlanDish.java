@@ -4,42 +4,42 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DeliveryDish extends DatabaseRow {
+public class PlanDish extends DatabaseRow {
 	// Different columns of the DeliveryDish-table in the database:
-	private final Delivery delivery;	// delivery_id	INT		NOT NULL
+	private final Plan plan;			// plan_id		INT		NOT NULL
 	private final Dish dish;			// dish_id		INT		NOT NULL
 	private int count;					// count		INT		NOT NULL
 	private double discount;			// discount		DOUBLE	NOT NULL
 	
 	/**
-	 * Creates a new instance of DeliveryDish
+	 * Creates a new instance of PlanDish
 	 * @param manager	The DatabaseManager for a connection to a database
-	 * @param delivery	The Delivery in the DeliveryDish-link
-	 * @param dish		The Dish in the DeliveryDish-link
+	 * @param plan		The Plan in the PlanDish-link
+	 * @param dish		The Dish in the PlanDish-link
 	 */
-	protected DeliveryDish(DatabaseManager manager, Delivery delivery, Dish dish) {
+	protected PlanDish(DatabaseManager manager, Plan plan, Dish dish) {
 		super(manager);
 		assert(dish != null);
-		assert(delivery != null);
-		this.delivery = delivery;
+		assert(plan != null);
+		this.plan = plan;
 		this.dish = dish;
 	}
 	
 	/**
-	 * Create a new default row in the Delivery_Dish-table.
+	 * Create a new default row in the Plan_Dish-table.
 	 * @param manager	The DatabaseManager for a connection to a database
-	 * @param delivery	The Delivery in the DeliveryDish-link
-	 * @param dish		The Dish in the DeliveryDish-link
-	 * @return			A instance of a DeliveryDish
+	 * @param delivery	The Delivery in the PlanDish-link
+	 * @param dish		The Dish in the PlanDish-link
+	 * @return			A instance of a PlanDish
 	 * @throws SQLException
 	 */
-	public static DeliveryDish createDefault(DatabaseManager manager, Delivery delivery, Dish dish) throws SQLException {
-		String sql = "INSERT INTO Delivery_Dish (delivery_id, dish_id, count, discount) " +
-				"VALUES (" + delivery.getId() + ", " + dish.getId() + ", 1, " + dish.getDefaultDiscount() + ")";
-		DeliveryDish ret = null;
+	public static PlanDish createDefault(DatabaseManager manager, Plan plan, Dish dish) throws SQLException {
+		String sql = "INSERT INTO Plan_Dish (plan_id, dish_id, count, discount) " +
+				"VALUES (" + plan.getId() + ", " + dish.getId() + ", 1, " + dish.getDefaultDiscount() + ")";
+		PlanDish ret = null;
 		try (PreparedStatement ps = manager.prepareStatement(sql)) {
 			ps.executeUpdate();
-			ret = manager.getDeliveryDish(delivery, dish);
+			ret = manager.getPlanDish(plan, dish);
 		}
 		return ret;
 	}
@@ -47,7 +47,7 @@ public class DeliveryDish extends DatabaseRow {
 	@Override
 	public void fetch() throws SQLException {
 		super.fetch();
-		String sql = "SELECT count, discount FROM Delivery_Dish WHERE delivery_id = " + delivery.getId() + " AND dish_id = " + dish.getId();
+		String sql = "SELECT count, discount FROM Plan_Dish WHERE plan_id = " + plan.getId() + " AND dish_id = " + dish.getId();
 		try (PreparedStatement ps = getManager().prepareStatement(sql)) {
 			try (ResultSet rs = ps.executeQuery()) {
 				if (rs.next()) {
@@ -61,10 +61,10 @@ public class DeliveryDish extends DatabaseRow {
 	@Override
 	public void commit() throws SQLException {
 		super.commit();
-		String sql = "UPDATE Delivery_Dish SET ";
+		String sql = "UPDATE Plan_Dish SET ";
 		sql += "count = " + count;
 		sql += ", discount = " + discount;
-		sql += " WHERE delivery_id = " + delivery.getId() + " AND dish_id = " + dish.getId();
+		sql += " WHERE plan_id = " + plan.getId() + " AND dish_id = " + dish.getId();
 		try (PreparedStatement ps = getManager().prepareStatement(sql)) {
 			ps.executeUpdate();
 		}
@@ -73,18 +73,18 @@ public class DeliveryDish extends DatabaseRow {
 	@Override
 	public void remove() throws SQLException {
 		super.remove();
-		String sql = "DELETE FROM Delivery_Dish WHERE delivery_id = " + delivery.getId() + " AND dish_id = " + dish.getId();
+		String sql = "DELETE FROM Plan_Dish WHERE plan_id = " + plan.getId() + " AND dish_id = " + dish.getId();
 		try (PreparedStatement ps = getManager().prepareStatement(sql)) {
 			ps.executeUpdate();
 		}
 	}
 	
 	/**
-	 * Gets the delivery.
-	 * @return The delivery
+	 * Gets the plan.
+	 * @return The plan
 	 */
-	public Delivery getDelivery() {
-		return delivery;
+	public Plan getPlan() {
+		return plan;
 	}
 	
 	/**
@@ -142,16 +142,16 @@ public class DeliveryDish extends DatabaseRow {
 	
 	@Override
 	public boolean equals(Object other) {
-		if (other == null || !(other instanceof DeliveryDish)) {
+		if (other == null || !(other instanceof PlanDish)) {
 			return false;
 		}
-		DeliveryDish otherLink = (DeliveryDish)other;
-		return delivery.equals(otherLink.delivery) && dish.equals(otherLink.dish);
+		PlanDish otherLink = (PlanDish)other;
+		return plan.equals(otherLink.plan) && dish.equals(otherLink.dish);
 	}
 	
 	@Override
 	public String toString() {
 		super.tryFetch();
-		return "DeliveryDish[deliveryId = " + delivery.getId() + "; dishId = " + dish.getId() + "; count = " + count + "; discount = " + discount + "]";
+		return "PlanDish[planId = " + plan.getId() + "; dishId = " + dish.getId() + "; count = " + count + "; discount = " + discount + "]";
 	}
 }

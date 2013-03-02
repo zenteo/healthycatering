@@ -6,36 +6,36 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Iterator;
 
-public class DeliveryDishList {
-	private HashSet<DeliveryDish> links = null;
-	private final Delivery delivery;
+public class PlanDishList {
+	private HashSet<PlanDish> links = null;
+	private final Plan plan;
 	
-	public DeliveryDishList(Delivery delivery) {
-		assert(delivery != null);
-		this.delivery = delivery;
+	public PlanDishList(Plan plan) {
+		assert(plan != null);
+		this.plan = plan;
 	}
 	
-	public Delivery getDelivery() {
-		return delivery;
+	public Plan getPlan() {
+		return plan;
 	}
 	
-	public DeliveryDish add(Dish dish) throws SQLException {
+	public PlanDish add(Dish dish) throws SQLException {
 		assert(dish != null);
-		DeliveryDish link = delivery.getManager().createDeliveryDish(delivery, dish);
+		PlanDish link = plan.getManager().createPlanDish(plan, dish);
 		if (links != null && link != null) {
 			links.add(link);
 		}
 		return link;
 	}
 	
-	public DeliveryDish get(Dish dish) {
+	public PlanDish get(Dish dish) {
 		assert(dish != null);
-		return delivery.getManager().getDeliveryDish(delivery, dish);
+		return plan.getManager().getPlanDish(plan, dish);
 	}
 	
 	public void remove(Dish dish) throws SQLException {
 		assert(dish != null);
-		DeliveryDish link = delivery.getManager().getDeliveryDish(delivery, dish);
+		PlanDish link = plan.getManager().getPlanDish(plan, dish);
 		link.remove();
 		if (links != null) {
 			links.remove(link);
@@ -43,7 +43,7 @@ public class DeliveryDishList {
 	}
 	
 	public void removeAll() throws SQLException {
-		Iterator<DeliveryDish> it = iterator();
+		Iterator<PlanDish> it = iterator();
 		while (it.hasNext()) {
 			it.next().remove();
 		}
@@ -52,10 +52,10 @@ public class DeliveryDishList {
 	
 	public boolean contains(Dish dish) {
 		tryFetch();
-		return links.contains(delivery.getManager().getDeliveryDish(delivery, dish));
+		return links.contains(plan.getManager().getPlanDish(plan, dish));
 	}
 	
-	public Iterator<DeliveryDish> iterator() {
+	public Iterator<PlanDish> iterator() {
 		tryFetch();
 		return links.iterator();
 	}
@@ -77,14 +77,14 @@ public class DeliveryDishList {
 	}
 	
 	public void fetch() throws SQLException {
-		String sql = "SELECT dish_id FROM Delivery_Dish WHERE delivery_id = " + delivery.getId();
-		try (PreparedStatement ps = delivery.getManager().prepareStatement(sql)) {
+		String sql = "SELECT dish_id FROM Plan_Dish WHERE plan_id = " + plan.getId();
+		try (PreparedStatement ps = plan.getManager().prepareStatement(sql)) {
 			try (ResultSet rs = ps.executeQuery()) {
-				links = new HashSet<DeliveryDish>();
+				links = new HashSet<PlanDish>();
 				while (rs.next()) {
-					Dish dish = delivery.getManager().getDish(rs.getInt(1));
-					DeliveryDish deliveryDish = delivery.getManager().getDeliveryDish(delivery, dish);
-					links.add(deliveryDish);
+					Dish dish = plan.getManager().getDish(rs.getInt(1));
+					PlanDish planDish = plan.getManager().getPlanDish(plan, dish);
+					links.add(planDish);
 				}
 			}
 		}
@@ -93,8 +93,8 @@ public class DeliveryDishList {
 	@Override
 	public String toString() {
 		tryFetch();
-		String ret = "DeliveryDishList[";
-		Iterator<DeliveryDish> it = iterator();
+		String ret = "PlanDishList[";
+		Iterator<PlanDish> it = iterator();
 		while (it.hasNext()) {
 			ret += it.next().toString();
 			if (it.hasNext()) {

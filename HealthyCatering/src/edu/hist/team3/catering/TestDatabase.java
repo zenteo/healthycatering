@@ -6,11 +6,12 @@ import java.sql.SQLException;
 import edu.hist.team3.catering.database.Customer;
 import edu.hist.team3.catering.database.DatabaseManager;
 import edu.hist.team3.catering.database.Delivery;
-import edu.hist.team3.catering.database.DeliveryDish;
 import edu.hist.team3.catering.database.Dish;
 import edu.hist.team3.catering.database.DishResource;
 import edu.hist.team3.catering.database.Employee;
 import edu.hist.team3.catering.database.Job;
+import edu.hist.team3.catering.database.Plan;
+import edu.hist.team3.catering.database.PlanDish;
 import edu.hist.team3.catering.database.Resource;
 
 public class TestDatabase {
@@ -83,26 +84,33 @@ public class TestDatabase {
 			employee.setSessionHours(1.0); // Worked for 1 hour in his whole life.
 			employee.commit();
 			
-			Delivery delivery = manager.createDelivery(customer);
-			delivery.setDaysOfWeek(Delivery.DAY_MONDAY);
-			delivery.setNumDelivered(1);
-			delivery.setSumIncome(14);
-			delivery.setSumOutcome(43);
-			delivery.setStartDate(Date.valueOf("1234-11-23"));
-			delivery.setEndDate(Date.valueOf("1234-12-24"));
+			Plan plan = manager.createPlan(customer);
+			plan.setDaysOfWeek(Plan.DAY_MONDAY);
+			plan.setSumIncome(14);
+			plan.setSumOutcome(43);
+			plan.setStartDate(Date.valueOf("1234-11-23"));
+			plan.setEndDate(Date.valueOf("1234-12-24"));
+			plan.commit();
+			
+			PlanDish planDish = plan.getDishes().add(dish);
+			planDish.setCount(10);
+			planDish.setDiscount(0.6);
+			planDish.commit();
+			
+			Delivery delivery = manager.createDelivery(plan);
+			delivery.setDate(Date.valueOf("1234-11-23"));
+			delivery.setStatus((short) 1);
 			delivery.commit();
 			
-			DeliveryDish deliveryDish = delivery.getDishes().add(dish);
-			deliveryDish.setCount(10);
-			deliveryDish.setDiscount(0.6);
-			deliveryDish.commit();
 			System.out.println("Done.");
 			
 			System.out.println("Test removal of database rows:");
 			
 			// Comment the following code to see changes in database:
-			deliveryDish.remove();
+			
 			delivery.remove();
+			planDish.remove();
+			plan.remove();
 			employee.remove();
 			job.remove();
 			customer.remove();

@@ -24,7 +24,7 @@ public class TestDatabase {
 	
 	/**
 	 * Just start this bitch up!
-	 * @param arguments
+	 * @param args Fucking arguments that doesnt do shit!
 	 */
 	public static void main(String[] args) {
 		try {

@@ -5,11 +5,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DeliveryDish extends DatabaseRow {
+	// Different columns of the DeliveryDish-table in the database:
 	private final Delivery delivery;	// delivery_id	INT		NOT NULL
 	private final Dish dish;			// dish_id		INT		NOT NULL
 	private int count;					// count		INT		NOT NULL
 	private double discount;			// discount		DOUBLE	NOT NULL
 	
+	/**
+	 * Creates a new instance of DeliveryDish
+	 * @param manager	The DatabaseManager for a connection to a database
+	 * @param delivery	The Delivery in the DeliveryDish-link
+	 * @param dish		The Dish in the DeliveryDish-link
+	 */
 	protected DeliveryDish(DatabaseManager manager, Delivery delivery, Dish dish) {
 		super(manager);
 		assert(dish != null);
@@ -18,6 +25,14 @@ public class DeliveryDish extends DatabaseRow {
 		this.dish = dish;
 	}
 	
+	/**
+	 * Create a new default row in the Delivery_Dish-table.
+	 * @param manager	The DatabaseManager for a connection to a database
+	 * @param delivery	The Delivery in the DeliveryDish-link
+	 * @param dish		The Dish in the DeliveryDish-link
+	 * @return			A instance of a DeliveryDish
+	 * @throws SQLException
+	 */
 	public static DeliveryDish createDefault(DatabaseManager manager, Delivery delivery, Dish dish) throws SQLException {
 		String sql = "INSERT INTO Delivery_Dish (delivery_id, dish_id, count, discount) " +
 				"VALUES (" + delivery.getId() + ", " + dish.getId() + ", 1, " + dish.getDefaultDiscount() + ")";
@@ -64,34 +79,62 @@ public class DeliveryDish extends DatabaseRow {
 		}
 	}
 	
+	/**
+	 * Gets the delivery.
+	 * @return The delivery
+	 */
 	public Delivery getDelivery() {
 		return delivery;
 	}
 	
+	/**
+	 * Gets the dish.
+	 * @return The dish
+	 */
 	public Dish getDish() {
 		return dish;
 	}
 	
+	/**
+	 * Gets the count.
+	 * @return The count
+	 */
 	public int getCount() {
 		super.tryFetch();
 		return count;
 	}
 	
+	/**
+	 * Sets the count.
+	 * @param count The new count
+	 */
 	public void setCount(int count) {
 		super.setChanged();
 		this.count = count;
 	}
 	
+	/**
+	 * Adds the count.
+	 * @param deltaCount Change in count
+	 */
 	public void addCount(int deltaCount) {
 		super.setChanged();
 		this.count += deltaCount;
 	}
 	
+	/**
+	 * Gets the discount.
+	 * @return The discount
+	 */
 	public double getDiscount() {
 		super.tryFetch();
 		return discount;
 	}
 	
+	/**
+	 * Sets the discount.
+	 * @param discount The new discount
+	 */
 	public void setDiscount(double discount) {
 		super.setChanged();
 		this.discount = discount;

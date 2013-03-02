@@ -8,6 +8,7 @@ import java.sql.Date;
  * This class is to describe the employee
  */
 public class Employee extends DatabaseRow {
+	// Different columns of the Employee-table in the database:
 	private Customer customer;				// customer_id		INT				NOT NULL
 	private Job job;						// job_id			INT				NOT NULL
 	private String username;				// username			VARCHAR(32)		NOT NULL
@@ -25,6 +26,12 @@ public class Employee extends DatabaseRow {
 		this.customer = customer;
 	}
 	
+	/**
+	 * Create a new default row in the Employee-table.
+	 * @param manager	The DatabaseManager for a connection to a database
+	 * @return A instance of Employee
+	 * @throws SQLException
+	 */
 	public static Employee createDefault(DatabaseManager manager, Customer customer, Job job) throws SQLException {
 		String sql = "INSERT INTO Employee" +
 				"(customer_id, job_id, username, password, email, employment_date, session_hours)" +
@@ -69,7 +76,7 @@ public class Employee extends DatabaseRow {
 			ps.executeUpdate();
 		}
 	}
-	
+
 	@Override
 	public void remove() throws SQLException {
 		super.setRemoved(); // Wont to call super.remove(), because then customer would be removed from database.
@@ -79,13 +86,17 @@ public class Employee extends DatabaseRow {
 		}
 	}
 	
+	/**
+	 * Gets the customer.
+	 * @return The customer
+	 */
     public Customer getCustomer() {
     	return customer;
     }
 	
 	/**
-	 * Gives us the Job ID
-	 * @return jobId
+	 * Gets the job.
+	 * @return The job
 	 */
     public Job getJob() {
     	super.tryFetch();
@@ -93,8 +104,8 @@ public class Employee extends DatabaseRow {
 	}
     
     /**
-     * Sets the Job ID
-     * @param jobId
+     * Sets the Job to a new value.
+     * @param job The new job
      */
 	public void setJob(Job job) {
 		assert(job != null); 			// NOT NULL
@@ -103,8 +114,8 @@ public class Employee extends DatabaseRow {
 	}
 	
 	/**
-	 * Gives us the Username
-	 * @return username
+	 * Gets the username.
+	 * @return The username
 	 */
     public String getUsername() {
     	super.tryFetch();
@@ -112,8 +123,8 @@ public class Employee extends DatabaseRow {
 	}
     
     /**
-     * Sets the Username
-     * @param username
+     * Sets the username to a new value.
+     * @param username The new username
      */
 	public void setUsername(String username) {
 		assert(username != null); 			// NOT NULL
@@ -123,8 +134,8 @@ public class Employee extends DatabaseRow {
 	}
 	
 	/**
-	 * Gives us the Password
-	 * @return password
+	 * Gets the password.
+	 * @return The password
 	 */
     public String getPassword() {
     	super.tryFetch();
@@ -132,8 +143,8 @@ public class Employee extends DatabaseRow {
 	}
     
     /**
-     * Sets the Password
-     * @param password
+     * Sets the password to a new value.
+     * @param password The new password
      */
 	public void setPassword(String password) {
 		assert(password != null); 			// NOT NULL
@@ -143,8 +154,8 @@ public class Employee extends DatabaseRow {
 	}
 	
 	/**
-	 * Gives us the Email
-	 * @return email
+	 * Gets the e-mail.
+	 * @return The e-mail
 	 */
     public String getEmail() {
     	super.tryFetch();
@@ -152,8 +163,8 @@ public class Employee extends DatabaseRow {
 	}
     
     /**
-     * Sets the Email
-     * @param email
+     * Sets the e-mail to a new value.
+     * @param email The new e-mail
      */
 	public void setEmail(String email) {
 		assert(password != null); 			// NOT NULL
@@ -163,8 +174,8 @@ public class Employee extends DatabaseRow {
 	}
 	
 	/**
-	 * Gives us the startdate of employment
-	 * @return employmentDate 
+	 * Gets the startdate of employment.
+	 * @return The startdate of employment
 	 */
     public Date getEmploymentDate() {
     	super.tryFetch();
@@ -172,8 +183,8 @@ public class Employee extends DatabaseRow {
 	}
     
     /**
-     * Sets the startdate of employment
-     * @param employmentDate
+     * Sets the startdate of employment to a new value.
+     * @param employmentDate The new startdate of employment
      */
 	public void setEmploymentDate(Date employmentDate) {
 		assert(employmentDate != null);
@@ -182,8 +193,8 @@ public class Employee extends DatabaseRow {
 	}
 	
 	/**
-	 * Gives us the number of hours worked
-	 * @return sessionHours
+	 * Gets the number of hours worked.
+	 * @return The number of hours worked
 	 */
 	public double getSessionHours() {
 		super.tryFetch();
@@ -191,8 +202,8 @@ public class Employee extends DatabaseRow {
 	}
 	
 	/**
-	 * Sets the number of hours worked
-	 * @param sessionHours
+	 * Sets the number of hours worked to a new value.
+	 * @param sessionHours New number of hours worked
 	 */
     public void setSessionHours(double sessionHours) {
     	super.setChanged();

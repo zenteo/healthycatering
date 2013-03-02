@@ -35,20 +35,32 @@ public abstract class DatabaseRow {
 		return status == STATUS_REMOVED;
 	}
 	
+	/**
+	 * Removes this row from the database-table.
+	 */
 	public void remove() throws SQLException {
 		setRemoved();
 	}
 	
+	/**
+	 * Fetches the content of this row from the database-table.
+	 */
 	public void fetch() throws SQLException {
 		assert(status != STATUS_REMOVED);
 		status = STATUS_FETCHED;
 	}
 
+	/**
+	 * Commits the content of this row to the database-table.
+	 */
 	public void commit() throws SQLException {
 		assert(status != STATUS_REMOVED);
 		status = STATUS_FETCHED;
 	}
 	
+	/**
+	 * Tries to fetch() if it hasn't been done already.
+	 */
 	protected void tryFetch() {
 		assert(status != STATUS_REMOVED);
 		try {
@@ -61,12 +73,18 @@ public abstract class DatabaseRow {
 		}
 	}
 	
+	/**
+	 * Sets the status of this row to changed.
+	 */
 	protected void setChanged() {
 		assert(status != STATUS_REMOVED);
 		tryFetch();
 		status = STATUS_CHANGED;
 	}
 	
+	/**
+	 * Sets the status of this row to removed.
+	 */
 	protected void setRemoved() {
 		status = STATUS_REMOVED;
 	}

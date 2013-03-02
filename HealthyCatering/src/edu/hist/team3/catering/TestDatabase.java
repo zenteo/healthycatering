@@ -14,6 +14,18 @@ import edu.hist.team3.catering.database.Job;
 import edu.hist.team3.catering.database.Resource;
 
 public class TestDatabase {
+	
+	/**
+	 * This shit doesn't do any fucking thing. So don't fucking matter.
+	 */
+	public TestDatabase(){
+		
+	}
+	
+	/**
+	 * Just start this bitch up!
+	 * @param arguments
+	 */
 	public static void main(String[] args) {
 		try {
 			DatabaseManager manager = new DatabaseManager("jdbc:derby://localhost:1527/healthycatering", "db", "db");

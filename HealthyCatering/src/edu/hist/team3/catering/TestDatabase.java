@@ -29,7 +29,7 @@ public class TestDatabase {
 	 */
 	public static void main(String[] args) {
 		try {
-			DatabaseManager manager = new DatabaseManager("jdbc:derby://localhost:1527/healthycatering", "db", "db");
+			DatabaseManager manager = new DatabaseManager("jdbc:derby://db.stud.aitel.hist.no:1527/13ing1gr3", "team3", "Ikj721");
 			
 			System.out.println("Test creation of database rows:");
 			

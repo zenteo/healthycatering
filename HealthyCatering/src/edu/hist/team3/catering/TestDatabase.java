@@ -17,15 +17,14 @@ import edu.hist.team3.catering.database.Resource;
 public class TestDatabase {
 	
 	/**
-	 * This shit doesn't do any fucking thing. So don't fucking matter.
+	 * This is just a test, and not to be used.
 	 */
 	public TestDatabase(){
 		
 	}
 	
 	/**
-	 * Just start this bitch up!
-	 * @param args Fucking arguments that doesnt do shit!
+	 * @param args This does nothing
 	 */
 	public static void main(String[] args) {
 		try {

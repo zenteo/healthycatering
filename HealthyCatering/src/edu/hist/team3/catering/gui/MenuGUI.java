@@ -19,5 +19,8 @@ package edu.hist.team3.catering.gui;
  *+ removeMenu()
  */
 public class MenuGUI {
+	public MenuGUI(){
+		
+	}
 
 }

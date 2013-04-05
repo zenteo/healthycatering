@@ -1,4 +1,5 @@
 package edu.hist.team3.catering.gui;
+
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -7,14 +8,15 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+
 /*
  * Stocks GUI
---
---
-+ getResources()
-+ getTodaysResources()
-+ getResourcesWithCriticallyLowStock-count()
-+ changeTheStock-CountOfAResource()
+ --
+ --
+ + getResources()
+ + getTodaysResources()
+ + getResourcesWithCriticallyLowStock-count()
+ + changeTheStock-CountOfAResource()
 
  */
 public class StocksGUI {
@@ -22,9 +24,9 @@ public class StocksGUI {
 	JFrame frame;
 	Toolkit toolkit;
 
-	public MenuGUI() {
+	public StocksGUI() {
 		frame = new JFrame("Stocks");
-		frame.setLayout(new GridLayout(3,2));
+		frame.setLayout(new GridLayout(3, 2));
 		toolkit = Toolkit.getDefaultToolkit();
 		frame.setSize(toolkit.getScreenSize());
 		frame.setUndecorated(true);
@@ -49,6 +51,5 @@ public class StocksGUI {
 		toolkit.getDefaultToolkit().getSystemEventQueue()
 				.postEvent(closingEvent);
 	}
-
 
 }

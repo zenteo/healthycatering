@@ -58,12 +58,22 @@ public class LoginGUI {
 		
 		frame.setVisible(true);
 	}
-		
+	
+	/**
+	 * When used, it checks the username and password in the textfields. 
+	 * Then checks with the database if they are correct.
+	 */
 	private void login() {
 		// String username = loginField.getText();
 		// String password = extractPassword(passwordField.getPassword());
 	}
 	
+	/**
+	 * Takes the password in char[] format and turns it into a String
+	 * 
+	 * @param passwordAsChar[]
+	 * @return passwordAsString
+	 */
 	@SuppressWarnings("unused")
 	private String extractPassword(char[] password) {
 		String pw = "";

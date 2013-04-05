@@ -9,11 +9,11 @@ import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-public class Login {
+public class LoginGUI {
 	JFrame frame;
 	Toolkit toolkit;
 	
-	public Login() {
+	public LoginGUI() {
 		frame = new JFrame("User Login");
 		frame.setLayout(new GridLayout(2, 1));
 		toolkit = Toolkit.getDefaultToolkit();

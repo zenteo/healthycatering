@@ -64,8 +64,14 @@ public class LoginGUI {
 	 * Then checks with the database if they are correct.
 	 */
 	private void login() {
+		boolean login = true;
 		// String username = loginField.getText();
 		// String password = extractPassword(passwordField.getPassword());
+		
+		if (login == true) {
+			frame.setVisible(false);
+			new MainGUI();
+		}
 	}
 	
 	/**

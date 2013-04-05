@@ -1,43 +1,77 @@
 package edu.hist.team3.catering.gui;
 
-import java.awt.GridLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 public class LoginGUI {
 	JFrame frame;
 	Toolkit toolkit;
+	JTextField loginField;
+	JPasswordField passwordField;
 	
+	/**
+	 * Creates a new Login window
+	 */
 	public LoginGUI() {
 		frame = new JFrame("User Login");
-		frame.setLayout(new GridLayout(2, 1));
-		toolkit = Toolkit.getDefaultToolkit();
-		frame.setSize(toolkit.getScreenSize());
-		frame.setUndecorated(true);
+		frame.setLayout(new FlowLayout());
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(new Dimension(200, 150));
+		frame.setResizable(false);
+		frame.setLocationRelativeTo(null);
+				
+		loginField = new JTextField();
+		loginField.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		loginField.setPreferredSize(new Dimension(150, 30));
 		
-		JButton exitButton = new JButton("Quit");
-		exitButton.addActionListener(new ActionListener() {
+		passwordField = new JPasswordField();
+		passwordField.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		passwordField.setPreferredSize(new Dimension(150, 30));
+		
+		JButton loginButton = new JButton("Login");
+		loginButton.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				quitProgram();
+			public void actionPerformed(ActionEvent e) {
+				login();
 			}
 			
 		});
-		frame.add(exitButton);
+		
+		JPanel loginPanel = new JPanel();
+		loginPanel.setPreferredSize(new Dimension(150, 110));
+		loginPanel.add(loginField);
+		loginPanel.add(passwordField);
+		loginPanel.add(loginButton);
+		
+		frame.add(loginPanel);
 		
 		frame.setVisible(true);
 	}
+		
+	private void login() {
+		// String username = loginField.getText();
+		// String password = extractPassword(passwordField.getPassword());
+	}
 	
-	private void quitProgram() {
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		WindowEvent closingEvent = new WindowEvent(frame, WindowEvent.WINDOW_CLOSING);
-		toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closingEvent);
+	@SuppressWarnings("unused")
+	private String extractPassword(char[] password) {
+		String pw = "";
+		for(int i=0; i<password.length; i++) {
+			pw += password[i];
+		}
+			
+		return pw;
 	}
 	
 }

@@ -1,12 +1,7 @@
 package edu.hist.team3.catering.gui.tabs;
-import java.awt.GridLayout;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 /*
  * Delivery GUI
 --
@@ -16,32 +11,11 @@ import javax.swing.JFrame;
 + changeDeliveryStatus()
 
  */
-public class DeliveryGUI {
-	JFrame frame;
-	Toolkit toolkit;
-	public DeliveryGUI(){
-		frame = new JFrame("Delivery");
-		frame.setLayout(new GridLayout(4, 1));
-		toolkit = Toolkit.getDefaultToolkit();
-		frame.setSize(toolkit.getScreenSize());
-		frame.setUndecorated(true);
+@SuppressWarnings("serial")
+public class DeliveryGUI extends JPanel {
+	
+	public DeliveryGUI() {
 		
-		JButton exitButton = new JButton("Quit");
-		exitButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				quitProgram();
-			}
-		});
-		frame.add(exitButton);
-		
-		frame.setVisible(true);
-			
 	}
-	private void quitProgram() {	
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		WindowEvent closingEvent = new WindowEvent(frame, WindowEvent.WINDOW_CLOSING);
-		toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closingEvent);
-	}
-
+	
 }

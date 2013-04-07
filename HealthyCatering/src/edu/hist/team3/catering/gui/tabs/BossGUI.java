@@ -1,15 +1,6 @@
 package edu.hist.team3.catering.gui.tabs;
 
-import java.awt.GridLayout;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /*
  * Boss GUI
@@ -23,14 +14,11 @@ import javax.swing.JTextField;
  + editJob()
  + removeJob()
  */
-public class BossGUI extends JPanel{
-
-	JFrame frame;
-	Toolkit toolkit;
+@SuppressWarnings("serial")
+public class BossGUI extends JPanel {
 
 	public BossGUI() {
-		JTextField testStuff = new JTextField();
-		this.add(testStuff);
+		
 	}
 
 

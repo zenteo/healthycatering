@@ -1,4 +1,4 @@
-package edu.hist.team3.catering.gui;
+package edu.hist.team3.catering.gui.tabs;
 
 import java.awt.GridLayout;
 import java.awt.Toolkit;
@@ -10,22 +10,26 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 /*
- * Cooking GUI
+ * Customer GUI
  --
  --
- + getDeliveries()
- + getDishesOfADelivery()
- + getResourcesOfADish()
- + changeDeliveryStatus()
+ + findPlans()
+ + addPlan()
+ + editPlan()
+ + removePlan()
+ + findCostumers()
+ + addCostumer()
+ + editCostumer()
+ + removeCostumer()
  */
-public class CookingGUI {
+public class CostumerGUI {
 
 	JFrame frame;
 	Toolkit toolkit;
 
-	public CookingGUI() {
-		frame = new JFrame("Cooking");
-		frame.setLayout(new GridLayout(5, 1));
+	public CostumerGUI() {
+		frame = new JFrame("Costumer");
+		frame.setLayout(new GridLayout(3, 3));
 		toolkit = Toolkit.getDefaultToolkit();
 		frame.setSize(toolkit.getScreenSize());
 		frame.setUndecorated(true);
@@ -50,5 +54,4 @@ public class CookingGUI {
 		toolkit.getDefaultToolkit().getSystemEventQueue()
 				.postEvent(closingEvent);
 	}
-
 }

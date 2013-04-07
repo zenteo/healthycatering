@@ -1,4 +1,4 @@
-package edu.hist.team3.catering.gui;
+package edu.hist.team3.catering.gui.tabs;
 
 import java.awt.GridLayout;
 import java.awt.Toolkit;
@@ -10,23 +10,22 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 /*
- * Stocks GUI
+ * Cooking GUI
  --
  --
- + getResources()
- + getTodaysResources()
- + getResourcesWithCriticallyLowStock-count()
- + changeTheStock-CountOfAResource()
-
+ + getDeliveries()
+ + getDishesOfADelivery()
+ + getResourcesOfADish()
+ + changeDeliveryStatus()
  */
-public class StocksGUI {
+public class CookingGUI {
 
 	JFrame frame;
 	Toolkit toolkit;
 
-	public StocksGUI() {
-		frame = new JFrame("Stocks");
-		frame.setLayout(new GridLayout(3, 2));
+	public CookingGUI() {
+		frame = new JFrame("Cooking");
+		frame.setLayout(new GridLayout(5, 1));
 		toolkit = Toolkit.getDefaultToolkit();
 		frame.setSize(toolkit.getScreenSize());
 		frame.setUndecorated(true);

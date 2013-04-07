@@ -1,4 +1,4 @@
-package edu.hist.team3.catering.gui;
+package edu.hist.team3.catering.gui.tabs;
 
 import java.awt.GridLayout;
 import java.awt.Toolkit;
@@ -10,26 +10,23 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 /*
- * Customer GUI
+ * Stocks GUI
  --
  --
- + findPlans()
- + addPlan()
- + editPlan()
- + removePlan()
- + findCostumers()
- + addCostumer()
- + editCostumer()
- + removeCostumer()
+ + getResources()
+ + getTodaysResources()
+ + getResourcesWithCriticallyLowStock-count()
+ + changeTheStock-CountOfAResource()
+
  */
-public class CostumerGUI {
+public class StocksGUI {
 
 	JFrame frame;
 	Toolkit toolkit;
 
-	public CostumerGUI() {
-		frame = new JFrame("Costumer");
-		frame.setLayout(new GridLayout(3, 3));
+	public StocksGUI() {
+		frame = new JFrame("Stocks");
+		frame.setLayout(new GridLayout(3, 2));
 		toolkit = Toolkit.getDefaultToolkit();
 		frame.setSize(toolkit.getScreenSize());
 		frame.setUndecorated(true);
@@ -54,4 +51,5 @@ public class CostumerGUI {
 		toolkit.getDefaultToolkit().getSystemEventQueue()
 				.postEvent(closingEvent);
 	}
+
 }

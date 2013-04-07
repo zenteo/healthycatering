@@ -1,4 +1,4 @@
-package edu.hist.team3.catering.gui;
+package edu.hist.team3.catering.gui.tabs;
 
 import java.awt.GridLayout;
 import java.awt.Toolkit;

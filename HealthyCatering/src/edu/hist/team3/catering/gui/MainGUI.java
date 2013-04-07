@@ -1,29 +1,46 @@
 package edu.hist.team3.catering.gui;
 
-import java.awt.GridLayout;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JToolBar;
 
 public class MainGUI {
 	JFrame frame;
 	JTabbedPane tabsPanel;
-	
+	Toolkit toolkit;
 	
 	public MainGUI() {
+		toolkit = Toolkit.getDefaultToolkit();
+		
 		frame = new JFrame("Healthy Catering");
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		frame.setPreferredSize(toolkit.getScreenSize());
 		frame.setUndecorated(true);
 		
-		GridLayout gridLayout = new GridLayout(2, 1);
-		frame.setLayout(gridLayout);
+		frame.setLayout(new BorderLayout());
+
 		
-		JButton exitButton = new JButton("Quit");
-		exitButton.addActionListener(new ActionListener() {
+		JMenuBar menu = new JMenuBar();
+		JMenu menuProgram = new JMenu("Program");
+		
+		JMenuItem programExit = new JMenuItem("Exit");
+		programExit.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -31,17 +48,57 @@ public class MainGUI {
 			}
 			
 		});
+		
+		JMenuItem showDevelopers = new JMenuItem("About");
+		showDevelopers.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				aboutDevelopers();
+			}
+			
+		});
+		
+		menuProgram.add(showDevelopers);
+		menuProgram.add(programExit);
+		menu.add(menuProgram);
+		frame.setJMenuBar(menu);
+		
+		
 		tabsPanel = new JTabbedPane();
 		tabsPanel.addTab("Test", new JPanel());
 		tabsPanel.addTab("Test2", new JPanel());
 		
-		frame.add(exitButton);
-		frame.add(tabsPanel);
+		frame.add(tabsPanel, BorderLayout.CENTER);
+
+		frame.pack();
 		frame.setVisible(true);
 	}
 	
 	private void exitProgram() {
-		System.exit(0);
+		Object[] options = {"Yes", "No"};
+		
+		int choice = JOptionPane.showOptionDialog(frame, "Do you really want to quit?", "Warning", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
+		if(choice == 0)
+			System.exit(0);
+	}
+	
+	private void aboutDevelopers() {
+		JFrame aboutWindow = new JFrame("About Team 3");
+		aboutWindow.setLayout(new FlowLayout());
+		aboutWindow.setResizable(false);
+		aboutWindow.setPreferredSize(new Dimension(400, 300));
+		aboutWindow.setLocation(
+				(frame.getWidth() - 400) / 2, 
+				(frame.getHeight() - 300) / 2
+				);
+		
+		JLabel aboutInfo = new JLabel();
+		aboutInfo.setText("<html><h1>Test</h1></html>");
+
+		aboutWindow.add(aboutInfo);
+		aboutWindow.pack();
+		aboutWindow.setVisible(true);
 	}
 	
 }

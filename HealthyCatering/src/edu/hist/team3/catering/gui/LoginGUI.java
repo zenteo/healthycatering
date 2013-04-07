@@ -29,7 +29,7 @@ public class LoginGUI {
 		frame.setSize(new Dimension(200, 150));
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
-				
+		
 		loginField = new JTextField();
 		loginField.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		loginField.setPreferredSize(new Dimension(150, 30));

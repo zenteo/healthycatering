@@ -24,7 +24,8 @@ public class MainGUI {
 	Toolkit toolkit;
 	Employee employee;
 	
-	public MainGUI() {
+	public MainGUI(Employee employee) {
+		this.employee = employee;
 		toolkit = Toolkit.getDefaultToolkit();
 		
 		frame = new JFrame("Healthy Catering");

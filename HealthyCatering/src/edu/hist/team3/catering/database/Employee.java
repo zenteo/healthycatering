@@ -217,6 +217,10 @@ public class Employee extends DatabaseRow {
 		this.sessionHours = sessionHours;
 	}
     
+    public void givePrivileges(int privileges) {
+    	this.userPrivileges = privileges | userPrivileges;
+    }
+    
     public boolean equals(Object other){
     	if (other == null || !(other instanceof Employee))
     		return false;

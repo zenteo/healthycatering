@@ -13,6 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField; 
 import javax.swing.JTextField;
 
+import edu.hist.team3.catering.database.DatabaseManager;
+import edu.hist.team3.catering.database.Employee;
+
 public class LoginGUI {
 	JFrame frame;
 	Toolkit toolkit;
@@ -65,6 +68,7 @@ public class LoginGUI {
 	 */
 	private void login() {
 		boolean login = true;
+		DatabaseManager manager = new DatabaseManager("jdbc:derby://db.stud.aitel.hist.no:1527/13ing1gr3", "team3", "Ikj721");
 		// String username = loginField.getText();
 		// String password = extractPassword(passwordField.getPassword());
 		

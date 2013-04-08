@@ -41,8 +41,8 @@ public class Employee extends DatabaseRow {
 	 */
 	public static Employee createDefault(DatabaseManager manager, Customer customer, Job job) throws SQLException {
 		String sql = "INSERT INTO Employee" +
-				"(customer_id, job_id, username, password, email, employment_date, session_hours)" +
-				"VALUES (" + customer.getId() + ", " + job.getId() + ", '', '', '', '2000-01-01', 0)";
+				"(customer_id, job_id, username, password, email, employment_date, session_hours, user_privileges)" +
+				"VALUES (" + customer.getId() + ", " + job.getId() + ", '', '', '', '2000-01-01', 0, 0)";
 		try (PreparedStatement ps = manager.prepareStatement(sql)) {
 			ps.executeUpdate();
 		}

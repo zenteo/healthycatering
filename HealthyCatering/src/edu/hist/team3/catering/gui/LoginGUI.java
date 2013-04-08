@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -68,13 +69,19 @@ public class LoginGUI {
 	 */
 	private void login() {
 		boolean login = true;
-		DatabaseManager manager = new DatabaseManager("jdbc:derby://db.stud.aitel.hist.no:1527/13ing1gr3", "team3", "Ikj721");
+		
+		try {
+			DatabaseManager manager = new DatabaseManager("jdbc:derby://db.stud.aitel.hist.no:1527/13ing1gr3", "team3", "Ikj721");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		// String username = loginField.getText();
 		// String password = extractPassword(passwordField.getPassword());
 		
 		if (login == true) {
 			frame.setVisible(false);
-			new MainGUI();
+			new MainGUI(null);
 		}
 	}
 	

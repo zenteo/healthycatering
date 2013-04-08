@@ -28,7 +28,7 @@ public class TestDatabase {
 	 */
 	public static void main(String[] args) {
 		try {
-			DatabaseManager manager = new DatabaseManager("jdbc:derby://db.stud.aitel.hist.no:1527/13ing1gr3", "team3", "Ikj721");
+			DatabaseManager manager = DatabaseManager.getInstance();
 			
 			System.out.println("Test creation of database rows:");
 			

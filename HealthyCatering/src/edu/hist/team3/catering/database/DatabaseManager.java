@@ -37,6 +37,20 @@ public class DatabaseManager {
 	private final HashMap<Integer, WeakReference<Dish>> dishes;
 	private final HashMap<Integer, WeakReference<Job>> jobs;
 	
+	private static DatabaseManager manager;
+	
+	public static DatabaseManager getInstance() {
+		if (manager==null) {
+			try {
+				manager = new DatabaseManager("jdbc:derby://db.stud.aitel.hist.no:1527/13ing1gr3", "team3", "Ikj721");
+			}
+			catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return manager;
+	}
+	
 	// Our connection to the database.
 	private final Connection connection;
 	

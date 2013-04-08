@@ -23,7 +23,7 @@ public class Employee extends DatabaseRow {
 	public static final int PRIVILEGE_SALESMAN = 4;
 	public static final int PRIVILEGE_DRIVER = 8;
 	public static final int PRIVILEGE_NUTRITIOUS = 16;
-	 
+	
 	/**
 	 * This is the constructor for this class
 	 * @param id is an integer used as the primary key for employee/Customer

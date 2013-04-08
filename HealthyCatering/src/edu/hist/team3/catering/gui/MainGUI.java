@@ -21,10 +21,13 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
+import edu.hist.team3.catering.database.Employee;
+
 public class MainGUI {
 	JFrame frame;
 	JTabbedPane tabsPanel;
 	Toolkit toolkit;
+	Employee employee;
 	
 	public MainGUI() {
 		toolkit = Toolkit.getDefaultToolkit();

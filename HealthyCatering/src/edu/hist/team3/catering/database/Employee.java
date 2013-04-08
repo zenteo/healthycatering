@@ -9,13 +9,20 @@ import java.sql.Date;
  */
 public class Employee extends DatabaseRow {
 	// Different columns of the Employee-table in the database:
-	private Customer customer;				// customer_id		INT				NOT NULL
-	private Job job;						// job_id			INT				NOT NULL
-	private String username;				// username			VARCHAR(32)		NOT NULL
-	private String password;				// password			VARCHAR(32)		NOT NULL
-	private String email;					// email			VARCHAR(256)	NOT NULL
-	private Date employmentDate;			// employment_date	DATE			NOT NULL
-	private double sessionHours;			// session_hours	DOUBLE			NOT NULL
+	private Customer customer;				// customer_id			INT				NOT NULL
+	private Job job;						// job_id				INT				NOT NULL
+	private String username;				// username				VARCHAR(32)		NOT NULL
+	private String password;				// password				VARCHAR(32)		NOT NULL
+	private String email;					// email				VARCHAR(256)	NOT NULL
+	private Date employmentDate;			// employment_date		DATE			NOT NULL
+	private double sessionHours;			// session_hours		DOUBLE			NOT NULL
+	private int userPrivileges;				// user_privileges		INT				NOT NULL
+	
+	public static final int PRIVILEGE_ADMIN = 1;
+	public static final int PRIVILEGE_COOK = 2;
+	public static final int PRIVILEGE_SALESMAN = 4;
+	public static final int PRIVILEGE_DRIVER = 8;
+	public static final int PRIVILEGE_NUTRITIOUS = 16;
 	
 	/**
 	 * This is the constructor for this class

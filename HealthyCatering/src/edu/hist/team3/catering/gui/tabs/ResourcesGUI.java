@@ -13,9 +13,9 @@ import javax.swing.JPanel;
 
  */
 @SuppressWarnings("serial")
-public class StocksGUI extends JPanel {
+public class ResourcesGUI extends JPanel {
 	
-	public StocksGUI() {
+	public ResourcesGUI() {
 		
 	}
 	

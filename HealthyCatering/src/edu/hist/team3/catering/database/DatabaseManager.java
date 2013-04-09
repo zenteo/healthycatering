@@ -60,7 +60,7 @@ public class DatabaseManager {
 	 * @param password			The password required for the connection
 	 * @throws SQLException		If it failed to connect to the database
 	 */
-	public DatabaseManager(String url, String username, String password) throws SQLException {
+	private DatabaseManager(String url, String username, String password) throws SQLException {
 		this(DriverManager.getConnection(url, username, password));
 	}
 	

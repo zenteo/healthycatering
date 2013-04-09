@@ -81,7 +81,7 @@ public class TestDatabase {
 			employee.setEmail("horny_pussy@pimp.no");
 			employee.setEmploymentDate(Date.valueOf("1234-11-23")); // Also test-date
 			employee.setSessionHours(1.0); // Worked for 1 hour in his whole life.
-			employee.givePrivileges(Employee.PRIVILEGE_ADMIN | Employee.PRIVILEGE_COOK);
+			employee.givePrivileges(Employee.PRIVILEGE_ALL);
 			employee.commit();
 			
 			Plan plan = manager.createPlan(customer);

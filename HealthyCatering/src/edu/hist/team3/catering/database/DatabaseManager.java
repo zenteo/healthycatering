@@ -190,6 +190,10 @@ public class DatabaseManager {
 		return ret;
 	}
 	
+	public Employee getEmployee(String username, String password) {
+		
+	}
+	
 	/**
 	 * Creates a new dish.
 	 * @return A instance of Dish
@@ -374,4 +378,5 @@ public class DatabaseManager {
 	public void close() throws SQLException {
 		connection.close();
 	}
+	
 }

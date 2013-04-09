@@ -18,11 +18,12 @@ public class Employee extends DatabaseRow {
 	private double sessionHours;			// session_hours		DOUBLE			NOT NULL
 	private int userPrivileges;				// user_privileges		INT				NOT NULL
 	
-	public static final int PRIVILEGE_ADMIN = 1;
-	public static final int PRIVILEGE_COOK = 2;
-	public static final int PRIVILEGE_SALESMAN = 4;
-	public static final int PRIVILEGE_DRIVER = 8;
-	public static final int PRIVILEGE_NUTRITIOUS = 16;
+	public static final int PRIVILEGE_ADMIN = 1;		// 00001
+	public static final int PRIVILEGE_COOK = 2;			// 00010
+	public static final int PRIVILEGE_SALESMAN = 4;		// 00100
+	public static final int PRIVILEGE_DRIVER = 8;		// 01000
+	public static final int PRIVILEGE_NUTRITIOUS = 16;	// 10000
+	public static final int PRIVILEGE_ALL = 31;			// 11111
 	
 	/**
 	 * This is the constructor for this class

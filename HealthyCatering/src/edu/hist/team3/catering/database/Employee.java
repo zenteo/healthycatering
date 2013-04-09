@@ -18,18 +18,20 @@ public class Employee extends DatabaseRow {
 	private double sessionHours;			// session_hours		DOUBLE			NOT NULL
 	private int userPrivileges;				// user_privileges		INT				NOT NULL
 	
-	public static final int PRIVILEGE_ADMIN = 1;		// 00001
-	public static final int PRIVILEGE_COOK = 2;			// 00010
-	public static final int PRIVILEGE_SALESMAN = 4;		// 00100
-	public static final int PRIVILEGE_DRIVER = 8;		// 01000
-	public static final int PRIVILEGE_NUTRITIOUS = 16;	// 10000
-	public static final int PRIVILEGE_ALL = 31;			// 11111
+	public static final int PRIVILEGE_NONE = 0;			// 000000
+	public static final int PRIVILEGE_ADMIN = 1;		// 000001
+	public static final int PRIVILEGE_COOK = 2;			// 000010
+	public static final int PRIVILEGE_SALESMAN = 4;		// 000100
+	public static final int PRIVILEGE_DRIVER = 8;		// 001000
+	public static final int PRIVILEGE_NUTRITIOUS = 16;	// 010000
+	public static final int PRIVILEGE_RESOURCES = 32;	// 100000
+	public static final int PRIVILEGE_ALL = 63;			// 111111
 	
 	/**
 	 * This is the constructor for this class
 	 * @param id is an integer used as the primary key for employee/Customer
 	 */
-	protected Employee(DatabaseManager manager, Customer customer) {
+	public Employee(DatabaseManager manager, Customer customer) {
 		super(manager);
 		this.customer = customer;
 	}
@@ -54,7 +56,7 @@ public class Employee extends DatabaseRow {
 	@Override
 	public void fetch() throws SQLException {
 		super.fetch();
-		String sql = "SELECT job_id, username, password, email, employment_date, session_hours FROM Employee WHERE customer_id = " + customer.getId();
+		String sql = "SELECT job_id, username, password, email, employment_date, session_hours, user_privileges FROM Employee WHERE customer_id = " + customer.getId();
 		try (PreparedStatement ps = getManager().prepareStatement(sql)) {
 			try (ResultSet rs = ps.executeQuery()) {
 				if (rs.next()) {
@@ -64,6 +66,7 @@ public class Employee extends DatabaseRow {
 					this.email = rs.getString(4);
 					this.employmentDate = rs.getDate(5);
 					this.sessionHours = rs.getDouble(6);
+					this.userPrivileges = rs.getInt(7);
 				}
 			}
 		}
@@ -79,6 +82,7 @@ public class Employee extends DatabaseRow {
 		sql += ", email = '" + email + "'";
 		sql += ", employment_date = '" + employmentDate.toString() + "'";
 		sql += ", session_hours = " + sessionHours;
+		sql += ", user_privileges = " + userPrivileges;
 		sql += " WHERE customer_id = " + customer.getId();
 		try (PreparedStatement ps = getManager().prepareStatement(sql)) {
 			ps.executeUpdate();
@@ -218,8 +222,32 @@ public class Employee extends DatabaseRow {
 		this.sessionHours = sessionHours;
 	}
     
-    public void givePrivileges(int privileges) {
+    /**
+     * Give the selected employee one or more privileges from Employee.PRIVILEGE_*
+     * @param privileges
+     */
+    public void grantPrivileges(int privileges) {
+    	assert(privileges >= 0);
+    	super.tryFetch();
     	this.userPrivileges = privileges | userPrivileges;
+    }
+    
+    /**
+     * Set the employee privileges for the software.
+     * @param privileges
+     */
+    public void setPrivileges(int privileges) {
+    	assert(privileges >= 0);
+    	this.userPrivileges = privileges;
+    }
+    
+    /**
+     * Returns the employee privileges 
+     * @return
+     */
+    public int getPrivileges() {
+    	super.tryFetch();
+    	return this.userPrivileges;
     }
     
     public boolean equals(Object other){

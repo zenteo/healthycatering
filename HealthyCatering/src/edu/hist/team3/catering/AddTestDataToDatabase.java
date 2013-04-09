@@ -14,12 +14,12 @@ import edu.hist.team3.catering.database.Plan;
 import edu.hist.team3.catering.database.PlanDish;
 import edu.hist.team3.catering.database.Resource;
 
-public class TestDatabase {
+public class AddTestDataToDatabase {
 	
 	/**
 	 * This is just a test, and not to be used.
 	 */
-	public TestDatabase(){
+	public AddTestDataToDatabase(){
 		
 	}
 	
@@ -76,12 +76,12 @@ public class TestDatabase {
 			job.commit();
 			
 			Employee employee = manager.createEmployee(customer, job);
-			employee.setUsername("sexygirl98");
-			employee.setPassword("1235");
+			employee.setUsername("test");
+			employee.setPassword("test");
 			employee.setEmail("horny_pussy@pimp.no");
 			employee.setEmploymentDate(Date.valueOf("1234-11-23")); // Also test-date
 			employee.setSessionHours(1.0); // Worked for 1 hour in his whole life.
-			employee.givePrivileges(Employee.PRIVILEGE_ALL);
+			employee.setPrivileges(Employee.PRIVILEGE_ALL);
 			employee.commit();
 			
 			Plan plan = manager.createPlan(customer);
@@ -107,7 +107,7 @@ public class TestDatabase {
 			System.out.println("Test removal of database rows:");
 			
 			// Comment the following code to see changes in database:
-			
+			/*
 			delivery.remove();
 			planDish.remove();
 			plan.remove();
@@ -116,7 +116,7 @@ public class TestDatabase {
 			customer.remove();
 			dishResource.remove();
 			resource.remove();
-			
+			*/
 			System.out.println("Done");
 			
 		}

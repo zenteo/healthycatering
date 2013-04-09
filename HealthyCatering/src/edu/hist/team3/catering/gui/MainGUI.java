@@ -13,10 +13,10 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar; 
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import edu.hist.team3.catering.database.Employee;
+import edu.hist.team3.catering.gui.tabs.*;
 
 public class MainGUI {
 	JFrame frame;
@@ -37,6 +37,7 @@ public class MainGUI {
 		
 		JMenuBar menu = new JMenuBar();
 		JMenu menuProgram = new JMenu("Program");
+		JMenuItem userInfo = new JMenuItem("User: " + employee.getCustomer().getFirstName() + " " + employee.getCustomer().getLastName());
 		
 		JMenuItem programExit = new JMenuItem("Exit");
 		programExit.addActionListener(new ActionListener() {
@@ -61,13 +62,11 @@ public class MainGUI {
 		menuProgram.add(showDevelopers);
 		menuProgram.add(programExit);
 		menu.add(menuProgram);
+		menu.add(userInfo);
 		frame.setJMenuBar(menu);
 		
-		
 		tabsPanel = new JTabbedPane();
-		tabsPanel.addTab("Test", new JPanel());
-		tabsPanel.addTab("Test2", new JPanel());
-		
+		addTabs();
 		frame.add(tabsPanel, BorderLayout.CENTER);
 
 		frame.pack();
@@ -98,6 +97,26 @@ public class MainGUI {
 		aboutWindow.add(aboutInfo);
 		aboutWindow.pack();
 		aboutWindow.setVisible(true);
+	}
+	
+	private void addTabs() {
+		if ((employee.getPrivileges() & Employee.PRIVILEGE_ADMIN) == Employee.PRIVILEGE_ADMIN)
+			tabsPanel.addTab("Administrator", new BossGUI());
+		
+		if ((employee.getPrivileges() & Employee.PRIVILEGE_COOK) == Employee.PRIVILEGE_COOK)
+			tabsPanel.addTab("Cooking", new CookingGUI());
+
+		if ((employee.getPrivileges() & Employee.PRIVILEGE_RESOURCES) == Employee.PRIVILEGE_NUTRITIOUS)
+			tabsPanel.addTab("Cooking", new ResourcesGUI());
+		
+		if ((employee.getPrivileges() & Employee.PRIVILEGE_SALESMAN) == Employee.PRIVILEGE_SALESMAN)
+			tabsPanel.addTab("Salesman", new CustomerGUI());
+
+		if ((employee.getPrivileges() & Employee.PRIVILEGE_DRIVER) == Employee.PRIVILEGE_DRIVER)
+			tabsPanel.addTab("Delivery", new DeliveryGUI());
+
+		if ((employee.getPrivileges() & Employee.PRIVILEGE_NUTRITIOUS) == Employee.PRIVILEGE_NUTRITIOUS)
+			tabsPanel.addTab("Delivery", new MenuGUI());
 	}
 	
 }

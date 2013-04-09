@@ -6,7 +6,6 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,8 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField; 
 import javax.swing.JTextField;
 
-import edu.hist.team3.catering.database.DatabaseManager;
-import edu.hist.team3.catering.database.Employee;
 import edu.hist.team3.catering.database.managers.EmployeeManager;
 
 public class LoginGUI {
@@ -69,17 +66,17 @@ public class LoginGUI {
 	 * Then checks with the database if they are correct.
 	 */
 	private void login() {
-		boolean login = true;
+		EmployeeManager eManager = EmployeeManager.getInstance();
+		if(eManager == null)
+			System.out.println("Is fucked");
+		String username = loginField.getText();
+		String password = extractPassword(passwordField.getPassword());
 		
-		EmployeeManager manager = new EmployeeManager();
-		
-		// String username = loginField.getText();
-		// String password = extractPassword(passwordField.getPassword());
-		
-		if (login == true) {
+		if (eManager.getEmployee(username, password) != null) {
 			frame.setVisible(false);
-			new MainGUI(null);
+			new MainGUI(eManager.getEmployee(username, password));
 		}
+		
 	}
 	
 	/**
@@ -88,7 +85,6 @@ public class LoginGUI {
 	 * @param passwordAsChar[]
 	 * @return passwordAsString
 	 */
-	@SuppressWarnings("unused")
 	private String extractPassword(char[] password) {
 		String pw = "";
 		for(int i=0; i<password.length; i++) {

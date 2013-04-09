@@ -20,7 +20,7 @@ public class Customer extends DatabaseRow {
 	 * @param manager	The DatabaseManager for a connection to a database
 	 * @param id		The ID of the Customer
 	 */
-	protected Customer(DatabaseManager manager, int id) {
+	public Customer(DatabaseManager manager, int id) {
 		super(manager);
 		this.id = id;
 	}

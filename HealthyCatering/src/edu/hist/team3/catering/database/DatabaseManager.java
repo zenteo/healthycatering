@@ -4,6 +4,7 @@ import java.lang.ref.WeakReference;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
@@ -29,6 +30,7 @@ public class DatabaseManager {
 	 * 		// It would not be deleted if we didn't use WeakReference in our HashMap.
 	 * 
 	 * Maybe TODO: Add this solution for links too?
+	 * Fuck you!
 	 */
 	private final HashMap<Integer, WeakReference<Customer>> customers;
 	private final HashMap<Integer, WeakReference<Employee>> employees;
@@ -39,6 +41,10 @@ public class DatabaseManager {
 	
 	private static DatabaseManager manager;
 	
+	/**
+	 * Returns the instance of the database manager
+	 * @return
+	 */
 	public static DatabaseManager getInstance() {
 		if (manager==null) {
 			try {
@@ -49,6 +55,16 @@ public class DatabaseManager {
 			}
 		}
 		return manager;
+	}
+	
+	public ResultSet performSQL(String sql) {
+		try {
+			PreparedStatement statement = manager.prepareStatement(sql);
+			return statement.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	// Our connection to the database.
@@ -69,7 +85,7 @@ public class DatabaseManager {
 	 * @param connection		The connection to be used
 	 * @throws SQLException		If it failed to connect to the database
 	 */
-	public DatabaseManager(Connection connection) throws SQLException {
+	private DatabaseManager(Connection connection) throws SQLException {
 		
 		customers = new HashMap<Integer, WeakReference<Customer>>();
 		employees = new HashMap<Integer, WeakReference<Employee>>();
@@ -188,10 +204,6 @@ public class DatabaseManager {
 			employees.put(id, new WeakReference<Employee>(ret));
 		}
 		return ret;
-	}
-	
-	public Employee getEmployee(String username, String password) {
-		
 	}
 	
 	/**

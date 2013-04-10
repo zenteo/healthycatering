@@ -35,10 +35,22 @@ public class LoginGUI {
 		loginField = new JTextField();
 		loginField.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		loginField.setPreferredSize(new Dimension(150, 30));
+		loginField.setText("Username");
+		loginField.selectAll();
 		
 		passwordField = new JPasswordField();
 		passwordField.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		passwordField.setPreferredSize(new Dimension(150, 30));
+		passwordField.setText("Password");
+		passwordField.selectAll();
+		passwordField.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				login();
+			}
+			
+		});
 		
 		JButton loginButton = new JButton("Login");
 		loginButton.addActionListener(new ActionListener() {

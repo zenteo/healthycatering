@@ -251,25 +251,25 @@ public class Employee extends DatabaseRow {
     }
     private String printPrivileges(){
     	String printPriv = "";
-    	if(userPrivileges==1){
-    		printPriv += " has Boss privileges, ";
+    	if ((userPrivileges & Employee.PRIVILEGE_ADMIN) == Employee.PRIVILEGE_ADMIN) {
+    		printPriv += " has Administrator privileges, ";
     	}
-    	if(userPrivileges==2){
+    	if ((userPrivileges & Employee.PRIVILEGE_COOK) == Employee.PRIVILEGE_COOK) {
     		printPriv += " has cook privileges, ";
     	}
-    	if(userPrivileges==4){
+    	if ((userPrivileges & Employee.PRIVILEGE_SALESMAN) == Employee.PRIVILEGE_SALESMAN) {
     		printPriv += " has salesman privileges, ";
     	}
-    	if(userPrivileges==8){
+    	if ((userPrivileges & Employee.PRIVILEGE_DRIVER) == Employee.PRIVILEGE_DRIVER) {
     		printPriv += " has driver privileges, ";
     	}
-    	if(userPrivileges==16){
+    	if ((userPrivileges & Employee.PRIVILEGE_NUTRITIOUS) == Employee.PRIVILEGE_NUTRITIOUS) {
     		printPriv += " has nutritious privileges, ";
     	}
-    	if(userPrivileges==32){
+    	if ((userPrivileges & Employee.PRIVILEGE_RESOURCES) == Employee.PRIVILEGE_RESOURCES) {
     		printPriv += " has resources privileges, ";
     	}
-    	if(userPrivileges==63){
+    	if ((userPrivileges & Employee.PRIVILEGE_ALL) == Employee.PRIVILEGE_ALL) {
     		printPriv += " has all privileges, ";
     	}
     	return printPriv;

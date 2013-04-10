@@ -42,6 +42,7 @@ public class CustomerManager {
 		for (int i=0; i<numOfRows; i++) {
 			try {
 				result.next();
+				manager.getCustomer(result.getInt(1)).fetch();
 				customerList[i] = manager.getCustomer(result.getInt(1));
 			}
 			catch (SQLException e) {

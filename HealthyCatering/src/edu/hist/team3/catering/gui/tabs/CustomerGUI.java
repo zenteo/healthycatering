@@ -146,7 +146,9 @@ public class CustomerGUI extends JPanel {
 		rightInnerPanel.add(Box.createRigidArea(dim));
 		rightInnerPanel.add(addCustomer);
 		rightInnerPanel.add(editCustomer);
+		rightInnerPanel.add(Box.createRigidArea(dim));
 		rightInnerPanel.add(removeCustomer);
+
 		rightPanel.add(rightInnerPanel);
 		
 		add(leftPanel, BorderLayout.WEST);

@@ -98,7 +98,7 @@ public class AddTestDataToDatabase {
 			employee2.setEmail("Idunno");
 			employee2.setEmploymentDate(Date.valueOf("1234-1-1"));
 			employee2.setSessionHours(134.0);
-			employee2.grantPrivileges(Employee.PRIVILEGE_NUTRITIOUS | Employee.PRIVILEGE_COOK);
+			employee2.grantPrivileges(Employee.PRIVILEGE_SALESMAN);
 			employee2.commit();
 			
 			Plan plan = manager.createPlan(customer);

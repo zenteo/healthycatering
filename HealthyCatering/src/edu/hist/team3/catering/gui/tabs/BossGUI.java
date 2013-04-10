@@ -93,6 +93,13 @@ public class BossGUI extends JPanel {
 			}
 			
 		});
+		add(addEmployeeButton);
+		add(editEmployeeButton);
+		add(getEmployeeButton);
+		add(removeEmployeeButton);
+		add(addJobButton);
+		add(editJobButton);
+		add(removeJobButton);
 	}
 
 

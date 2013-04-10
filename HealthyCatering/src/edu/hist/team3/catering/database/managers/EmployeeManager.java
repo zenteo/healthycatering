@@ -45,6 +45,11 @@ public class EmployeeManager {
 		return null;
 	}
 	
+	/**
+	 * Get the employee with the parameter id.
+	 * @param id
+	 * @return
+	 */
 	public Employee getEmployee(int id) {
 		return manager.getEmployee(id);
 	}

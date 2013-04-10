@@ -67,6 +67,14 @@ public class AddTestDataToDatabase {
 			customer.setCreationDate(Date.valueOf("1234-12-24")); // Just a test-date
 			customer.setAddress("Gokkgata 01, Gokk");
 			customer.commit();
+			
+			Customer customer2 = manager.createCustomer();
+			customer2.setFirstName("Trine");
+			customer2.setLastName("Transe");
+			customer2.setPhone("+4712345678");
+			customer2.setCreationDate(Date.valueOf("2010-12-13"));
+			customer2.setAddress("Fittestad 1, Shit");
+			customer2.commit();
 
 			Job job = manager.createJob();
 			job.setName("Chilling, looking cool");
@@ -83,6 +91,15 @@ public class AddTestDataToDatabase {
 			employee.setSessionHours(1.0); // Worked for 1 hour in his whole life.
 			employee.setPrivileges(Employee.PRIVILEGE_ALL);
 			employee.commit();
+			
+			Employee employee2 = manager.createEmployee(customer2, job);
+			employee2.setUsername("asdf");
+			employee2.setPassword("fdsa");
+			employee2.setEmail("Idunno");
+			employee2.setEmploymentDate(Date.valueOf("1234-1-1"));
+			employee2.setSessionHours(134.0);
+			employee2.grantPrivileges(Employee.PRIVILEGE_NUTRITIOUS | Employee.PRIVILEGE_COOK);
+			employee2.commit();
 			
 			Plan plan = manager.createPlan(customer);
 			plan.setDaysOfWeek(Plan.DAY_MONDAY);

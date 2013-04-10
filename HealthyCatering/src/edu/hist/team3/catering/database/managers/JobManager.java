@@ -1,6 +1,8 @@
 package edu.hist.team3.catering.database.managers;
 
 
+import java.sql.SQLException;
+
 import edu.hist.team3.catering.database.DatabaseManager;
 import edu.hist.team3.catering.database.Job;
 
@@ -30,7 +32,18 @@ public class JobManager {
 	 * @param id
 	 * @return
 	 */
+	public void addJob(){
+		
+	}
 	public Job getJob(int id) {
 		return manager.getJob(id);
+	}
+	public void editJob(int id, String name, double hourlySalary){
+		manager.getJob(id).setName(name);
+		manager.getJob(id).setHourlySalary(hourlySalary);
+		
+	}
+	public void removeJob(int id)throws SQLException{
+		manager.getJob(id).remove();
 	}
 }

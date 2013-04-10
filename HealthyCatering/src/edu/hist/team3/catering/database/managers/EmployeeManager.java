@@ -32,7 +32,7 @@ public class EmployeeManager {
 	 * @return employee
 	 */
 	public Employee getEmployee(String username, String password) {
-		ResultSet result = manager.performSQL("SELECT customer_id FROM Employee, Customer WHERE username ='" + username + "' AND password ='" + password + "'");
+		ResultSet result = manager.performSQL("SELECT customer_id FROM Employee WHERE username ='" + username + "' AND password ='" + password + "'");
 		
 		try {
 			if (result.next()) {

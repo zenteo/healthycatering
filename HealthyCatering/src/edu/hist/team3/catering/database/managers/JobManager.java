@@ -32,6 +32,9 @@ public class JobManager {
 	 * @param id
 	 * @return
 	 */
+	public void addJob(){
+		
+	}
 	public Job getJob(int id) {
 		return manager.getJob(id);
 	}

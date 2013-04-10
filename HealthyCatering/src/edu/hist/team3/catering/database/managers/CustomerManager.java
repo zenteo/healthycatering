@@ -3,6 +3,8 @@ package edu.hist.team3.catering.database.managers;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 import edu.hist.team3.catering.database.Customer;
 import edu.hist.team3.catering.database.DatabaseManager;
 
@@ -55,5 +57,14 @@ public class CustomerManager {
 	
 	public Customer getCustomer(int id) {
 		return manager.getCustomer(id);
+	}
+	
+	public Customer createCustomer() {
+		try {
+			return manager.createCustomer();			
+		}catch(SQLException e) {
+			JOptionPane.showMessageDialog(null, "The manager was unable to create a new customer");
+		}
+		return null;
 	}
 }

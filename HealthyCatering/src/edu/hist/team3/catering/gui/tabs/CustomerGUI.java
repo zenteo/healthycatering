@@ -1,15 +1,21 @@
 package edu.hist.team3.catering.gui.tabs;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.util.Calendar;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -46,9 +52,13 @@ public class CustomerGUI extends JPanel {
 	private JTextField phone;
 	private JTextField address;
 	
+	/**
+	 * GUI for editing customer information and adding orders.
+	 * Extends a JPanel to be used in a tabbed pane.
+	 */
 	public CustomerGUI() {
 		setLayout(new BorderLayout());
-		
+	
 		cManager = CustomerManager.getInstance();
 		
 		Customer[] list = cManager.getCustomers();
@@ -68,11 +78,16 @@ public class CustomerGUI extends JPanel {
 		leftPanel.add(customerScrollPane);
 		
 		// Center panel for buttons
+		Dimension dim = new Dimension(150, 70);
 		JPanel rightPanel = new JPanel();
-		rightPanel.setPreferredSize(new Dimension(200, 640));
-		rightPanel.setLayout(new BorderLayout());
+		JPanel rightInnerPanel = new JPanel();
+		rightPanel.setLayout(new FlowLayout());
+		rightInnerPanel.setLayout(new FlowLayout());
+		rightPanel.setPreferredSize(new Dimension(150, 640));
+		rightInnerPanel.setPreferredSize(new Dimension(150, 640));
+		
 		JButton refreshList = new JButton("Refresh list");
-		refreshList.setPreferredSize(new Dimension(100, 70));
+		refreshList.setPreferredSize(dim);
 		refreshList.addActionListener(new ActionListener() {
 
 			@Override
@@ -81,21 +96,58 @@ public class CustomerGUI extends JPanel {
 			}
 			
 		});
+		
 		JButton editCustomer = new JButton("Edit customer");
-		editCustomer.setPreferredSize(new Dimension(100, 70));
+		editCustomer.setPreferredSize(dim);
 		editCustomer.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				editCustomer(customerList.getSelectedValue());
+				editCustomer();
 			}
 			
 		});
-		JPanel rightInnerPanel = new JPanel();
-		rightInnerPanel.setLayout(new FlowLayout());
+		
+		JButton addCustomer = new JButton("New customer");
+		addCustomer.setPreferredSize(dim);
+		addCustomer.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				addCustomer();
+			}
+			
+		});
+		
+		JButton removeCustomer = new JButton("Remove customer");
+		removeCustomer.setPreferredSize(dim);
+		removeCustomer.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				removeCustomer();
+			}
+			
+		});
+		
+		JButton addPlan = new JButton("Add order");
+		addPlan.setPreferredSize(dim);
+		addPlan.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				addPlan();
+			}
+			
+		});
+		
+		
 		rightInnerPanel.add(refreshList);
+		rightInnerPanel.add(Box.createRigidArea(dim));
+		rightInnerPanel.add(addCustomer);
 		rightInnerPanel.add(editCustomer);
-		rightPanel.add(rightInnerPanel, BorderLayout.CENTER);
+		rightInnerPanel.add(removeCustomer);
+		rightPanel.add(rightInnerPanel);
 		
 		add(leftPanel, BorderLayout.WEST);
 		add(rightPanel, BorderLayout.CENTER);
@@ -105,64 +157,171 @@ public class CustomerGUI extends JPanel {
 		customerList.setListData(cManager.getCustomers());
 	}
 	
-	private void editCustomer(Customer customer) {
+	private void editCustomer() {
 		
-		if (customer != null) {
-			selectedCustomer = customer;
-			JFrame editCustomerWindow = new JFrame("Edit customer");
+		if (customerList.getSelectedValue() != null) {
+			selectedCustomer = customerList.getSelectedValue();
+			final JFrame editCustomerWindow = new JFrame("Edit customer");
 			editCustomerWindow.setLayout(new FlowLayout());
 			editCustomerWindow.setSize(new Dimension(500, 500));
 			editCustomerWindow.setPreferredSize(new Dimension(500, 500));
 			editCustomerWindow.setLocationRelativeTo(null);
 			
+			Dimension dim = new Dimension(300, 50);
+			
+			JPanel firstNamePanel = new JPanel();
+			firstNamePanel.setPreferredSize(dim);
+			firstNamePanel.add(new JLabel("First name: "));
 			firstName = new JTextField();
-			firstName.setPreferredSize(new Dimension(130, 30));
-			firstName.setText(customer.getFirstName());
+			firstName.setPreferredSize(new Dimension(160, 30));
+			firstName.setText(selectedCustomer.getFirstName());
+			firstNamePanel.add(firstName);
 			
+			JPanel lastNamePanel = new JPanel();
+			lastNamePanel.setPreferredSize(dim);
+			lastNamePanel.add(new JLabel("Last name: "));
 			lastName = new JTextField();
-			lastName.setPreferredSize(new Dimension(130, 30));
-			lastName.setText(customer.getLastName());
+			lastName.setPreferredSize(new Dimension(160, 30));
+			lastName.setText(selectedCustomer.getLastName());
+			lastNamePanel.add(lastName);
 			
+			JPanel addressPanel = new JPanel();
+			addressPanel.setPreferredSize(dim);
+			addressPanel.add(new JLabel("Address: "));
 			address = new JTextField();
-			address.setPreferredSize(new Dimension(100, 30));
-			address.setText(customer.getAddress());
+			address.setPreferredSize(new Dimension(160, 30));
+			address.setText(selectedCustomer.getAddress());
+			addressPanel.add(address);
 			
+			JPanel phonePanel = new JPanel();
+			phonePanel.setPreferredSize(dim);
+			phonePanel.add(new JLabel("Phone number: "));
 			phone = new JTextField();
-			phone.setPreferredSize(new Dimension(100, 30));
-			phone.setText(customer.getPhone());
-			
+			phone.setPreferredSize(new Dimension(160, 30));
+			phone.setText(selectedCustomer.getPhone());
+			phonePanel.add(phone);
+
 			JButton commit = new JButton("Commit");
-			commit.setPreferredSize(new Dimension(100, 50));
+			commit.setPreferredSize(new Dimension(300, 50));
 			commit.addActionListener(new ActionListener() {
 						
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					commitCustomer();
+					commitEditCustomer(editCustomerWindow);
 				}
 				
 			});
 			
-			editCustomerWindow.add(firstName);
-			editCustomerWindow.add(lastName);
-			editCustomerWindow.add(address);
-			editCustomerWindow.add(phone);
+			editCustomerWindow.add(firstNamePanel);
+			editCustomerWindow.add(lastNamePanel);
+			editCustomerWindow.add(addressPanel);
+			editCustomerWindow.add(phonePanel);
 			editCustomerWindow.add(commit);
 			
 			editCustomerWindow.setVisible(true);
 		}
 	}
 	
-	private void commitCustomer() {
-		Customer customer = cManager.getCustomer(selectedCustomer.getId());
-		customer.setFirstName(firstName.getText());
-		customer.setLastName(lastName.getText());
-		customer.setPhone(phone.getText());
-		customer.setAddress(address.getText());
-		try {
-			customer.commit();
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(this, "The new settings could not be saved");
+	private void commitEditCustomer(JFrame window) {
+		Object[] options = {"Yes", "Cancel"};
+		
+		int choice = JOptionPane.showOptionDialog(window, "Do you want to save changes?", "Warning", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
+		if(choice == 0) {
+			Customer customer = cManager.getCustomer(selectedCustomer.getId());
+			customer.setFirstName(firstName.getText());
+			customer.setLastName(lastName.getText());
+			customer.setPhone(phone.getText());
+			customer.setAddress(address.getText());
+			try {
+				customer.commit();
+			} catch (SQLException e) {
+				JOptionPane.showMessageDialog(this, "The new settings could not be saved");
+			}
 		}
+	}
+	
+	private void addCustomer() {
+		final JFrame window = new JFrame("Add new customer");
+		window.setSize(new Dimension(500, 500));
+		window.setLocationRelativeTo(null);
+		window.setLayout(new FlowLayout());
+		
+		Dimension panelSize = new Dimension(500, 70);
+		Dimension dim = new Dimension(300, 30);
+		
+		JPanel namePanel = new JPanel();
+		namePanel.setPreferredSize(panelSize);
+		namePanel.add(new JLabel("First name: "));
+		firstName = new JTextField("");
+		firstName.setPreferredSize(dim);
+		namePanel.add(firstName);
+
+		JPanel lastNamePanel = new JPanel();
+		lastNamePanel.setPreferredSize(panelSize);
+		lastNamePanel.add(new JLabel("Last name: "));
+		lastName = new JTextField("");
+		lastName.setPreferredSize(dim);
+		lastNamePanel.add(lastName);
+
+		JPanel addressPanel = new JPanel();
+		addressPanel.setPreferredSize(panelSize);
+		addressPanel.add(new JLabel("Address: "));
+		address = new JTextField("");
+		address.setPreferredSize(dim);
+		addressPanel.add(address);
+
+		JPanel phonePanel = new JPanel();
+		phonePanel.setPreferredSize(panelSize);
+		phonePanel.add(new JLabel("Phone number: "));
+		phone = new JTextField("");
+		phone.setPreferredSize(dim);
+		phonePanel.add(phone);
+		
+		JButton commit = new JButton("Commit");
+		commit.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				commitNewCustomer(window);
+			}
+			
+		});
+		
+		window.add(namePanel);
+		window.add(lastNamePanel);
+		window.add(addressPanel);
+		window.add(phonePanel);
+		window.add(commit);
+		
+		window.setVisible(true);
+	}
+	
+	private void commitNewCustomer(JFrame window) {
+		Object[] options = {"Yes", "Cancel"};
+		
+		int choice = JOptionPane.showOptionDialog(window, "Do you want to save changes?", "Warning", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
+		if(choice == 0) {
+			Customer customer = cManager.createCustomer();
+			customer.setFirstName(firstName.getText());
+			customer.setLastName(lastName.getText());
+			customer.setPhone(phone.getText());
+			customer.setAddress(address.getText());
+			Calendar cal = Calendar.getInstance();
+			customer.setCreationDate(Date.valueOf(cal.get(Calendar.YEAR) + "-" + cal.get(Calendar.MONTH) + "-" + cal.get(Calendar.DAY_OF_MONTH)));
+			try {
+				customer.commit();
+			} catch (SQLException e) {
+				JOptionPane.showMessageDialog(this, "The new settings could not be saved");
+			}
+		}
+	}
+	
+	private void removeCustomer() {
+		
+	}
+	
+	private void addPlan() {
+		
 	}
 
 }

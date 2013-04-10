@@ -76,7 +76,7 @@ public class MainGUI {
 	private void exitProgram() {
 		Object[] options = {"Yes", "No"};
 		
-		int choice = JOptionPane.showOptionDialog(frame, "Do you really want to quit?", "Warning", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
+		int choice = JOptionPane.showOptionDialog(frame, "Do you want to exit the program?", "Warning", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
 		if(choice == 0)
 			System.exit(0);
 	}

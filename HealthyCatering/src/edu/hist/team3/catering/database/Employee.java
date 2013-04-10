@@ -249,6 +249,31 @@ public class Employee extends DatabaseRow {
     	super.tryFetch();
     	return this.userPrivileges;
     }
+    private String printPrivileges(){
+    	String printPriv = "";
+    	if(userPrivileges==1){
+    		printPriv += " has Boss privileges, ";
+    	}
+    	if(userPrivileges==2){
+    		printPriv += " has cook privileges, ";
+    	}
+    	if(userPrivileges==4){
+    		printPriv += " has salesman privileges, ";
+    	}
+    	if(userPrivileges==8){
+    		printPriv += " has driver privileges, ";
+    	}
+    	if(userPrivileges==16){
+    		printPriv += " has nutritious privileges, ";
+    	}
+    	if(userPrivileges==32){
+    		printPriv += " has resources privileges, ";
+    	}
+    	if(userPrivileges==63){
+    		printPriv += " has all privileges, ";
+    	}
+    	return printPriv;
+    }
     
     public boolean equals(Object other){
     	if (other == null || !(other instanceof Employee))
@@ -260,6 +285,6 @@ public class Employee extends DatabaseRow {
 		super.tryFetch();
 		return "Employee[" + super.toString() + "; job = " + getJob().toString() + "; username = '"
 				+ username + "'; email = '" + email + "'; employmentDate = "
-				+ employmentDate.toString() + "; sessionHours = " + sessionHours + "]";
+				+ employmentDate.toString() + ";Has privileges: " + printPrivileges() + "; sessionHours = " + sessionHours + "]";
 	}
 }

@@ -106,8 +106,8 @@ public class MainGUI {
 		if ((employee.getPrivileges() & Employee.PRIVILEGE_COOK) == Employee.PRIVILEGE_COOK)
 			tabsPanel.addTab("Cooking", new CookingGUI());
 
-		if ((employee.getPrivileges() & Employee.PRIVILEGE_RESOURCES) == Employee.PRIVILEGE_NUTRITIOUS)
-			tabsPanel.addTab("Cooking", new ResourcesGUI());
+		if ((employee.getPrivileges() & Employee.PRIVILEGE_RESOURCES) == Employee.PRIVILEGE_RESOURCES)
+			tabsPanel.addTab("Resources", new ResourcesGUI());
 		
 		if ((employee.getPrivileges() & Employee.PRIVILEGE_SALESMAN) == Employee.PRIVILEGE_SALESMAN)
 			tabsPanel.addTab("Salesman", new CustomerGUI());
@@ -116,7 +116,7 @@ public class MainGUI {
 			tabsPanel.addTab("Delivery", new DeliveryGUI());
 
 		if ((employee.getPrivileges() & Employee.PRIVILEGE_NUTRITIOUS) == Employee.PRIVILEGE_NUTRITIOUS)
-			tabsPanel.addTab("Delivery", new MenuGUI());
+			tabsPanel.addTab("Nutritious", new MenuGUI());
 	}
 	
 }

@@ -51,4 +51,8 @@ public class CustomerManager {
 		
 		return customerList;
 	}
+	
+	public Customer getCustomer(int id) {
+		return manager.getCustomer(id);
+	}
 }

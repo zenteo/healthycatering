@@ -1,5 +1,9 @@
 package edu.hist.team3.catering.gui.tabs;
 
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -27,18 +31,19 @@ public class CustomerGUI extends JPanel {
 	CustomerManager cManager;
 	
 	public CustomerGUI() {
+		setLayout(new FlowLayout());
+		
 		cManager = CustomerManager.getInstance();
-		customerScrollPane = new JScrollPane();
-		customerList = new JList<Customer>();
 		
 		Customer[] list = cManager.getCustomers();
 		System.out.println(list[0]);
-		if(list != null)
-			customerList.setListData(list);
-
-		customerScrollPane.add(customerList);
+		customerList = new JList<Customer>(list);
 		
-		add(customerScrollPane);
+		customerScrollPane = new JScrollPane(customerList);
+		customerScrollPane.setPreferredSize(new Dimension(500, 600));
+		
+		this.add(customerScrollPane);
+		this.add(new JButton("Test"));
 	}
 
 }

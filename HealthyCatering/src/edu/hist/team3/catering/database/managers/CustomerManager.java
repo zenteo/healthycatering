@@ -1,7 +1,9 @@
 package edu.hist.team3.catering.database.managers;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 
 import javax.swing.JOptionPane;
 
@@ -67,4 +69,37 @@ public class CustomerManager {
 		}
 		return null;
 	}
+	
+	public boolean editCustomer(int id, String firstName, String lastName, String phone, String address) {
+		Customer customer = getCustomer(id);
+		customer.setFirstName(firstName);
+		customer.setLastName(lastName);
+		customer.setPhone(phone);
+		customer.setAddress(address);
+		try {
+			customer.commit();
+			return true;
+		} catch (SQLException e) {
+			
+		}
+		return false;
+		
+	}
+	
+	public boolean addCustomer(String firstName, String lastName, String phone, String address) {
+		Customer customer = cManager.createCustomer();
+		customer.setFirstName(firstName);
+		customer.setLastName(lastName);
+		customer.setPhone(phone);
+		customer.setAddress(address);
+		Calendar cal = Calendar.getInstance();
+		customer.setCreationDate(Date.valueOf(cal.get(Calendar.YEAR) + "-" + cal.get(Calendar.MONTH) + "-" + cal.get(Calendar.DAY_OF_MONTH)));
+		try {
+			customer.commit();
+			return true;
+		} catch (SQLException e) {
+		}
+		return false;
+	}
+	
 }

@@ -225,18 +225,26 @@ public class CustomerGUI extends JPanel {
 	private void commitEditCustomer(JFrame window) {
 		Object[] options = {"Yes", "Cancel"};
 		
-		int choice = JOptionPane.showOptionDialog(window, "Do you want to save changes?", "Warning", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
+		int choice = JOptionPane.showOptionDialog(window, 
+				"Do you want to save changes?", 
+				"Warning", 
+				JOptionPane.YES_NO_OPTION, 
+				JOptionPane.WARNING_MESSAGE, 
+				null, 
+				options, 
+				options[1]);
+		
 		if(choice == 0) {
-			Customer customer = cManager.getCustomer(selectedCustomer.getId());
-			customer.setFirstName(firstName.getText());
-			customer.setLastName(lastName.getText());
-			customer.setPhone(phone.getText());
-			customer.setAddress(address.getText());
-			try {
-				customer.commit();
-			} catch (SQLException e) {
-				JOptionPane.showMessageDialog(this, "The new settings could not be saved");
+			if (!cManager.editCustomer(selectedCustomer.getId(),
+					firstName.getText(),
+					lastName.getText(),
+					phone.getText(),
+					address.getText()
+					)) {
+				JOptionPane.showMessageDialog(window, "Was unable to save changes");
 			}
+			else
+				window.dispose();
 		}
 	}
 	
@@ -299,19 +307,24 @@ public class CustomerGUI extends JPanel {
 	private void commitNewCustomer(JFrame window) {
 		Object[] options = {"Yes", "Cancel"};
 		
-		int choice = JOptionPane.showOptionDialog(window, "Do you want to save changes?", "Warning", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
+		int choice = JOptionPane.showOptionDialog(window, 
+				"Do you want to save changes?", 
+				"Warning", 
+				JOptionPane.YES_NO_OPTION, 
+				JOptionPane.WARNING_MESSAGE, 
+				null, 
+				options, 
+				options[1]);
+		
 		if(choice == 0) {
-			Customer customer = cManager.createCustomer();
-			customer.setFirstName(firstName.getText());
-			customer.setLastName(lastName.getText());
-			customer.setPhone(phone.getText());
-			customer.setAddress(address.getText());
-			Calendar cal = Calendar.getInstance();
-			customer.setCreationDate(Date.valueOf(cal.get(Calendar.YEAR) + "-" + cal.get(Calendar.MONTH) + "-" + cal.get(Calendar.DAY_OF_MONTH)));
-			try {
-				customer.commit();
-			} catch (SQLException e) {
-				JOptionPane.showMessageDialog(this, "The new settings could not be saved");
+			if(!cManager.addCustomer(firstName.getText(), 
+					lastName.getText(), 
+					phone.getText(), 
+					address.getText())) {
+				JOptionPane.showMessageDialog(window, "The new settings could not be saved");
+			}
+			else {
+				window.dispose();
 			}
 		}
 	}

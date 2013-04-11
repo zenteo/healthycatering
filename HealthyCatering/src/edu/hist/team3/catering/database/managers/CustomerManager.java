@@ -19,9 +19,8 @@ public class CustomerManager {
 	}
 	
 	public static CustomerManager getInstance() {
-		if (cManager == null) {
+		if (cManager == null)
 			cManager = new CustomerManager();
-		}
 		return cManager;
 	}
 	

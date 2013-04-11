@@ -15,9 +15,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import edu.hist.team3.catering.database.Customer;
+import edu.hist.team3.catering.database.Plan;
 import edu.hist.team3.catering.database.managers.CustomerManager;
+import edu.hist.team3.catering.database.managers.PlanManager;
 
 /*
  * Customer GUI
@@ -35,8 +39,11 @@ import edu.hist.team3.catering.database.managers.CustomerManager;
 @SuppressWarnings("serial")
 public class CustomerGUI extends JPanel {
 	private JScrollPane customerScrollPane;
+	private JScrollPane planScrollPane;
 	private JList<Customer> customerList;
+	private JList<Plan> planList;
 	private CustomerManager cManager;
+	private PlanManager pManager;
 	private JTextField searchBar;
 	
 	// Textfield for editing the customer:
@@ -54,22 +61,39 @@ public class CustomerGUI extends JPanel {
 		setLayout(new BorderLayout());
 	
 		cManager = CustomerManager.getInstance();
+		pManager = PlanManager.getInstance();
 		
 		Customer[] list = cManager.getCustomers();
+		Plan[] pList = new Plan[0];
 		customerList = new JList<Customer>(list);
+		planList = new JList<Plan>();
 
 		
 		// Left panel with customer list and search bar
 		JPanel leftPanel = new JPanel();
-		leftPanel.setPreferredSize(new Dimension(700, 640));
+		JPanel leftInnerPanel = new JPanel();
+		leftPanel.setPreferredSize(new Dimension(900, 640));
 		leftPanel.setLayout(new FlowLayout());
 		customerScrollPane = new JScrollPane(customerList);
-		customerScrollPane.setPreferredSize(new Dimension(700, 600));
+		customerScrollPane.setPreferredSize(new Dimension(600, 600));
+		planScrollPane = new JScrollPane(planList);
+		planScrollPane.setPreferredSize(new Dimension(200, 600));
 		searchBar = new JTextField("Search");
-		searchBar.selectAll();
+		searchBar.setToolTipText("Search through customers");
 		searchBar.setPreferredSize(new Dimension(300, 30));
+		leftInnerPanel.add(customerScrollPane);
+		leftInnerPanel.add(planScrollPane);
 		leftPanel.add(searchBar);
-		leftPanel.add(customerScrollPane);
+		leftPanel.add(leftInnerPanel);
+		
+		customerList.addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent arg0) {
+				planList.setListData(pManager.getPlansFor(customerList.getSelectedValue().getId()));
+			}
+			
+		});
 		
 		// Center panel for buttons
 		Dimension dim = new Dimension(150, 70);
@@ -140,6 +164,7 @@ public class CustomerGUI extends JPanel {
 		rightInnerPanel.add(Box.createRigidArea(dim));
 		rightInnerPanel.add(addCustomer);
 		rightInnerPanel.add(editCustomer);
+		rightInnerPanel.add(addPlan);
 		rightInnerPanel.add(Box.createRigidArea(dim));
 		rightInnerPanel.add(removeCustomer);
 

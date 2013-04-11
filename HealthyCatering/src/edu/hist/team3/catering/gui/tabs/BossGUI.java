@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import edu.hist.team3.catering.database.managers.EmployeeManager;
 import edu.hist.team3.catering.database.managers.JobManager;

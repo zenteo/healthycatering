@@ -1,5 +1,6 @@
 package edu.hist.team3.catering.gui.tabs;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -29,67 +30,74 @@ public class BossGUI extends JPanel {
 	JobManager jManager;
 	
 	public BossGUI() {
-		add(new JTextField("Hello"));
+		Dimension buttonDimension = new Dimension(150, 70);
+		
 		JButton addEmployeeButton = new JButton("Add Employee");
+		addEmployeeButton.setPreferredSize(buttonDimension);
 		addEmployeeButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				eManager.addEmployee();
 			}
 			
 		});
+
 		JButton editEmployeeButton = new JButton("Edit Employee");
+		editEmployeeButton.setPreferredSize(buttonDimension);
 		editEmployeeButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				eManager.setEmployee();
 			}
 			
 		});
+		
 		JButton getEmployeeButton = new JButton("Get Employee Stats");
+		getEmployeeButton.setPreferredSize(buttonDimension);
 		getEmployeeButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				eManager.getEmployeeStats();
 			}
 			
 		});
+		
 		JButton removeEmployeeButton = new JButton("Remove Employee");
+		removeEmployeeButton.setPreferredSize(buttonDimension);
 		removeEmployeeButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				eManager.removeEmployee();
 			}
 			
 		});
+		
 		JButton addJobButton = new JButton("Add Job");
+		addJobButton.setPreferredSize(buttonDimension);
 		addJobButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				jManager.addJob();
 			}
 			
 		});
+		
 		JButton editJobButton = new JButton("Edit Job");
+		editJobButton.setPreferredSize(buttonDimension);
 		editJobButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				jManager.editJob();
 			}
 			
 		});
+		
 		JButton removeJobButton = new JButton("Remove Job");
+		removeJobButton.setPreferredSize(buttonDimension);
 		removeJobButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				jManager.removeJob();
 			}
 			
 		});

@@ -1,9 +1,11 @@
 package edu.hist.team3.catering.gui.tabs;
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -20,7 +22,10 @@ import javax.swing.JPanel;
 public class CookingGUI extends JPanel {
 
 	public CookingGUI() {
-		Dimension buttonDimension = new Dimension(150, 70);
+		Dimension buttonDimension = new Dimension(190, 70);
+		JPanel centerPanel = new JPanel();
+		centerPanel.setLayout(new FlowLayout());
+		centerPanel.setPreferredSize(new Dimension(190, 640));
 
 		JButton getDeliveriesButton = new JButton("Get Deliveries");
 		getDeliveriesButton.setPreferredSize(buttonDimension);
@@ -58,6 +63,15 @@ public class CookingGUI extends JPanel {
 			}
 
 		});
+		
+		centerPanel.add(getDeliveriesButton);
+		centerPanel.add(Box.createRigidArea(buttonDimension));
+		centerPanel.add(getDishesOfADeliveryButton);
+		centerPanel.add(Box.createRigidArea(buttonDimension));
+		centerPanel.add(getResourcesOfADishButton);
+		centerPanel.add(Box.createRigidArea(buttonDimension));
+		centerPanel.add(changeDeliveryStatusButton);
+		add(centerPanel);
 
 	}
 }

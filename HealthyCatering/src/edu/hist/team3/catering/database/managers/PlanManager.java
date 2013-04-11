@@ -1,5 +1,6 @@
 package edu.hist.team3.catering.database.managers;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -50,6 +51,22 @@ public class PlanManager {
 		
 		return planList;
 
+	}
+	
+	public boolean createPlan(int customerId, int deliverOnDays, String startDate, String endDate, double sumIncome, double sumOutcome) {
+		try {
+			Plan plan = manager.createPlan(manager.getCustomer(customerId));
+			plan.setDaysOfWeek(deliverOnDays);
+			plan.setDeliveredOn(deliverOnDays);
+			plan.setStartDate(Date.valueOf(startDate));
+			plan.setEndDate(Date.valueOf(endDate));
+			plan.setSumIncome(sumIncome);
+			plan.setSumOutcome(sumOutcome);
+			plan.commit();
+			return true;
+		} catch (SQLException e) {
+		}
+		return false;
 	}
 	
 }

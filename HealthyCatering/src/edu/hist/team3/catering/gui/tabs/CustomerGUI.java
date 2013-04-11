@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -72,12 +73,12 @@ public class CustomerGUI extends JPanel {
 		// Left panel with customer list and search bar
 		JPanel leftPanel = new JPanel();
 		JPanel leftInnerPanel = new JPanel();
-		leftPanel.setPreferredSize(new Dimension(900, 640));
+		leftPanel.setPreferredSize(new Dimension(1000, 640));
 		leftPanel.setLayout(new FlowLayout());
 		customerScrollPane = new JScrollPane(customerList);
 		customerScrollPane.setPreferredSize(new Dimension(600, 600));
 		planScrollPane = new JScrollPane(planList);
-		planScrollPane.setPreferredSize(new Dimension(200, 600));
+		planScrollPane.setPreferredSize(new Dimension(400, 600));
 		searchBar = new JTextField("Search");
 		searchBar.setToolTipText("Search through customers");
 		searchBar.setPreferredSize(new Dimension(300, 30));
@@ -355,6 +356,60 @@ public class CustomerGUI extends JPanel {
 	}
 	
 	private void addPlan() {
+		if(customerList.getSelectedValue() != null)
+			selectedCustomer = customerList.getSelectedValue();
+		
+		if (selectedCustomer != null) {
+			final JFrame window = new JFrame("New plan for " + selectedCustomer.getFirstName() + " " + selectedCustomer.getLastName());
+			window.setSize(new Dimension(500, 500));
+			window.setLayout(new FlowLayout(FlowLayout.CENTER));
+			window.setLocationRelativeTo(null);
+			
+			JPanel checkboxPanel = new JPanel();
+			checkboxPanel.setLayout(new FlowLayout(FlowLayout.LEFT));			
+			checkboxPanel.setPreferredSize(new Dimension(100, 300));
+			JCheckBox deliverOnMonday = new JCheckBox();
+			JCheckBox deliverOnTuesday = new JCheckBox();
+			JCheckBox deliverOnWednesday = new JCheckBox();
+			JCheckBox deliverOnThursday = new JCheckBox();
+			JCheckBox deliverOnFriday = new JCheckBox();
+			JCheckBox deliverOnSaturday = new JCheckBox();
+			JCheckBox deliverOnSunday = new JCheckBox();
+			deliverOnMonday.add(new JLabel("     Monday"));
+			deliverOnTuesday.add(new JLabel("     Tuesday"));
+			deliverOnWednesday.add(new JLabel("     Wednesday"));
+			deliverOnThursday.add(new JLabel("     Thursday"));
+			deliverOnFriday.add(new JLabel("     Friday"));
+			deliverOnSaturday.add(new JLabel("     Saturday"));
+			deliverOnSunday.add(new JLabel("     Sunday"));
+			checkboxPanel.add(new JLabel("Deliver on: "));
+			checkboxPanel.add(deliverOnMonday);
+			checkboxPanel.add(deliverOnTuesday);
+			checkboxPanel.add(deliverOnWednesday);
+			checkboxPanel.add(deliverOnThursday);
+			checkboxPanel.add(deliverOnFriday);
+			checkboxPanel.add(deliverOnSaturday);
+			checkboxPanel.add(deliverOnSunday);
+			window.add(checkboxPanel);
+			
+			JPanel datePanel = new JPanel();
+			datePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+			datePanel.setPreferredSize(new Dimension(100, 300));
+			JTextField startDate = new JTextField("2013-12-31");
+			JTextField endDate = new JTextField("2013-12-31");
+			startDate.setPreferredSize(new Dimension(90, 30));
+			endDate.setPreferredSize(new Dimension(90, 30));
+			datePanel.add(new JLabel("Start date:"));
+			datePanel.add(startDate);
+			datePanel.add(new JLabel("End date:"));
+			datePanel.add(endDate);
+			window.add(datePanel);
+			
+			window.setVisible(true);
+		}
+	}
+	
+	private void commitPlan() {
 		
 	}
 

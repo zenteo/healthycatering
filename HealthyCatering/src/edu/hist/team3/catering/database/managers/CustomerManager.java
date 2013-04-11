@@ -60,7 +60,7 @@ public class CustomerManager {
 		return manager.getCustomer(id);
 	}
 	
-	public Customer createCustomer() {
+	private Customer createCustomer() {
 		try {
 			return manager.createCustomer();			
 		}catch(SQLException e) {

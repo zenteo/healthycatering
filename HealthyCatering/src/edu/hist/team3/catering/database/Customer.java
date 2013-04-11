@@ -247,7 +247,7 @@ public class Customer extends DatabaseRow {
 
 	public String toString() {
 		super.tryFetch();
-		return "Customer: Name " + lastName + ", "+ firstName + " Address: " + address + " phonenumber: "
+		return lastName + ", "+ firstName + " Address: " + address + " phonenumber: "
 				+ phone + " Created: " + creationDate.toString();
 	}
 }

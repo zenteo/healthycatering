@@ -240,10 +240,10 @@ public class Dish extends DatabaseRow {
 
 	public String toString() {
 		super.tryFetch();
-		return "Dish[name = '" + name + "'; healthiness = " + healthiness
+		return "name = '" + name + "'; healthiness = " + healthiness
 				+ "; price = " + price + "; defaultDiscount = " + defaultDiscount
 				+ "; longtermDiscount = " + longtermDiscount + "; resources = "
-				+ resources + "]";
+				+ resources;
 	}
 
 

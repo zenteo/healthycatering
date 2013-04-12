@@ -275,8 +275,8 @@ public class Plan extends DatabaseRow {
 	@Override
 	public String toString() {
 		super.tryFetch(); // We use customerId instead of customer.toString(), otherwise would lead to a infinite loop.
-		return "Plan[id = " + id + "; customerId = " + customer.getId() + "; startDate = " + startDate.toString()
-				+ "; endDate = " + endDate.toString() + "; sumIncome = " + sumIncome + "; sumOutcome = " + sumOutcome + "; dishes = " + dishes.toString() + "]";
+		return "Planid = " + id  + " From " + startDate.toString()
+				+ " to " + endDate.toString() + "; dishes: " + dishes.toString();
 	
 	}
 }

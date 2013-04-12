@@ -69,4 +69,18 @@ public class PlanManager {
 		return false;
 	}
 	
+	public boolean editPlan(int planId, int deliverOnDays, String startDate, String endDate) {
+		try {
+			Plan plan = manager.getPlan(planId);
+			plan.setDaysOfWeek(deliverOnDays);
+			plan.setDeliveredOn(deliverOnDays);
+			plan.setStartDate(Date.valueOf(startDate));
+			plan.setEndDate(Date.valueOf(endDate));
+			plan.commit();
+			return true;
+		} catch (SQLException e) {
+			
+		}
+		return false;
+	}
 }

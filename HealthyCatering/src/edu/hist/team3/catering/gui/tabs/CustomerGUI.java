@@ -54,6 +54,19 @@ public class CustomerGUI extends JPanel {
 	private JTextField phone;
 	private JTextField address;
 	
+	// Textfields for editing a plan
+	private Plan selectedPlan;
+	private JCheckBox deliverOnMonday;
+	private JCheckBox deliverOnTuesday;
+	private JCheckBox deliverOnWednesday;
+	private JCheckBox deliverOnThursday;
+	private JCheckBox deliverOnFriday;
+	private JCheckBox deliverOnSaturday;
+	private JCheckBox deliverOnSunday;
+	private JTextField planStartDate;
+	private JTextField planEndDate;
+
+	
 	/**
 	 * GUI for editing customer information and adding orders.
 	 * Extends a JPanel to be used in a tabbed pane.
@@ -65,7 +78,6 @@ public class CustomerGUI extends JPanel {
 		pManager = PlanManager.getInstance();
 		
 		Customer[] list = cManager.getCustomers();
-		Plan[] pList = new Plan[0];
 		customerList = new JList<Customer>(list);
 		planList = new JList<Plan>();
 
@@ -91,7 +103,20 @@ public class CustomerGUI extends JPanel {
 
 			@Override
 			public void valueChanged(ListSelectionEvent arg0) {
-				planList.setListData(pManager.getPlansFor(customerList.getSelectedValue().getId()));
+				selectedCustomer = customerList.getSelectedValue();
+				if(selectedCustomer != null)
+					planList.setListData(pManager.getPlansFor(selectedCustomer.getId()));
+				else
+					planList.setListData(new Plan[0]);
+			}
+			
+		});
+		
+		planList.addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent arg0) {
+				selectedPlan = planList.getSelectedValue();
 			}
 			
 		});
@@ -149,7 +174,7 @@ public class CustomerGUI extends JPanel {
 			
 		});
 		
-		JButton addPlan = new JButton("Add order");
+		JButton addPlan = new JButton("Add plan");
 		addPlan.setPreferredSize(dim);
 		addPlan.addActionListener(new ActionListener() {
 
@@ -160,12 +185,24 @@ public class CustomerGUI extends JPanel {
 			
 		});
 		
+		JButton editPlan = new JButton("Edit plan");
+		editPlan.setPreferredSize(dim);
+		editPlan.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				editPlan();
+			}
+			
+		});
+		
 		
 		rightInnerPanel.add(refreshList);
 		rightInnerPanel.add(Box.createRigidArea(dim));
 		rightInnerPanel.add(addCustomer);
 		rightInnerPanel.add(editCustomer);
 		rightInnerPanel.add(addPlan);
+		rightInnerPanel.add(editPlan);
 		rightInnerPanel.add(Box.createRigidArea(dim));
 		rightInnerPanel.add(removeCustomer);
 
@@ -182,7 +219,6 @@ public class CustomerGUI extends JPanel {
 	private void editCustomer() {
 		
 		if (customerList.getSelectedValue() != null) {
-			selectedCustomer = customerList.getSelectedValue();
 			final JFrame editCustomerWindow = new JFrame("Edit customer");
 			editCustomerWindow.setLayout(new FlowLayout());
 			editCustomerWindow.setSize(new Dimension(500, 500));
@@ -356,8 +392,6 @@ public class CustomerGUI extends JPanel {
 	}
 	
 	private void addPlan() {
-		if(customerList.getSelectedValue() != null)
-			selectedCustomer = customerList.getSelectedValue();
 		
 		if (selectedCustomer != null) {
 			final JFrame window = new JFrame("New plan for " + selectedCustomer.getFirstName() + " " + selectedCustomer.getLastName());
@@ -368,13 +402,13 @@ public class CustomerGUI extends JPanel {
 			JPanel checkboxPanel = new JPanel();
 			checkboxPanel.setLayout(new FlowLayout(FlowLayout.LEFT));			
 			checkboxPanel.setPreferredSize(new Dimension(100, 300));
-			JCheckBox deliverOnMonday = new JCheckBox();
-			JCheckBox deliverOnTuesday = new JCheckBox();
-			JCheckBox deliverOnWednesday = new JCheckBox();
-			JCheckBox deliverOnThursday = new JCheckBox();
-			JCheckBox deliverOnFriday = new JCheckBox();
-			JCheckBox deliverOnSaturday = new JCheckBox();
-			JCheckBox deliverOnSunday = new JCheckBox();
+			deliverOnMonday = new JCheckBox();
+			deliverOnTuesday = new JCheckBox();
+			deliverOnWednesday = new JCheckBox();
+			deliverOnThursday = new JCheckBox();
+			deliverOnFriday = new JCheckBox();
+			deliverOnSaturday = new JCheckBox();
+			deliverOnSunday = new JCheckBox();
 			deliverOnMonday.add(new JLabel("     Monday"));
 			deliverOnTuesday.add(new JLabel("     Tuesday"));
 			deliverOnWednesday.add(new JLabel("     Wednesday"));
@@ -395,22 +429,142 @@ public class CustomerGUI extends JPanel {
 			JPanel datePanel = new JPanel();
 			datePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 			datePanel.setPreferredSize(new Dimension(100, 300));
-			JTextField startDate = new JTextField("2013-12-31");
-			JTextField endDate = new JTextField("2013-12-31");
-			startDate.setPreferredSize(new Dimension(90, 30));
-			endDate.setPreferredSize(new Dimension(90, 30));
+			planStartDate = new JTextField("2013-12-31");
+			planEndDate = new JTextField("2013-12-31");
+			planStartDate.setPreferredSize(new Dimension(90, 30));
+			planEndDate.setPreferredSize(new Dimension(90, 30));
 			datePanel.add(new JLabel("Start date:"));
-			datePanel.add(startDate);
+			datePanel.add(planStartDate);
 			datePanel.add(new JLabel("End date:"));
-			datePanel.add(endDate);
+			datePanel.add(planEndDate);
 			window.add(datePanel);
+			
+			JButton commit = new JButton("Commit");
+			commit.setPreferredSize(new Dimension(150, 70));
+			commit.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					commitNewPlan();
+				}
+				
+			});
+			window.add(commit);
 			
 			window.setVisible(true);
 		}
 	}
 	
-	private void commitPlan() {
+	private void editPlan() {
+		if (selectedCustomer != null) {
+			final JFrame window = new JFrame("Plan for " + selectedCustomer.getFirstName() + " " + selectedCustomer.getLastName());
+			window.setSize(new Dimension(500, 500));
+			window.setLayout(new FlowLayout(FlowLayout.CENTER));
+			window.setLocationRelativeTo(null);
+			
+			JPanel checkboxPanel = new JPanel();
+			checkboxPanel.setLayout(new FlowLayout(FlowLayout.LEFT));			
+			checkboxPanel.setPreferredSize(new Dimension(100, 300));
+			deliverOnMonday = new JCheckBox();
+			deliverOnMonday.setSelected(selectedPlan.isDeliveredOn(Plan.DAY_MONDAY));
+			deliverOnTuesday = new JCheckBox();
+			deliverOnTuesday.setSelected(selectedPlan.isDeliveredOn(Plan.DAY_TUESDAY));
+			deliverOnWednesday = new JCheckBox();
+			deliverOnWednesday.setSelected(selectedPlan.isDeliveredOn(Plan.DAY_WEDNESDAY));
+			deliverOnThursday = new JCheckBox();
+			deliverOnThursday.setSelected(selectedPlan.isDeliveredOn(Plan.DAY_THURSDAY));
+			deliverOnFriday = new JCheckBox();
+			deliverOnFriday.setSelected(selectedPlan.isDeliveredOn(Plan.DAY_FRIDAY));
+			deliverOnSaturday = new JCheckBox();
+			deliverOnSaturday.setSelected(selectedPlan.isDeliveredOn(Plan.DAY_SATURDAY));
+			deliverOnSunday = new JCheckBox();
+			deliverOnSunday.setSelected(selectedPlan.isDeliveredOn(Plan.DAY_SUNDAY));
+			
+			deliverOnMonday.add(new JLabel("     Monday"));
+			deliverOnTuesday.add(new JLabel("     Tuesday"));
+			deliverOnWednesday.add(new JLabel("     Wednesday"));
+			deliverOnThursday.add(new JLabel("     Thursday"));
+			deliverOnFriday.add(new JLabel("     Friday"));
+			deliverOnSaturday.add(new JLabel("     Saturday"));
+			deliverOnSunday.add(new JLabel("     Sunday"));
+			checkboxPanel.add(new JLabel("Deliver on: "));
+			checkboxPanel.add(deliverOnMonday);
+			checkboxPanel.add(deliverOnTuesday);
+			checkboxPanel.add(deliverOnWednesday);
+			checkboxPanel.add(deliverOnThursday);
+			checkboxPanel.add(deliverOnFriday);
+			checkboxPanel.add(deliverOnSaturday);
+			checkboxPanel.add(deliverOnSunday);
+			window.add(checkboxPanel);
+			
+			JPanel datePanel = new JPanel();
+			datePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+			datePanel.setPreferredSize(new Dimension(100, 300));
+			planStartDate = new JTextField(selectedPlan.getStartDate().toString());
+			planEndDate = new JTextField(selectedPlan.getEndDate().toString());
+			planStartDate.setPreferredSize(new Dimension(90, 30));
+			planEndDate.setPreferredSize(new Dimension(90, 30));
+			datePanel.add(new JLabel("Start date:"));
+			datePanel.add(planStartDate);
+			datePanel.add(new JLabel("End date:"));
+			datePanel.add(planEndDate);
+			window.add(datePanel);
+			
+			JButton commit = new JButton("Commit");
+			commit.setPreferredSize(new Dimension(150, 70));
+			commit.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					commitEditedPlan();
+				}
+				
+			});
+			window.add(commit);
+			
+			window.setVisible(true);
+		}
+	}
+	
+	private void commitNewPlan() {
+		int deliverOnDays = 0;
+		if(deliverOnMonday.isSelected())
+			deliverOnDays = deliverOnDays | Plan.DAY_MONDAY;
+		if(deliverOnTuesday.isSelected())
+			deliverOnDays = deliverOnDays | Plan.DAY_TUESDAY;
+		if(deliverOnWednesday.isSelected())
+			deliverOnDays = deliverOnDays | Plan.DAY_WEDNESDAY;
+		if(deliverOnThursday.isSelected())
+			deliverOnDays = deliverOnDays | Plan.DAY_THURSDAY;
+		if(deliverOnFriday.isSelected())
+			deliverOnDays = deliverOnDays | Plan.DAY_FRIDAY;
+		if(deliverOnSaturday.isSelected())
+			deliverOnDays = deliverOnDays | Plan.DAY_SATURDAY;
+		if(deliverOnSunday.isSelected())
+			deliverOnDays = deliverOnDays | Plan.DAY_SUNDAY;
 		
+		if(pManager.createPlan(selectedCustomer.getId(), deliverOnDays, planStartDate.getText(), planEndDate.getText(), 0, 0))
+			;
+	}
+	
+	private void commitEditedPlan() {
+		int deliverOnDays = 0;
+		if(deliverOnMonday.isSelected())
+			deliverOnDays = deliverOnDays | Plan.DAY_MONDAY;
+		if(deliverOnTuesday.isSelected())
+			deliverOnDays = deliverOnDays | Plan.DAY_TUESDAY;
+		if(deliverOnWednesday.isSelected())
+			deliverOnDays = deliverOnDays | Plan.DAY_WEDNESDAY;
+		if(deliverOnThursday.isSelected())
+			deliverOnDays = deliverOnDays | Plan.DAY_THURSDAY;
+		if(deliverOnFriday.isSelected())
+			deliverOnDays = deliverOnDays | Plan.DAY_FRIDAY;
+		if(deliverOnSaturday.isSelected())
+			deliverOnDays = deliverOnDays | Plan.DAY_SATURDAY;
+		if(deliverOnSunday.isSelected())
+			deliverOnDays = deliverOnDays | Plan.DAY_SUNDAY;
+		
+		if(pManager.editPlan(selectedPlan.getId(), deliverOnDays, planStartDate.getText(), planEndDate.getText()));
 	}
 
 }

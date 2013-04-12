@@ -32,8 +32,8 @@ public class JobManager {
 	 * @param id
 	 * @return
 	 */
-	public void addJob(){
-		
+	public void addJob() throws SQLException{
+		manager.createJob();
 	}
 	public Job getJob(int id) {
 		return manager.getJob(id);

@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 import edu.hist.team3.catering.database.DatabaseManager;
 import edu.hist.team3.catering.database.Plan;
 
@@ -79,7 +81,6 @@ public class PlanManager {
 			plan.commit();
 			return true;
 		} catch (SQLException e) {
-			
 		}
 		return false;
 	}

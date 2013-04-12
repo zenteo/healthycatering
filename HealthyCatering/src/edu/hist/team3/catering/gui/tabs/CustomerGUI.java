@@ -445,7 +445,7 @@ public class CustomerGUI extends JPanel {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					commitNewPlan();
+					commitNewPlan(window);
 				}
 				
 			});
@@ -456,7 +456,7 @@ public class CustomerGUI extends JPanel {
 	}
 	
 	private void editPlan() {
-		if (selectedCustomer != null) {
+		if (selectedCustomer != null && selectedPlan != null) {
 			final JFrame window = new JFrame("Plan for " + selectedCustomer.getFirstName() + " " + selectedCustomer.getLastName());
 			window.setSize(new Dimension(500, 500));
 			window.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -516,7 +516,7 @@ public class CustomerGUI extends JPanel {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					commitEditedPlan();
+					commitEditedPlan(window);
 				}
 				
 			});
@@ -526,7 +526,7 @@ public class CustomerGUI extends JPanel {
 		}
 	}
 	
-	private void commitNewPlan() {
+	private void commitNewPlan(JFrame window) {
 		int deliverOnDays = 0;
 		if(deliverOnMonday.isSelected())
 			deliverOnDays = deliverOnDays | Plan.DAY_MONDAY;
@@ -543,11 +543,11 @@ public class CustomerGUI extends JPanel {
 		if(deliverOnSunday.isSelected())
 			deliverOnDays = deliverOnDays | Plan.DAY_SUNDAY;
 		
-		if(pManager.createPlan(selectedCustomer.getId(), deliverOnDays, planStartDate.getText(), planEndDate.getText(), 0, 0))
-			;
+		if(!pManager.createPlan(selectedCustomer.getId(), deliverOnDays, planStartDate.getText(), planEndDate.getText(), 0, 0))
+			JOptionPane.showMessageDialog(window, "Unable to add new plan");
 	}
 	
-	private void commitEditedPlan() {
+	private void commitEditedPlan(JFrame window) {
 		int deliverOnDays = 0;
 		if(deliverOnMonday.isSelected())
 			deliverOnDays = deliverOnDays | Plan.DAY_MONDAY;
@@ -564,7 +564,13 @@ public class CustomerGUI extends JPanel {
 		if(deliverOnSunday.isSelected())
 			deliverOnDays = deliverOnDays | Plan.DAY_SUNDAY;
 		
-		if(pManager.editPlan(selectedPlan.getId(), deliverOnDays, planStartDate.getText(), planEndDate.getText()));
+		if(!pManager.editPlan(selectedPlan.getId(), deliverOnDays, planStartDate.getText(), planEndDate.getText()))
+			JOptionPane.showMessageDialog(window, "Unable to save changes");
+
+	}
+	
+	private void editDishes() {
+		
 	}
 
 }

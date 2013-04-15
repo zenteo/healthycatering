@@ -13,6 +13,7 @@ import edu.hist.team3.catering.database.Job;
 import edu.hist.team3.catering.database.Plan;
 import edu.hist.team3.catering.database.PlanDish;
 import edu.hist.team3.catering.database.Resource;
+import edu.hist.team3.catering.database.managers.Services;
 
 public class AddTestDataToDatabase {
 	
@@ -28,7 +29,9 @@ public class AddTestDataToDatabase {
 	 */
 	public static void main(String[] args) {
 		try {
-			DatabaseManager manager = DatabaseManager.getInstance();
+			DatabaseManager manager = null;
+			
+			manager = new DatabaseManager("jdbc:derby://db.stud.aitel.hist.no:1527/13ing1gr3", "team3", "Ikj721");
 			
 			System.out.println("Test creation of database rows:");
 			
@@ -81,6 +84,7 @@ public class AddTestDataToDatabase {
 			job.setHourlySalary(400.0); // 400 NOK / hour
 			job.setYearlySalary(660000.0); // 660 000 NOK / year
 			job.setPercentSales(1.0); // 100% of all sales
+			job.setPrivileges(Job.PRIVILEGE_ALL);
 			job.commit();
 			
 			Employee employee = manager.createEmployee(customer, job);
@@ -89,7 +93,6 @@ public class AddTestDataToDatabase {
 			employee.setEmail("horny_pussy@pimp.no");
 			employee.setEmploymentDate(Date.valueOf("1234-11-23")); // Also test-date
 			employee.setSessionHours(1.0); // Worked for 1 hour in his whole life.
-			employee.setPrivileges(Employee.PRIVILEGE_ALL);
 			employee.commit();
 			
 			Employee employee2 = manager.createEmployee(customer2, job);
@@ -98,7 +101,6 @@ public class AddTestDataToDatabase {
 			employee2.setEmail("Idunno");
 			employee2.setEmploymentDate(Date.valueOf("1234-1-1"));
 			employee2.setSessionHours(134.0);
-			employee2.grantPrivileges(Employee.PRIVILEGE_SALESMAN);
 			employee2.commit();
 			
 			Plan plan = manager.createPlan(customer);

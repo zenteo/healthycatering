@@ -3,28 +3,37 @@ package edu.hist.team3.catering.gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
-import javax.swing.JMenuBar; 
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 
 import edu.hist.team3.catering.database.Employee;
-import edu.hist.team3.catering.gui.tabs.*;
+import edu.hist.team3.catering.database.Job;
+import edu.hist.team3.catering.database.managers.Services;
+import edu.hist.team3.catering.gui.tabs.BossGUI;
+import edu.hist.team3.catering.gui.tabs.CookingGUI;
+import edu.hist.team3.catering.gui.tabs.CustomerGUI;
+import edu.hist.team3.catering.gui.tabs.DeliveryGUI;
+import edu.hist.team3.catering.gui.tabs.MenuGUI;
+import edu.hist.team3.catering.gui.tabs.ResourcesGUI;
 
 public class MainGUI {
-	JFrame frame;
-	JTabbedPane tabsPanel;
-	Toolkit toolkit;
-	Employee employee;
+	private Services services;
+	private JFrame frame;
+	private JTabbedPane tabsPanel;
+	private Toolkit toolkit;
+	private Employee employee;
 	
-	public MainGUI(Employee employee) {
+	public MainGUI(Employee employee, Services services) {
+		this.services = services;
 		this.employee = employee;
 		toolkit = Toolkit.getDefaultToolkit();
 		
@@ -100,23 +109,24 @@ public class MainGUI {
 	}
 	
 	private void addTabs() {
-		if ((employee.getPrivileges() & Employee.PRIVILEGE_ADMIN) == Employee.PRIVILEGE_ADMIN)
-			tabsPanel.addTab("Administrator", new BossGUI());
+		Job job = employee.getJob();
+		if (job.hasPrivileges(Job.PRIVILEGE_ADMIN))
+			tabsPanel.addTab("Administrator", new BossGUI(services));
 		
-		if ((employee.getPrivileges() & Employee.PRIVILEGE_COOK) == Employee.PRIVILEGE_COOK)
-			tabsPanel.addTab("Cooking", new CookingGUI());
+		if (job.hasPrivileges(Job.PRIVILEGE_COOK))
+			tabsPanel.addTab("Cooking", new CookingGUI(services));
 
-		if ((employee.getPrivileges() & Employee.PRIVILEGE_RESOURCES) == Employee.PRIVILEGE_RESOURCES)
-			tabsPanel.addTab("Resources", new ResourcesGUI());
+		if (job.hasPrivileges(Job.PRIVILEGE_RESOURCES))
+			tabsPanel.addTab("Resources", new ResourcesGUI(services));
 		
-		if ((employee.getPrivileges() & Employee.PRIVILEGE_SALESMAN) == Employee.PRIVILEGE_SALESMAN)
-			tabsPanel.addTab("Salesman", new CustomerGUI());
+		if (job.hasPrivileges(Job.PRIVILEGE_SALESMAN))
+			tabsPanel.addTab("Salesman", new CustomerGUI(services));
 
-		if ((employee.getPrivileges() & Employee.PRIVILEGE_DRIVER) == Employee.PRIVILEGE_DRIVER)
-			tabsPanel.addTab("Delivery", new DeliveryGUI());
+		if (job.hasPrivileges(Job.PRIVILEGE_DRIVER))
+			tabsPanel.addTab("Delivery", new DeliveryGUI(services));
 
-		if ((employee.getPrivileges() & Employee.PRIVILEGE_NUTRITIOUS) == Employee.PRIVILEGE_NUTRITIOUS)
-			tabsPanel.addTab("Nutritious", new MenuGUI());
+		if (job.hasPrivileges(Job.PRIVILEGE_NUTRITIOUS))
+			tabsPanel.addTab("Nutritious", new MenuGUI(services));
 	}
 	
 }

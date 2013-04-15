@@ -14,23 +14,26 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import edu.hist.team3.catering.database.managers.EmployeeManager;
+import edu.hist.team3.catering.database.managers.Services;
 
-public class LoginGUI {
-	JFrame frame;
-	Toolkit toolkit;
-	JTextField loginField;
-	JPasswordField passwordField;
+public class LoginGUI extends JFrame {
+	private Services services;
+	private Toolkit toolkit;
+	private JTextField loginField;
+	private JPasswordField passwordField;
 	
 	/**
 	 * Creates a new Login window
 	 */
-	public LoginGUI() {
-		frame = new JFrame("User Login");
-		frame.setLayout(new FlowLayout());
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(new Dimension(200, 150));
-		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
+	public LoginGUI(Services services) {
+		super("User login");
+		this.services = services;
+		
+		setLayout(new FlowLayout());
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(new Dimension(200, 150));
+		setResizable(false);
+		setLocationRelativeTo(null);
 		
 		loginField = new JTextField();
 		loginField.setAlignmentY(Component.BOTTOM_ALIGNMENT);
@@ -68,9 +71,7 @@ public class LoginGUI {
 		loginPanel.add(passwordField);
 		loginPanel.add(loginButton);
 		
-		frame.add(loginPanel);
-		
-		frame.setVisible(true);
+		add(loginPanel);
 	}
 	
 	/**
@@ -78,15 +79,15 @@ public class LoginGUI {
 	 * Then checks with the database if they are correct.
 	 */
 	private void login() {
-		EmployeeManager eManager = EmployeeManager.getInstance();
+		EmployeeManager eManager = services.getEmployeeManager();
 		if(eManager == null)
 			System.out.println("Is fucked");
 		String username = loginField.getText();
 		String password = extractPassword(passwordField.getPassword());
 		
 		if (eManager.getEmployee(username, password) != null) {
-			frame.setVisible(false);
-			new MainGUI(eManager.getEmployee(username, password));
+			setVisible(false);
+			new MainGUI(eManager.getEmployee(username, password), services);
 		}
 		
 	}

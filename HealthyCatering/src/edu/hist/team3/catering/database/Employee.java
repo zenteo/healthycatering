@@ -16,17 +16,7 @@ public class Employee extends DatabaseRow {
 	private String email;					// email				VARCHAR(256)	NOT NULL
 	private Date employmentDate;			// employment_date		DATE			NOT NULL
 	private double sessionHours;			// session_hours		DOUBLE			NOT NULL
-	private int userPrivileges;				// user_privileges		INT				NOT NULL
-	
-	public static final int PRIVILEGE_NONE = 0;			// 000000
-	public static final int PRIVILEGE_ADMIN = 1;		// 000001
-	public static final int PRIVILEGE_COOK = 2;			// 000010
-	public static final int PRIVILEGE_SALESMAN = 4;		// 000100
-	public static final int PRIVILEGE_DRIVER = 8;		// 001000
-	public static final int PRIVILEGE_NUTRITIOUS = 16;	// 010000
-	public static final int PRIVILEGE_RESOURCES = 32;	// 100000
-	public static final int PRIVILEGE_ALL = 63;			// 111111
-	
+
 	/**
 	 * This is the constructor for this class
 	 * @param id is an integer used as the primary key for employee/Customer
@@ -44,8 +34,8 @@ public class Employee extends DatabaseRow {
 	 */
 	public static Employee createDefault(DatabaseManager manager, Customer customer, Job job) throws SQLException {
 		String sql = "INSERT INTO Employee" +
-				"(customer_id, job_id, username, password, email, employment_date, session_hours, user_privileges)" +
-				"VALUES (" + customer.getId() + ", " + job.getId() + ", '', '', '', '2000-01-01', 0, 0)";
+				"(customer_id, job_id, username, password, email, employment_date, session_hours)" +
+				"VALUES (" + customer.getId() + ", " + job.getId() + ", '', '', '', '2000-01-01', 0)";
 		try (PreparedStatement ps = manager.prepareStatement(sql)) {
 			ps.executeUpdate();
 		}
@@ -56,7 +46,7 @@ public class Employee extends DatabaseRow {
 	@Override
 	public void fetch() throws SQLException {
 		super.fetch();
-		String sql = "SELECT job_id, username, password, email, employment_date, session_hours, user_privileges FROM Employee WHERE customer_id = " + customer.getId();
+		String sql = "SELECT job_id, username, password, email, employment_date, session_hours FROM Employee WHERE customer_id = " + customer.getId();
 		try (PreparedStatement ps = getManager().prepareStatement(sql)) {
 			try (ResultSet rs = ps.executeQuery()) {
 				if (rs.next()) {
@@ -66,7 +56,6 @@ public class Employee extends DatabaseRow {
 					this.email = rs.getString(4);
 					this.employmentDate = rs.getDate(5);
 					this.sessionHours = rs.getDouble(6);
-					this.userPrivileges = rs.getInt(7);
 				}
 			}
 		}
@@ -82,7 +71,6 @@ public class Employee extends DatabaseRow {
 		sql += ", email = '" + email + "'";
 		sql += ", employment_date = '" + employmentDate.toString() + "'";
 		sql += ", session_hours = " + sessionHours;
-		sql += ", user_privileges = " + userPrivileges;
 		sql += " WHERE customer_id = " + customer.getId();
 		try (PreparedStatement ps = getManager().prepareStatement(sql)) {
 			ps.executeUpdate();
@@ -222,59 +210,6 @@ public class Employee extends DatabaseRow {
 		this.sessionHours = sessionHours;
 	}
     
-    /**
-     * Give the selected employee one or more privileges from Employee.PRIVILEGE_*
-     * @param privileges
-     */
-    public void grantPrivileges(int privileges) {
-    	assert(privileges >= 0);
-    	super.tryFetch();
-    	this.userPrivileges = privileges | userPrivileges;
-    }
-    
-    /**
-     * Set the employee privileges for the software.
-     * @param privileges
-     */
-    public void setPrivileges(int privileges) {
-    	assert(privileges >= 0);
-    	this.userPrivileges = privileges;
-    }
-    
-    /**
-     * Returns the employee privileges 
-     * @return
-     */
-    public int getPrivileges() {
-    	super.tryFetch();
-    	return this.userPrivileges;
-    }
-    private String printPrivileges(){
-    	String printPriv = "";
-    	if ((userPrivileges & Employee.PRIVILEGE_ADMIN) == Employee.PRIVILEGE_ADMIN) {
-    		printPriv += " has Administrator privileges, ";
-    	}
-    	if ((userPrivileges & Employee.PRIVILEGE_COOK) == Employee.PRIVILEGE_COOK) {
-    		printPriv += " has cook privileges, ";
-    	}
-    	if ((userPrivileges & Employee.PRIVILEGE_SALESMAN) == Employee.PRIVILEGE_SALESMAN) {
-    		printPriv += " has salesman privileges, ";
-    	}
-    	if ((userPrivileges & Employee.PRIVILEGE_DRIVER) == Employee.PRIVILEGE_DRIVER) {
-    		printPriv += " has driver privileges, ";
-    	}
-    	if ((userPrivileges & Employee.PRIVILEGE_NUTRITIOUS) == Employee.PRIVILEGE_NUTRITIOUS) {
-    		printPriv += " has nutritious privileges, ";
-    	}
-    	if ((userPrivileges & Employee.PRIVILEGE_RESOURCES) == Employee.PRIVILEGE_RESOURCES) {
-    		printPriv += " has resources privileges, ";
-    	}
-    	if ((userPrivileges & Employee.PRIVILEGE_ALL) == Employee.PRIVILEGE_ALL) {
-    		printPriv += " has all privileges, ";
-    	}
-    	return printPriv;
-    }
-    
     public boolean equals(Object other){
     	if (other == null || !(other instanceof Employee))
     		return false;
@@ -285,6 +220,6 @@ public class Employee extends DatabaseRow {
 		super.tryFetch();
 		return "Employee[" + super.toString() + "; job = " + getJob().toString() + "; username = '"
 				+ username + "'; email = '" + email + "'; employmentDate = "
-				+ employmentDate.toString() + ";Has privileges: " + printPrivileges() + "; sessionHours = " + sessionHours + "]";
+				+ employmentDate.toString() + "; sessionHours = " + sessionHours + "]";
 	}
 }

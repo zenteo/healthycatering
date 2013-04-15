@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.sql.SQLException;
 
 import javax.swing.Box;
 import javax.swing.JButton;
@@ -23,6 +25,7 @@ import edu.hist.team3.catering.database.Customer;
 import edu.hist.team3.catering.database.Plan;
 import edu.hist.team3.catering.database.managers.CustomerManager;
 import edu.hist.team3.catering.database.managers.PlanManager;
+import edu.hist.team3.catering.database.managers.Services;
 
 /*
  * Customer GUI
@@ -66,16 +69,18 @@ public class CustomerGUI extends JPanel {
 	private JTextField planStartDate;
 	private JTextField planEndDate;
 
+	private Services services;
 	
 	/**
 	 * GUI for editing customer information and adding orders.
 	 * Extends a JPanel to be used in a tabbed pane.
 	 */
-	public CustomerGUI() {
+	public CustomerGUI(Services services) {
+		this.services = services;
 		setLayout(new BorderLayout());
 	
-		cManager = CustomerManager.getInstance();
-		pManager = PlanManager.getInstance();
+		cManager = services.getCustomerManager();
+		pManager = services.getPlanManager();
 		
 		Customer[] list = cManager.getCustomers();
 		customerList = new JList<Customer>(list);
@@ -564,9 +569,15 @@ public class CustomerGUI extends JPanel {
 		if(deliverOnSunday.isSelected())
 			deliverOnDays = deliverOnDays | Plan.DAY_SUNDAY;
 		
-		if(!pManager.editPlan(selectedPlan.getId(), deliverOnDays, planStartDate.getText(), planEndDate.getText()))
+		selectedPlan.setDeliveredOn(deliverOnDays);
+		selectedPlan.setStartDate(Date.valueOf(planStartDate.getText()));
+		selectedPlan.setEndDate(Date.valueOf(planEndDate.getText()));
+		try {
+			selectedPlan.commit();
+		}
+		catch (SQLException e) {
 			JOptionPane.showMessageDialog(window, "Unable to save changes");
-
+		}
 	}
 	
 	private void editDishes() {

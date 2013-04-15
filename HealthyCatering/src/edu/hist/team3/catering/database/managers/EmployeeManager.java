@@ -10,21 +10,10 @@ import edu.hist.team3.catering.database.Employee;
 import edu.hist.team3.catering.database.Job;
 
 public class EmployeeManager {
-	DatabaseManager manager;
-	private static EmployeeManager eManager;
+	private DatabaseManager manager;
 	
-	/**
-	 * Returns the instance of the employee manager
-	 * @return
-	 */
-	public static EmployeeManager getInstance() {
-		if(eManager == null)
-			eManager = new EmployeeManager();
-		return eManager;
-	}
-	
-	private EmployeeManager() {
-		manager = DatabaseManager.getInstance();
+	public EmployeeManager(DatabaseManager manager) {
+		this.manager = manager;
 	}
 	
 	/**
@@ -55,20 +44,16 @@ public class EmployeeManager {
 	public Employee getEmployee(int id) {
 		return manager.getEmployee(id);
 	}
-	public void addEmployee(Job job)throws SQLException{
-		manager.createEmployee(job);
+	
+	public Employee addEmployee(Job job)throws SQLException{
+		return manager.createEmployee(job);
 	}
-	public void editEmployee(int id, Job job, String username, String password, String email, Date employmentdate, Double sessionhours, int userprivileges){
-		manager.getEmployee(id).setJob(job);
-		manager.getEmployee(id).setUsername(username);
-		manager.getEmployee(id).setPassword(password);
-		manager.getEmployee(id).setEmail(email);
-		manager.getEmployee(id).setEmploymentDate(employmentdate);
-		manager.getEmployee(id).setSessionHours(sessionhours);
-		manager.getEmployee(id).setPrivileges(userprivileges);
+	
+	public Employee addEmployee(Customer base, Job job)throws SQLException{
+		return manager.createEmployee(base, job);
 	}
+	
 	public void removeEmployee(int id)throws SQLException{
-		manager.getEmployee(id).remove();
-		
+		getEmployee(id).remove();
 	}
 }

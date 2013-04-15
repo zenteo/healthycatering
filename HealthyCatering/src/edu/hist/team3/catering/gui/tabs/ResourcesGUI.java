@@ -9,6 +9,8 @@ import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import edu.hist.team3.catering.database.managers.Services;
+
 /*
  * Stocks GUI
  --
@@ -21,8 +23,11 @@ import javax.swing.JPanel;
  */
 @SuppressWarnings("serial")
 public class ResourcesGUI extends JPanel {
+	private Services services;
 	
-	public ResourcesGUI() {
+	public ResourcesGUI(Services services) {
+		this.services = services;
+		
 		Dimension buttonDimension = new Dimension(190, 70);
 		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new FlowLayout());

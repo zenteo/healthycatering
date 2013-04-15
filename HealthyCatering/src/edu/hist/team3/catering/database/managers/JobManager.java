@@ -7,23 +7,10 @@ import edu.hist.team3.catering.database.DatabaseManager;
 import edu.hist.team3.catering.database.Job;
 
 public class JobManager {
+	private DatabaseManager manager;
 
-	DatabaseManager manager;
-	private static JobManager jManager;
-
-	/**
-	 * Returns the instance of the job manager
-	 * 
-	 * @return
-	 */
-	public static JobManager getInstance() {
-		if (jManager == null)
-			jManager = new JobManager();
-		return jManager;
-	}
-
-	private JobManager() {
-		manager = DatabaseManager.getInstance();
+	public JobManager(DatabaseManager manager) {
+		this.manager = manager;
 	}
 
 	/**
@@ -32,17 +19,14 @@ public class JobManager {
 	 * @param id
 	 * @return
 	 */
-	public void addJob() throws SQLException{
-		manager.createJob();
+	public Job addJob() throws SQLException{
+		return manager.createJob();
 	}
+	
 	public Job getJob(int id) {
 		return manager.getJob(id);
 	}
-	public void editJob(int id, String name, double hourlySalary){
-		manager.getJob(id).setName(name);
-		manager.getJob(id).setHourlySalary(hourlySalary);
-		
-	}
+
 	public void removeJob(int id)throws SQLException{
 		manager.getJob(id).remove();
 	}

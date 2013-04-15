@@ -14,6 +14,7 @@ public class Customer extends DatabaseRow {
 	private String phone; // phone VARCHAR(64) NOT NULL
 	private Date creationDate; // creation_date DATE NOT NULL
 	private short type; // type SMALLINT NOT NULL
+	private CustomerPlanList plans;
 
 	/**
 	 * Creates a new instance of Customer
@@ -26,6 +27,7 @@ public class Customer extends DatabaseRow {
 	public Customer(DatabaseManager manager, int id) {
 		super(manager);
 		this.id = id;
+		this.plans = new CustomerPlanList(this);
 	}
 
 	/**
@@ -238,6 +240,10 @@ public class Customer extends DatabaseRow {
 		this.type = type;
 	}
 
+	public CustomerPlanList getPlans() {
+		return plans;
+	}
+	
 	public boolean equals(Object other) {
 		if (other == null || !(other instanceof Customer)) {
 			return false;

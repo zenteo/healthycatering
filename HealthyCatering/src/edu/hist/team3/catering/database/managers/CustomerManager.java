@@ -12,16 +12,9 @@ import edu.hist.team3.catering.database.DatabaseManager;
 
 public class CustomerManager {
 	private DatabaseManager manager;
-	private static CustomerManager cManager;
 	
-	private CustomerManager() {
-		manager = DatabaseManager.getInstance();
-	}
-	
-	public static CustomerManager getInstance() {
-		if (cManager == null)
-			cManager = new CustomerManager();
-		return cManager;
+	public CustomerManager(DatabaseManager manager) {
+		this.manager = manager;
 	}
 	
 	/**
@@ -86,7 +79,7 @@ public class CustomerManager {
 	}
 	
 	public boolean addCustomer(String firstName, String lastName, String phone, String address) {
-		Customer customer = cManager.createCustomer();
+		Customer customer = createCustomer();
 		customer.setFirstName(firstName);
 		customer.setLastName(lastName);
 		customer.setPhone(phone);

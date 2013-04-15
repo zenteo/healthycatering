@@ -39,34 +39,6 @@ public class DatabaseManager {
 	private final HashMap<Integer, WeakReference<Dish>> dishes;
 	private final HashMap<Integer, WeakReference<Job>> jobs;
 	
-	private static DatabaseManager manager;
-	
-	/**
-	 * Returns the instance of the database manager
-	 * @return
-	 */
-	public static DatabaseManager getInstance() {
-		if (manager==null) {
-			try {
-				manager = new DatabaseManager("jdbc:derby://db.stud.aitel.hist.no:1527/13ing1gr3", "team3", "Ikj721");
-			}
-			catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-		return manager;
-	}
-	
-	public ResultSet performSQL(String sql) {
-		try {
-			PreparedStatement statement = manager.prepareStatement(sql);
-			return statement.executeQuery();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
 	// Our connection to the database.
 	private final Connection connection;
 	
@@ -76,8 +48,18 @@ public class DatabaseManager {
 	 * @param password			The password required for the connection
 	 * @throws SQLException		If it failed to connect to the database
 	 */
-	private DatabaseManager(String url, String username, String password) throws SQLException {
+	public DatabaseManager(String url, String username, String password) throws SQLException {
 		this(DriverManager.getConnection(url, username, password));
+	}
+	
+	public ResultSet performSQL(String sql) {
+		try {
+			PreparedStatement statement = prepareStatement(sql);
+			return statement.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	/**

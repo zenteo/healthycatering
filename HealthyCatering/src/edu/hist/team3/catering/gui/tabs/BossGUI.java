@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import edu.hist.team3.catering.database.managers.EmployeeManager;
 import edu.hist.team3.catering.database.managers.JobManager;
+import edu.hist.team3.catering.database.managers.Services;
 
 
 /*
@@ -25,10 +26,12 @@ import edu.hist.team3.catering.database.managers.JobManager;
  */
 @SuppressWarnings("serial")
 public class BossGUI extends JPanel {
-	EmployeeManager eManager;
-	JobManager jManager;
+	private Services services;
+	private EmployeeManager eManager;
+	private JobManager jManager;
 	
-	public BossGUI() {
+	public BossGUI(Services services) {
+		this.services = services;
 		Dimension buttonDimension = new Dimension(150, 70);
 		
 		JButton addEmployeeButton = new JButton("Add Employee");

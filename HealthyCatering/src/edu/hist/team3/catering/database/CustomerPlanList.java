@@ -69,6 +69,9 @@ public class CustomerPlanList {
 	
 	public void fetch() throws SQLException {
 		String sql = "SELECT id FROM Plan WHERE customer_id = " + customer.getId();
+		if (plans == null) {
+			plans = new HashSet<Plan>();
+		}
 		plans.clear();
 		try (PreparedStatement ps = customer.getManager().prepareStatement(sql, "id")) {
 			ps.executeUpdate();

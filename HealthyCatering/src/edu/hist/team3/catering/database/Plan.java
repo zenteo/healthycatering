@@ -49,7 +49,7 @@ public class Plan extends DatabaseRow {
 	 */
 	public static Plan createDefault(DatabaseManager manager, Customer customer) throws SQLException {
 		String sql = "INSERT INTO Plan (customer_id, start_date, end_date, days_of_week, sum_income, sum_outcome) " +
-						"VALUES (" + customer.getId() + ", '2000-01-01', NULL, 0, 0, 0)";
+						"VALUES (" + customer.getId() + ", CURRENT_DATE, NULL, 0, 0, 0)";
 		Plan ret = null;
 		try (PreparedStatement ps = manager.prepareStatement(sql, "id")) {
 			ps.executeUpdate();

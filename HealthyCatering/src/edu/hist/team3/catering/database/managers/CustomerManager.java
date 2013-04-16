@@ -40,6 +40,7 @@ public class CustomerManager {
 	}
 	
 	public ArrayList<Customer> findCustomer(String searchText) {
+		searchText = searchText.toLowerCase();
 		ArrayList<Customer> customers = new ArrayList<Customer>();
 		try (ResultSet result = manager.performSQL("SELECT id FROM Customer WHERE LOWER(first_name) LIKE '%" + searchText + "%' OR  LOWER(last_name) LIKE '%" + searchText + "%'")) {
 			while (result.next()) {

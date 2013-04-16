@@ -26,6 +26,12 @@ public class CustomerPlanList {
 		plans.add(plan);
 	}
 	
+	public Plan add() throws SQLException {
+		Plan ret = getCustomer().getManager().createPlan(getCustomer());
+		plans.add(ret);
+		return ret;
+	}
+	
 	public void remove(Plan plan) throws SQLException {
 		assert(plan != null);
 		plan.remove();

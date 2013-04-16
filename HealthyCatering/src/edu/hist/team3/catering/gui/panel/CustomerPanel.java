@@ -17,14 +17,14 @@ public class CustomerPanel extends JPanel {
 	
 	public CustomerPanel() {
 		setLayout(new GridLayout(4, 1));
-		firstName = new JTextField();
-		lastName = new JTextField();
-		phoneNumber = new JTextField();
-		address = new JTextField();
-		add(new PropertyPanel<JTextField>("First name:", 50, firstName));
-		add(new PropertyPanel<JTextField>("Last name:", 50, lastName));
-		add(new PropertyPanel<JTextField>("Phone number:", 50, phoneNumber));
-		add(new PropertyPanel<JTextField>("Address:", 50, address));
+		this.firstName = new JTextField();
+		this.lastName = new JTextField();
+		this.phoneNumber = new JTextField();
+		this.address = new JTextField();
+		add(new PropertyPanel<JTextField>("First name:", firstName));
+		add(new PropertyPanel<JTextField>("Last name:", lastName));
+		add(new PropertyPanel<JTextField>("Phone number:", phoneNumber));
+		add(new PropertyPanel<JTextField>("Address:", address));
 	}
 	
 	public void fillInfo(Customer customer) {

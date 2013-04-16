@@ -2,11 +2,13 @@ package edu.hist.team3.catering.database.managers;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Iterator;
 
 import edu.hist.team3.catering.database.Customer;
 import edu.hist.team3.catering.database.DatabaseManager;
 import edu.hist.team3.catering.database.Plan;
+import edu.hist.team3.catering.database.PlanDish;
 
 public class PlanManager {
 	private DatabaseManager manager;
@@ -19,33 +21,54 @@ public class PlanManager {
 		return manager.getPlan(planId);
 	}
 	
-	public Plan[] getPlansFor(int customerId) {
-		return getPlansFor(manager.getCustomer(customerId));
-	}
-	
-	public Plan[] getPlansFor(Customer customer) {
-		Plan[] planList = new Plan[customer.getPlans().size()];
-		Iterator<Plan> it = customer.getPlans().iterator();
-		int i = 0;
-		while (it.hasNext()) {
-			planList[i++] = it.next();
+	public Plan editPlan(Plan plan) {
+		Plan ret = createPlan(plan.getCustomer());
+		if (ret != null) {
+			ret.setDaysOfWeek(plan.getDaysOfWeek());
+			Iterator<PlanDish> it = plan.getDishes().iterator();
+			try {
+				while (it.hasNext()) {
+					PlanDish pd = it.next();
+					PlanDish npd;
+					npd = ret.getDishes().add(pd.getDish());
+					npd.setCount(pd.getCount());
+					npd.setDiscount(pd.getDiscount());
+					npd.commit();
+				}
+			}
+			catch (SQLException e) {
+				try {
+					ret.remove();
+					ret = null;
+				}
+				catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
 		}
-		return planList;
+		removePlan(plan);
+		return ret;
 	}
 	
-	public boolean createPlan(int customerId, int deliverOnDays, String startDate, String endDate, double sumIncome, double sumOutcome) {
+	public void removePlan(Plan plan) {
+		Calendar calendar = Calendar.getInstance();
+		plan.setEndDate(Date.valueOf(calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DAY_OF_MONTH)));
 		try {
-			Plan plan = manager.createPlan(manager.getCustomer(customerId));
-			plan.setDaysOfWeek(deliverOnDays);
-			plan.setDeliveredOn(deliverOnDays);
-			plan.setStartDate(Date.valueOf(startDate));
-			plan.setEndDate(Date.valueOf(endDate));
-			plan.setSumIncome(sumIncome);
-			plan.setSumOutcome(sumOutcome);
 			plan.commit();
-			return true;
-		} catch (SQLException e) {
+			plan.getCustomer().getPlans().fetch();
 		}
-		return false;
+		catch (SQLException e) {
+			//TODO: SHOW ERROR MESSAGE?
+			e.printStackTrace();
+		}
+	}
+	
+	public Plan createPlan(Customer customer) {
+		try {
+			return customer.getPlans().add();
+		}
+		catch (SQLException e) {
+		}
+		return null;
 	}
 }

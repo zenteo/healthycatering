@@ -7,14 +7,14 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public abstract class SearchPanel extends JPanel implements SearchListener {
+public abstract class SearchPanel<T> extends JPanel implements SearchListener {
 	protected SearchBar searchBar;
-	protected JList<LabeledObject> searchResult;
+	protected JList<LabeledObject<T>> searchResult;
 	
 	public SearchPanel() {
 		setLayout(new BorderLayout());
-		searchResult = new JList<LabeledObject>();
-		searchResult.setModel(new DefaultListModel<LabeledObject>());
+		searchResult = new JList<LabeledObject<T>>();
+		searchResult.setModel(new DefaultListModel<LabeledObject<T>>());
 		searchBar = new SearchBar();
 		searchBar.setSearchListener(this);
 		add(searchBar, BorderLayout.NORTH);
@@ -29,7 +29,7 @@ public abstract class SearchPanel extends JPanel implements SearchListener {
 		return searchBar;
 	}
 	
-	public JList<LabeledObject> getResultList() {
+	public JList<LabeledObject<T>> getResultList() {
 		return searchResult;
 	}
 }

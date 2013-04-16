@@ -2,9 +2,12 @@ package edu.hist.team3.catering;
 
 import java.sql.SQLException;
 
+import javax.swing.JFrame;
+
 import edu.hist.team3.catering.database.DatabaseManager;
 import edu.hist.team3.catering.database.managers.Services;
 import edu.hist.team3.catering.gui.LoginGUI;
+import edu.hist.team3.catering.gui.panel.CustomerSearch;
 
 public class ClientStart {
 

@@ -39,11 +39,24 @@ public class CustomerManager {
 		return ret;
 	}
 	
+	public ArrayList<Customer> findCustomer(String searchText) {
+		ArrayList<Customer> customers = new ArrayList<Customer>();
+		try (ResultSet result = manager.performSQL("SELECT id FROM Customer WHERE LOWER(first_name) LIKE '%" + searchText + "%' OR  LOWER(last_name) LIKE '%" + searchText + "%'")) {
+			while (result.next()) {
+				customers.add(manager.getCustomer(result.getInt(1)));
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return customers;
+	}
+	
 	public Customer getCustomer(int id) {
 		return manager.getCustomer(id);
 	}
 	
-	private Customer createCustomer() {
+	public Customer createCustomer() {
 		try {
 			return manager.createCustomer();			
 		}catch(SQLException e) {

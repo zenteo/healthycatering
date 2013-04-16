@@ -68,7 +68,7 @@ public class CustomerPlanList {
 	}
 	
 	public void fetch() throws SQLException {
-		String sql = "SELECT id FROM Plan WHERE customer_id = " + customer.getId();
+		String sql = "SELECT id FROM Plan WHERE customer_id = " + customer.getId() + " AND (end_date IS NULL OR end_date > CURRENT_DATE)";
 		if (plans == null) {
 			plans = new HashSet<Plan>();
 		}

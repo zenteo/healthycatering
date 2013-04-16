@@ -96,12 +96,24 @@ public class CustomerGUI extends JPanel {
 		customerScrollPane.setPreferredSize(new Dimension(600, 600));
 		planScrollPane = new JScrollPane(planList);
 		planScrollPane.setPreferredSize(new Dimension(400, 600));
+		
 		searchBar = new JTextField("Search");
 		searchBar.setToolTipText("Search through customers");
 		searchBar.setPreferredSize(new Dimension(300, 30));
+		JButton search = new JButton("Search");
+		search.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				search();
+			}
+			
+		});
+
 		leftInnerPanel.add(customerScrollPane);
 		leftInnerPanel.add(planScrollPane);
 		leftPanel.add(searchBar);
+		leftPanel.add(search);
 		leftPanel.add(leftInnerPanel);
 		
 		customerList.addListSelectionListener(new ListSelectionListener() {
@@ -200,6 +212,7 @@ public class CustomerGUI extends JPanel {
 			}
 			
 		});
+		
 		
 		
 		rightInnerPanel.add(refreshList);
@@ -582,6 +595,10 @@ public class CustomerGUI extends JPanel {
 	
 	private void editDishes() {
 		
+	}
+	
+	private void search() {
+		System.err.println("Not working yet");
 	}
 
 }

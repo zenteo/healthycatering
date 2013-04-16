@@ -1,12 +1,17 @@
 package edu.hist.team3.catering.gui.tabs;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
+import edu.hist.team3.catering.database.Employee;
+import edu.hist.team3.catering.database.Job;
 import edu.hist.team3.catering.database.managers.EmployeeManager;
 import edu.hist.team3.catering.database.managers.JobManager;
 import edu.hist.team3.catering.database.managers.Services;
@@ -29,8 +34,11 @@ public class BossGUI extends JPanel {
 	private Services services;
 	private EmployeeManager eManager;
 	private JobManager jManager;
+	private JList<Employee> employeeList;
+	private JList<Job> jobList;
 	
 	public BossGUI(Services services) {
+		setLayout(new BorderLayout());
 		this.services = services;
 		Dimension buttonDimension = new Dimension(150, 70);
 		
@@ -103,14 +111,28 @@ public class BossGUI extends JPanel {
 			}
 			
 		});
+
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setPreferredSize(new Dimension(200, 600));
+		buttonPanel.add(addEmployeeButton);
+		buttonPanel.add(editEmployeeButton);
+		buttonPanel.add(getEmployeeButton);
+		buttonPanel.add(removeEmployeeButton);
+		buttonPanel.add(addJobButton);
+		buttonPanel.add(editJobButton);
+		buttonPanel.add(removeJobButton);
 		
-		add(addEmployeeButton);
-		add(editEmployeeButton);
-		add(getEmployeeButton);
-		add(removeEmployeeButton);
-		add(addJobButton);
-		add(editJobButton);
-		add(removeJobButton);
+		add(buttonPanel, BorderLayout.EAST);
+		
+		JPanel leftPanel = new JPanel();
+		employeeList = new JList<Employee>();
+		JScrollPane eScrollList = new JScrollPane(employeeList);
+		leftPanel.add(eScrollList, BorderLayout.WEST);
+		
+		jobList = new JList<Job>();
+		JScrollPane jScrollList = new JScrollPane(jobList);
+		leftPanel.add(jScrollList, BorderLayout.EAST);
+		add(leftPanel, BorderLayout.WEST);
 	}
 
 

@@ -3,6 +3,7 @@ package edu.hist.team3.catering.database.managers;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.swing.JOptionPane;
@@ -22,31 +23,20 @@ public class CustomerManager {
 	 * @return
 	 */
 	public Customer[] getCustomers() {
-		int numOfRows = -1;
-		ResultSet result = manager.performSQL("SELECT count(*) FROM Customer");
-		
-		try {
-			if(result.next())	
-				numOfRows = result.getInt(1);
-		} catch (SQLException e) {
+		ArrayList<Customer> customers = new ArrayList<Customer>();
+		try (ResultSet result = manager.performSQL("SELECT id FROM Customer")) {
+			while (result.next()) {
+				customers.add(manager.getCustomer(result.getInt(1)));
+			}
+		}
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		Customer[] customerList = new Customer[numOfRows];
-		result = manager.performSQL("SELECT id FROM Customer");
-		
-		for (int i=0; i<numOfRows; i++) {
-			try {
-				result.next();
-				manager.getCustomer(result.getInt(1)).fetch();
-				customerList[i] = manager.getCustomer(result.getInt(1));
-			}
-			catch (SQLException e) {
-				e.printStackTrace();
-			}
+		Customer[] ret = new Customer[customers.size()];
+		for (int i = 0; i < ret.length; i++) {
+			ret[i] = customers.get(i);
 		}
-		
-		return customerList;
+		return ret;
 	}
 	
 	public Customer getCustomer(int id) {

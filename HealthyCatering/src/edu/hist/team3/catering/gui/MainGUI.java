@@ -39,7 +39,6 @@ public class MainGUI {
 		
 		frame = new JFrame("Healthy Catering");
 		frame.setPreferredSize(toolkit.getScreenSize());
-		frame.setUndecorated(true);
 		
 		frame.setLayout(new BorderLayout());
 

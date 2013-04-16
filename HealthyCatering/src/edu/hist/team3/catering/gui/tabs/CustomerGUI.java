@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.JButton;
@@ -82,8 +83,7 @@ public class CustomerGUI extends JPanel {
 		cManager = services.getCustomerManager();
 		pManager = services.getPlanManager();
 		
-		Customer[] list = cManager.getCustomers();
-		customerList = new JList<Customer>(list);
+		customerList = new JList<Customer>(cManager.getCustomers());
 		planList = new JList<Plan>();
 
 		

@@ -74,8 +74,7 @@ public class CustomerPlanList {
 		}
 		plans.clear();
 		try (PreparedStatement ps = customer.getManager().prepareStatement(sql, "id")) {
-			ps.executeUpdate();
-			try (ResultSet rs = ps.getGeneratedKeys()) {
+			try (ResultSet rs = ps.executeQuery()) {
 				while (rs.next()) {
 					plans.add(customer.getManager().getPlan(rs.getInt(1)));
 				}

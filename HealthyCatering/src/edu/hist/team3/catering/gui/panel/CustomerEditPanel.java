@@ -9,13 +9,13 @@ import javax.swing.JTextField;
 
 import edu.hist.team3.catering.database.Customer;
 
-public class CustomerPanel extends JPanel {
+public class CustomerEditPanel extends JPanel {
 	private JTextField firstName;
 	private JTextField lastName;
 	private JTextField phoneNumber;
 	private JTextField address;
 	
-	public CustomerPanel() {
+	public CustomerEditPanel() {
 		setLayout(new GridLayout(4, 1));
 		this.firstName = new JTextField();
 		this.lastName = new JTextField();

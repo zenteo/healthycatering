@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import edu.hist.team3.catering.database.Plan;
 import edu.hist.team3.catering.database.manager.Services;
 
-public class PlanPanel extends JPanel {
+public class PlanEditPanel extends JPanel {
 	private Plan plan;
 	private JCheckBox mondays;
 	private JCheckBox tuesdays;
@@ -20,7 +20,7 @@ public class PlanPanel extends JPanel {
 	private JCheckBox saturdays;
 	private JCheckBox sundays;
 	
-	public PlanPanel(Plan plan) {
+	public PlanEditPanel(Plan plan) {
 		this.plan = plan;
 		mondays = new JCheckBox("Mondays");
 		tuesdays = new JCheckBox("Tuesdays");

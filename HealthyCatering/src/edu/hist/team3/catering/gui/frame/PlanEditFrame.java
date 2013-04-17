@@ -24,11 +24,11 @@ import edu.hist.team3.catering.database.Plan;
 import edu.hist.team3.catering.database.PlanDish;
 import edu.hist.team3.catering.database.manager.Services;
 import edu.hist.team3.catering.gui.panel.PlanDishSearch;
-import edu.hist.team3.catering.gui.panel.PlanPanel;
+import edu.hist.team3.catering.gui.panel.PlanEditPanel;
 import edu.hist.team3.catering.gui.panel.PropertyPanel;
 
 public class PlanEditFrame extends JFrame {
-	private PlanPanel planPanel;
+	private PlanEditPanel planPanel;
 	private PlanDishSearch dishSearch;
 	private JTextField count;
 	private JTextField discount;
@@ -54,7 +54,7 @@ public class PlanEditFrame extends JFrame {
 			}
 		});
 		
-		planPanel = new PlanPanel(plan);
+		planPanel = new PlanEditPanel(plan);
 		dishSearch = new PlanDishSearch(plan);
 		
 		dishSearch.getResultList().addListSelectionListener(new ListSelectionListener(){

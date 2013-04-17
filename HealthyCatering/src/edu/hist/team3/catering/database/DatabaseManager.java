@@ -29,8 +29,6 @@ public class DatabaseManager {
 	 * 		// Since the collector ran, the instance of a Dish we got from getDish(1) would be deleted.
 	 * 		// It would not be deleted if we didn't use WeakReference in our HashMap.
 	 * 
-	 * Maybe TODO: Add this solution for links too?
-	 * Fuck you!
 	 */
 	private final HashMap<Integer, WeakReference<Customer>> customers;
 	private final HashMap<Integer, WeakReference<Employee>> employees;

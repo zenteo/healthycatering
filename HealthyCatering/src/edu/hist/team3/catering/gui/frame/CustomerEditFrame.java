@@ -11,11 +11,11 @@ import javax.swing.JOptionPane;
 
 import edu.hist.team3.catering.database.Customer;
 import edu.hist.team3.catering.database.manager.Services;
-import edu.hist.team3.catering.gui.panel.CustomerPanel;
+import edu.hist.team3.catering.gui.panel.CustomerEditPanel;
 
 public class CustomerEditFrame extends JFrame implements ActionListener {
 	private Services services;
-	private CustomerPanel customerPanel;
+	private CustomerEditPanel customerPanel;
 	private JButton button;
 	private Customer customer = null;
 
@@ -34,7 +34,7 @@ public class CustomerEditFrame extends JFrame implements ActionListener {
 
 	private void init(String buttonText) {
 		this.setLayout(new BorderLayout());
-		customerPanel = new CustomerPanel();
+		customerPanel = new CustomerEditPanel();
 		button = new JButton(buttonText);
 		button.addActionListener(this);
 		add(customerPanel, BorderLayout.CENTER);

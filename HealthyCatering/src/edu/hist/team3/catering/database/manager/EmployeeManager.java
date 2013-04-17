@@ -3,6 +3,7 @@ package edu.hist.team3.catering.database.manager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
+import java.util.ArrayList;
 
 import edu.hist.team3.catering.database.Customer;
 import edu.hist.team3.catering.database.DatabaseManager;
@@ -55,5 +56,19 @@ public class EmployeeManager {
 	
 	public void removeEmployee(int id)throws SQLException{
 		getEmployee(id).remove();
+	}
+	
+	public ArrayList<Employee> findEmployee(String searchText) {
+		searchText = searchText.toLowerCase();
+		ArrayList<Employee> employees = new ArrayList<Employee>();
+		try (ResultSet result = manager.performSQL("SELECT id FROM Employee, Customer WHERE Employee.customer_id = Customer.id AND LOWER(first_name || ' ' || last_name) LIKE '%" + searchText + "%'")) {
+			while (result.next()) {
+				employees.add(manager.getEmployee(result.getInt(1)));
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return employees;
 	}
 }

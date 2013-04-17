@@ -2,19 +2,21 @@ package edu.hist.team3.catering.gui.tab;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
-import edu.hist.team3.catering.database.Employee;
 import edu.hist.team3.catering.database.Job;
-import edu.hist.team3.catering.database.manager.EmployeeManager;
-import edu.hist.team3.catering.database.manager.JobManager;
 import edu.hist.team3.catering.database.manager.Services;
+import edu.hist.team3.catering.gui.panel.EmployeeSearch;
+import edu.hist.team3.catering.gui.panel.JobSearch;
 
 
 /*
@@ -32,15 +34,43 @@ import edu.hist.team3.catering.database.manager.Services;
 @SuppressWarnings("serial")
 public class BossTab extends JPanel {
 	private Services services;
-	private EmployeeManager eManager;
-	private JobManager jManager;
-	private JList<Employee> employeeList;
+	private EmployeeSearch employeeSearch;
+	private JobSearch jobSearch;
 	private JList<Job> jobList;
 	
 	public BossTab(Services services) {
 		setLayout(new BorderLayout());
 		this.services = services;
 		Dimension buttonDimension = new Dimension(150, 70);
+		
+		
+		JPanel centerPanel = new JPanel();
+		centerPanel.setLayout(new GridLayout(1,2));
+		employeeSearch = new EmployeeSearch(services);
+		employeeSearch.getResultList().addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent arg0) {
+				
+			}
+			
+		});
+		
+		
+		jobSearch = new JobSearch(services);
+		jobSearch.getResultList().addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent arg0) {
+				
+			}
+			
+		});
+
+		centerPanel.add(employeeSearch);
+		centerPanel.add(jobSearch);
+		add(centerPanel, BorderLayout.CENTER);
+		
 		
 		JButton addEmployeeButton = new JButton("Add Employee");
 		addEmployeeButton.setPreferredSize(buttonDimension);
@@ -112,28 +142,20 @@ public class BossTab extends JPanel {
 			
 		});
 
-		JPanel buttonPanel = new JPanel();
-		buttonPanel.setPreferredSize(new Dimension(200, 600));
-		buttonPanel.add(addEmployeeButton);
-		buttonPanel.add(editEmployeeButton);
-		buttonPanel.add(getEmployeeButton);
-		buttonPanel.add(removeEmployeeButton);
-		buttonPanel.add(addJobButton);
-		buttonPanel.add(editJobButton);
-		buttonPanel.add(removeJobButton);
+		JPanel rightButtonPanel = new JPanel();
+		rightButtonPanel.setLayout(new BoxLayout(rightButtonPanel, BoxLayout.PAGE_AXIS));
+		rightButtonPanel.add(addJobButton);
+		rightButtonPanel.add(editJobButton);
+		rightButtonPanel.add(removeJobButton);
 		
-		add(buttonPanel, BorderLayout.EAST);
+		JPanel leftButtonPanel = new JPanel();
+		leftButtonPanel.setLayout(new BoxLayout(leftButtonPanel, BoxLayout.PAGE_AXIS));
+		leftButtonPanel.add(addEmployeeButton);
+		leftButtonPanel.add(editEmployeeButton);
+		leftButtonPanel.add(getEmployeeButton);
+		leftButtonPanel.add(removeEmployeeButton);
 		
-		JPanel leftPanel = new JPanel();
-		employeeList = new JList<Employee>();
-		JScrollPane eScrollList = new JScrollPane(employeeList);
-		leftPanel.add(eScrollList, BorderLayout.WEST);
-		
-		jobList = new JList<Job>();
-		JScrollPane jScrollList = new JScrollPane(jobList);
-		leftPanel.add(jScrollList, BorderLayout.EAST);
-		add(leftPanel, BorderLayout.WEST);
+		add(rightButtonPanel, BorderLayout.EAST);
+		add(leftButtonPanel, BorderLayout.WEST);
 	}
-
-
 }

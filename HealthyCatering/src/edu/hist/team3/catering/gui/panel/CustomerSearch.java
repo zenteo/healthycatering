@@ -20,6 +20,7 @@ public class CustomerSearch extends SearchPanel<Customer> {
 		ArrayList<Customer> ret = services.getCustomerManager().findCustomer(text);
 		DefaultListModel<LabeledObject<Customer>> model = (DefaultListModel<LabeledObject<Customer>>)this.searchResult.getModel();
 		model.clear();
+		
 		for (Customer c : ret) {
 			model.addElement(new LabeledObject<Customer>(c.getFirstName() + " " + c.getLastName(), c));
 		}

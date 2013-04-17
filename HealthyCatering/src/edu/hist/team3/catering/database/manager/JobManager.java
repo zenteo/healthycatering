@@ -1,9 +1,12 @@
 package edu.hist.team3.catering.database.manager;
 
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import edu.hist.team3.catering.database.DatabaseManager;
+import edu.hist.team3.catering.database.Employee;
 import edu.hist.team3.catering.database.Job;
 
 public class JobManager {
@@ -29,5 +32,19 @@ public class JobManager {
 
 	public void removeJob(int id)throws SQLException{
 		manager.getJob(id).remove();
+	}
+	
+	public ArrayList<Job> findJob(String searchText) {
+		searchText = searchText.toLowerCase();
+		ArrayList<Job> jobs = new ArrayList<Job>();
+		try (ResultSet result = manager.performSQL("SELECT id FROM Job WHERE LOWER(name) LIKE '%" + searchText + "%'")) {
+			while (result.next()) {
+				jobs.add(manager.getJob(result.getInt(1)));
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return jobs;
 	}
 }

@@ -1,4 +1,4 @@
-package edu.hist.team3.catering.database.managers;
+package edu.hist.team3.catering.database.manager;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -22,7 +22,7 @@ import javax.swing.event.ListSelectionListener;
 import edu.hist.team3.catering.database.Dish;
 import edu.hist.team3.catering.database.Plan;
 import edu.hist.team3.catering.database.PlanDish;
-import edu.hist.team3.catering.database.managers.Services;
+import edu.hist.team3.catering.database.manager.Services;
 import edu.hist.team3.catering.gui.panel.PlanDishSearch;
 import edu.hist.team3.catering.gui.panel.PlanPanel;
 import edu.hist.team3.catering.gui.panel.PropertyPanel;
@@ -105,16 +105,17 @@ public class PlanEditFrame extends JFrame {
 							dishSearch.doSearch();
 						}
 						catch (SQLException e) {
-							// TODO Throw error? Rollback?
+							// TODO Rollback?
+							Services.showError("Could not save the changes to the database.");
 							e.printStackTrace();
 						}
 					}
 					else {
-						//TODO: Throw error?
+						Services.showError("No dishes selected!");
 					}
 				}
 				catch (NumberFormatException ex) {
-					//TODO: Throw error?
+					Services.showError("Count must be integer and discount is decimal!");
 				}
 			}
 		});
@@ -140,16 +141,17 @@ public class PlanEditFrame extends JFrame {
 							dishSearch.doSearch();
 						}
 						catch (SQLException e) {
-							// TODO Throw error? Rollback?
+							// TODO Rollback?
+							Services.showError("Could not save the changes to the database.");
 							e.printStackTrace();
 						}
 					}
 					else {
-						//TODO: Throw error?
+						Services.showError("No dishes selected!");
 					}
 				}
 				catch (NumberFormatException ex) {
-					//TODO: Throw error?
+					Services.showError("Count must be integer and discount is decimal!");
 				}
 			}
 		});

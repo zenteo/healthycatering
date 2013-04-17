@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
 import edu.hist.team3.catering.database.Dish;
-import edu.hist.team3.catering.database.managers.Services;
+import edu.hist.team3.catering.database.manager.Services;
 
 public class DishSearch extends SearchPanel<Dish> {
 	private Services services;

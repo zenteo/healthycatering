@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
 import edu.hist.team3.catering.database.Customer;
-import edu.hist.team3.catering.database.managers.Services;
+import edu.hist.team3.catering.database.manager.Services;
 
 public class CustomerSearch extends SearchPanel<Customer> {
 	private Services services;

@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import edu.hist.team3.catering.database.Dish;
-import edu.hist.team3.catering.database.managers.Services;
+import edu.hist.team3.catering.database.manager.Services;
 import edu.hist.team3.catering.gui.panel.DishSearch;
 
 public class DishSearchFrame extends JFrame {

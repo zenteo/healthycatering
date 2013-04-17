@@ -13,8 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField; 
 import javax.swing.JTextField;
 
-import edu.hist.team3.catering.database.managers.EmployeeManager;
-import edu.hist.team3.catering.database.managers.Services;
+import edu.hist.team3.catering.database.manager.EmployeeManager;
+import edu.hist.team3.catering.database.manager.Services;
 
 public class LoginGUI extends JFrame {
 	private Services services;

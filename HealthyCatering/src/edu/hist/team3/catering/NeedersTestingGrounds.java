@@ -4,8 +4,8 @@ import java.sql.SQLException;
 
 import edu.hist.team3.catering.database.Customer;
 import edu.hist.team3.catering.database.DatabaseManager;
-import edu.hist.team3.catering.database.managers.CustomerManager;
-import edu.hist.team3.catering.database.managers.Services;
+import edu.hist.team3.catering.database.manager.CustomerManager;
+import edu.hist.team3.catering.database.manager.Services;
 
 public class NeedersTestingGrounds {
 

@@ -12,9 +12,9 @@ import javax.swing.JScrollPane;
 
 import edu.hist.team3.catering.database.Employee;
 import edu.hist.team3.catering.database.Job;
-import edu.hist.team3.catering.database.managers.EmployeeManager;
-import edu.hist.team3.catering.database.managers.JobManager;
-import edu.hist.team3.catering.database.managers.Services;
+import edu.hist.team3.catering.database.manager.EmployeeManager;
+import edu.hist.team3.catering.database.manager.JobManager;
+import edu.hist.team3.catering.database.manager.Services;
 
 
 /*

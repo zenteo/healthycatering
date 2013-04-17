@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import edu.hist.team3.catering.database.Customer;
-import edu.hist.team3.catering.database.managers.Services;
+import edu.hist.team3.catering.database.manager.Services;
 import edu.hist.team3.catering.gui.panel.CustomerPanel;
 
 public class CustomerEditFrame extends JFrame implements ActionListener {

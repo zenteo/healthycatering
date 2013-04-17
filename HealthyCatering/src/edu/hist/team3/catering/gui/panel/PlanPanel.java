@@ -8,6 +8,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
 import edu.hist.team3.catering.database.Plan;
+import edu.hist.team3.catering.database.manager.Services;
 
 public class PlanPanel extends JPanel {
 	private Plan plan;
@@ -75,7 +76,7 @@ public class PlanPanel extends JPanel {
 			plan.commit();
 		}
 		catch (SQLException e) {
-			// TODO THROW ERROR
+			Services.showError("Could not save the changes to the database.");
 			e.printStackTrace();
 		}
 	}

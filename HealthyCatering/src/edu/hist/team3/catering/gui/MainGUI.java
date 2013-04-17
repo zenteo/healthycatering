@@ -18,7 +18,7 @@ import javax.swing.JTabbedPane;
 
 import edu.hist.team3.catering.database.Employee;
 import edu.hist.team3.catering.database.Job;
-import edu.hist.team3.catering.database.managers.Services;
+import edu.hist.team3.catering.database.manager.Services;
 import edu.hist.team3.catering.gui.tab.BossTab;
 import edu.hist.team3.catering.gui.tab.CookingTab;
 import edu.hist.team3.catering.gui.tab.CustomerTab;

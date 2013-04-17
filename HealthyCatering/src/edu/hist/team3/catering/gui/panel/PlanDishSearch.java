@@ -7,6 +7,7 @@ import javax.swing.DefaultListModel;
 
 import edu.hist.team3.catering.database.Plan;
 import edu.hist.team3.catering.database.PlanDish;
+import edu.hist.team3.catering.database.manager.Services;
 
 public class PlanDishSearch extends SearchPanel<PlanDish> {
 	private Plan plan;
@@ -32,7 +33,7 @@ public class PlanDishSearch extends SearchPanel<PlanDish> {
 				}
 			}
 		} catch (SQLException e) {
-			// TODO Throw Error.
+			Services.showError("Could not fetch info from database.");
 			e.printStackTrace();
 		}
 	}

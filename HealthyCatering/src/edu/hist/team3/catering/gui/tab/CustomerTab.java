@@ -18,7 +18,7 @@ import javax.swing.event.ListSelectionListener;
 
 import edu.hist.team3.catering.database.Customer;
 import edu.hist.team3.catering.database.Plan;
-import edu.hist.team3.catering.database.managers.Services;
+import edu.hist.team3.catering.database.manager.Services;
 import edu.hist.team3.catering.gui.frame.CustomerEditFrame;
 import edu.hist.team3.catering.gui.frame.PlanEditFrame;
 import edu.hist.team3.catering.gui.panel.CustomerPlanSearch;

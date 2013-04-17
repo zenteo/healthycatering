@@ -1,4 +1,4 @@
-package edu.hist.team3.catering.database.managers;
+package edu.hist.team3.catering.database.manager;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -58,7 +58,7 @@ public class PlanManager {
 			plan.getCustomer().getPlans().fetch();
 		}
 		catch (SQLException e) {
-			//TODO: SHOW ERROR MESSAGE?
+			Services.showError("Could not either save the changes or fetch info from the database.");
 			e.printStackTrace();
 		}
 	}

@@ -1,4 +1,6 @@
-package edu.hist.team3.catering.database.managers;
+package edu.hist.team3.catering.database.manager;
+
+import javax.swing.JOptionPane;
 
 import edu.hist.team3.catering.database.DatabaseManager;
 
@@ -41,5 +43,9 @@ public class Services {
 
 	public JobManager getJobManager() {
 		return job;
+	}
+	
+	public static void showError(String message) {
+		JOptionPane.showMessageDialog(null, message);
 	}
 }

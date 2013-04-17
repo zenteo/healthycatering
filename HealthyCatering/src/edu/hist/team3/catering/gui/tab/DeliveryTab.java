@@ -2,7 +2,7 @@ package edu.hist.team3.catering.gui.tab;
 
 import javax.swing.JPanel;
 
-import edu.hist.team3.catering.database.managers.Services;
+import edu.hist.team3.catering.database.manager.Services;
 
 /*
  * Delivery GUI

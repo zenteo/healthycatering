@@ -13,7 +13,7 @@ import edu.hist.team3.catering.database.Job;
 import edu.hist.team3.catering.database.Plan;
 import edu.hist.team3.catering.database.PlanDish;
 import edu.hist.team3.catering.database.Resource;
-import edu.hist.team3.catering.database.managers.Services;
+import edu.hist.team3.catering.database.manager.Services;
 
 public class AddTestDataToDatabase {
 	

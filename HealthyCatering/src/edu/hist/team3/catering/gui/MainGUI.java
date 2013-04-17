@@ -19,12 +19,12 @@ import javax.swing.JTabbedPane;
 import edu.hist.team3.catering.database.Employee;
 import edu.hist.team3.catering.database.Job;
 import edu.hist.team3.catering.database.managers.Services;
-import edu.hist.team3.catering.gui.tabs.BossGUI;
-import edu.hist.team3.catering.gui.tabs.CookingGUI;
-import edu.hist.team3.catering.gui.tabs.CustomerGUI;
-import edu.hist.team3.catering.gui.tabs.DeliveryGUI;
-import edu.hist.team3.catering.gui.tabs.MenuGUI;
-import edu.hist.team3.catering.gui.tabs.ResourcesGUI;
+import edu.hist.team3.catering.gui.tab.BossTab;
+import edu.hist.team3.catering.gui.tab.CookingTab;
+import edu.hist.team3.catering.gui.tab.CustomerTab;
+import edu.hist.team3.catering.gui.tab.DeliveryTab;
+import edu.hist.team3.catering.gui.tab.MenuTab;
+import edu.hist.team3.catering.gui.tab.ResourcesTab;
 
 public class MainGUI extends JFrame {
 	private Services services;
@@ -112,24 +112,24 @@ public class MainGUI extends JFrame {
 	private void addTabs() {
 		Job job = employee.getJob();
 		if (job.hasPrivileges(Job.PRIVILEGE_ADMIN))
-			tabsPanel.addTab("Administrator", new BossGUI(services));
+			tabsPanel.addTab("Administrator", new BossTab(services));
 
 		if (job.hasPrivileges(Job.PRIVILEGE_COOK))
 			tabsPanel.addTab("Cooking", new JScrollPane(
-					new CookingGUI(services)));
+					new CookingTab(services)));
 
 		if (job.hasPrivileges(Job.PRIVILEGE_RESOURCES))
-			tabsPanel.addTab("Resources", new ResourcesGUI(services));
+			tabsPanel.addTab("Resources", new ResourcesTab(services));
 
 		if (job.hasPrivileges(Job.PRIVILEGE_SALESMAN))
-			tabsPanel.addTab("Salesman", new JScrollPane(new CustomerGUI(
+			tabsPanel.addTab("Salesman", new JScrollPane(new CustomerTab(
 					services)));
 
 		if (job.hasPrivileges(Job.PRIVILEGE_DRIVER))
-			tabsPanel.addTab("Delivery", new DeliveryGUI(services));
+			tabsPanel.addTab("Delivery", new DeliveryTab(services));
 
 		if (job.hasPrivileges(Job.PRIVILEGE_NUTRITIOUS))
-			tabsPanel.addTab("Nutritious", new MenuGUI(services));
+			tabsPanel.addTab("Nutritious", new MenuTab(services));
 	}
 
 }

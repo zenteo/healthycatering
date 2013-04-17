@@ -1,4 +1,4 @@
-package edu.hist.team3.catering.gui.tabs;
+package edu.hist.team3.catering.gui.tab;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -30,14 +30,14 @@ import edu.hist.team3.catering.database.managers.Services;
  + removeJob()
  */
 @SuppressWarnings("serial")
-public class BossGUI extends JPanel {
+public class BossTab extends JPanel {
 	private Services services;
 	private EmployeeManager eManager;
 	private JobManager jManager;
 	private JList<Employee> employeeList;
 	private JList<Job> jobList;
 	
-	public BossGUI(Services services) {
+	public BossTab(Services services) {
 		setLayout(new BorderLayout());
 		this.services = services;
 		Dimension buttonDimension = new Dimension(150, 70);

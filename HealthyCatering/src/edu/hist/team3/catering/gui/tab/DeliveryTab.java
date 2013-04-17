@@ -1,4 +1,4 @@
-package edu.hist.team3.catering.gui.tabs;
+package edu.hist.team3.catering.gui.tab;
 
 import javax.swing.JPanel;
 
@@ -14,10 +14,10 @@ import edu.hist.team3.catering.database.managers.Services;
 
  */
 @SuppressWarnings("serial")
-public class DeliveryGUI extends JPanel {
+public class DeliveryTab extends JPanel {
 	private Services services;
 	
-	public DeliveryGUI(Services services) {
+	public DeliveryTab(Services services) {
 		this.services = services;
 	}
 	

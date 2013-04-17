@@ -7,6 +7,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import edu.hist.team3.catering.database.Plan;
+
 public abstract class SearchPanel<T> extends JPanel implements SearchListener {
 	protected SearchBar searchBar;
 	protected JList<LabeledObject<T>> searchResult;
@@ -19,6 +21,12 @@ public abstract class SearchPanel<T> extends JPanel implements SearchListener {
 		searchBar.setSearchListener(this);
 		add(searchBar, BorderLayout.NORTH);
 		add(new JScrollPane(searchResult), BorderLayout.CENTER);
+	}
+	
+	public T getSelected() {
+		if (getResultList().getSelectedValue() == null)
+			return null;
+		return getResultList().getSelectedValue().getObject();
 	}
 	
 	public void doSearch() {

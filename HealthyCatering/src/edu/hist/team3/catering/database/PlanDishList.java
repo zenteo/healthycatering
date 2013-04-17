@@ -42,6 +42,14 @@ public class PlanDishList {
 		}
 	}
 	
+	public void remove(PlanDish planDish) throws SQLException {
+		assert(planDish != null);
+		planDish.remove();
+		if (links != null) {
+			links.remove(planDish);
+		}
+	}
+	
 	public void removeAll() throws SQLException {
 		Iterator<PlanDish> it = iterator();
 		while (it.hasNext()) {

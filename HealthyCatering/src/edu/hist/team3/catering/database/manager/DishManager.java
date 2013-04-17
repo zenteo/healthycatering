@@ -18,7 +18,7 @@ public class DishManager {
 	public ArrayList<Dish> findDish(String searchText) {
 		searchText = searchText.toLowerCase();
 		ArrayList<Dish> dishes = new ArrayList<Dish>();
-		try (ResultSet result = manager.performSQL("SELECT id FROM Dish WHERE LOWER(name) LIKE '%" + searchText + "%'")) {
+		try (ResultSet result = manager.performSql("SELECT id FROM Dish WHERE LOWER(name) LIKE '%" + searchText + "%'")) {
 			while (result.next()) {
 				dishes.add(manager.getDish(result.getInt(1)));
 			}

@@ -37,7 +37,7 @@ public class JobManager {
 	public ArrayList<Job> findJob(String searchText) {
 		searchText = searchText.toLowerCase();
 		ArrayList<Job> jobs = new ArrayList<Job>();
-		try (ResultSet result = manager.performSQL("SELECT id FROM Job WHERE LOWER(name) LIKE '%" + searchText + "%'")) {
+		try (ResultSet result = manager.performSql("SELECT id FROM Job WHERE LOWER(name) LIKE '%" + searchText + "%'")) {
 			while (result.next()) {
 				jobs.add(manager.getJob(result.getInt(1)));
 			}

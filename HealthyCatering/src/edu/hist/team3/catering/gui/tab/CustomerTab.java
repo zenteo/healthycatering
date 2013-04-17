@@ -69,8 +69,11 @@ public class CustomerTab extends JPanel {
 		customerPlanPanel.add(customerSearch);
 		customerPlanPanel.add(planSearch);
 
-		JPanel editPanel = new JPanel();
-		editPanel.setLayout(new BoxLayout(editPanel, BoxLayout.PAGE_AXIS));
+		JPanel rightEditPanel = new JPanel();
+		rightEditPanel.setLayout(new BoxLayout(rightEditPanel, BoxLayout.PAGE_AXIS));
+		
+		JPanel leftEditPanel = new JPanel();
+		leftEditPanel.setLayout(new BoxLayout(leftEditPanel, BoxLayout.PAGE_AXIS));
 
 		JButton button = new JButton("Add customer");
 		button.addActionListener(new ActionListener() {
@@ -86,25 +89,30 @@ public class CustomerTab extends JPanel {
 				frame.setVisible(true);
 			}
 		});
-		editPanel.add(button);
+		leftEditPanel.add(button);
 
 		button = new JButton("Edit customer");
 		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				CustomerEditFrame frame = new CustomerEditFrame(customerSearch
-						.getSelected());
-				frame.addComponentListener(new ComponentAdapter() {
-					@Override
-					public void componentHidden(ComponentEvent arg0) {
-						customerSearch.doSearch();
-					}
-				});
-				frame.setVisible(true);
-				customerSearch.doSearch();
+				if (customerSearch.getSelected() != null) {
+					CustomerEditFrame frame = new CustomerEditFrame(customerSearch
+							.getSelected());
+					frame.addComponentListener(new ComponentAdapter() {
+						@Override
+						public void componentHidden(ComponentEvent arg0) {
+							customerSearch.doSearch();
+						}
+					});
+					frame.setVisible(true);
+					
+				}
+				else {
+					Services.showError("Select a customer first!");
+				}
 			}
 		});
-		editPanel.add(button);
+		leftEditPanel.add(button);
 
 		button = new JButton("Remove customer");
 		button.addActionListener(new ActionListener() {
@@ -121,9 +129,12 @@ public class CustomerTab extends JPanel {
 					}
 					customerSearch.doSearch();
 				}
+				else {
+					Services.showError("Select a customer first!");
+				}
 			}
 		});
-		editPanel.add(button);
+		leftEditPanel.add(button);
 
 		button = new JButton("Add plan");
 		button.addActionListener(new ActionListener() {
@@ -141,9 +152,12 @@ public class CustomerTab extends JPanel {
 					});
 					pf.setVisible(true);
 				}
+				else {
+					Services.showError("Select a customer first!");
+				}
 			}
 		});
-		editPanel.add(button);
+		rightEditPanel.add(button);
 
 		button = new JButton("Edit plan");
 		button.addActionListener(new ActionListener() {
@@ -166,10 +180,16 @@ public class CustomerTab extends JPanel {
 							planSearch.doSearch();
 						}
 					}
+					else {
+						Services.showError("Select a plan first!");
+					}
+				}
+				else {
+					Services.showError("Select a customer and a plan first!");
 				}
 			}
 		});
-		editPanel.add(button);
+		rightEditPanel.add(button);
 
 		button = new JButton("Remove plan");
 		button.addActionListener(new ActionListener() {
@@ -182,13 +202,20 @@ public class CustomerTab extends JPanel {
 						services.getPlanManager().removePlan(plan);
 						planSearch.doSearch();
 					}
+					else {
+						Services.showError("Select a plan first!");
+					}
+				}
+				else {
+					Services.showError("Select a customer and a plan first!");
 				}
 			}
 		});
-		editPanel.add(button);
+		rightEditPanel.add(button);
 
 		setLayout(new BorderLayout());
+		add(leftEditPanel, BorderLayout.WEST);
 		add(customerPlanPanel, BorderLayout.CENTER);
-		add(editPanel, BorderLayout.EAST);
+		add(rightEditPanel, BorderLayout.EAST);
 	}
 }

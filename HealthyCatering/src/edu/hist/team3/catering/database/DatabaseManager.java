@@ -50,7 +50,7 @@ public class DatabaseManager {
 		this(DriverManager.getConnection(url, username, password));
 	}
 	
-	public ResultSet performSQL(String sql) {
+	public ResultSet performSql(String sql) {
 		try {
 			PreparedStatement statement = prepareStatement(sql);
 			return statement.executeQuery();

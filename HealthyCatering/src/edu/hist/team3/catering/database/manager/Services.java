@@ -48,4 +48,8 @@ public class Services {
 	public static void showError(String message) {
 		JOptionPane.showMessageDialog(null, message);
 	}
+	
+	public static void showMessage(String message) {
+		JOptionPane.showMessageDialog(null, message);
+	}
 }

@@ -24,7 +24,7 @@ public class EmployeeManager {
 	 * @return employee
 	 */
 	public Employee getEmployee(String username, String password) {
-		ResultSet result = manager.performSQL("SELECT customer_id FROM Employee WHERE username ='" + username + "' AND password ='" + password + "'");
+		ResultSet result = manager.performSql("SELECT customer_id FROM Employee WHERE username ='" + username + "' AND password ='" + password + "'");
 		
 		try {
 			if (result.next()) {
@@ -61,7 +61,7 @@ public class EmployeeManager {
 	public ArrayList<Employee> findEmployee(String searchText) {
 		searchText = searchText.toLowerCase();
 		ArrayList<Employee> employees = new ArrayList<Employee>();
-		try (ResultSet result = manager.performSQL("SELECT id FROM Employee, Customer WHERE Employee.customer_id = Customer.id AND LOWER(first_name || ' ' || last_name) LIKE '%" + searchText + "%'")) {
+		try (ResultSet result = manager.performSql("SELECT id FROM Employee, Customer WHERE Employee.customer_id = Customer.id AND LOWER(first_name || ' ' || last_name) LIKE '%" + searchText + "%'")) {
 			while (result.next()) {
 				employees.add(manager.getEmployee(result.getInt(1)));
 			}

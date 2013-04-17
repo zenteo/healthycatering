@@ -49,8 +49,7 @@ public class CustomerEditFrame extends JFrame implements ActionListener {
 		if (customer == null) {
 			customer = services.getCustomerManager().createCustomer();
 			if (customer == null) {
-				JOptionPane.showMessageDialog(null,
-						"Error: Could not create customer!");
+				Services.showError("Error: Could not create customer!");
 				return;
 			}
 		}
@@ -58,8 +57,7 @@ public class CustomerEditFrame extends JFrame implements ActionListener {
 		try {
 			customer.commit();
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null,
-					"Error: Could not change customer!");
+			Services.showError("Error: Could not change customer!");
 		}
 		this.setVisible(false);
 	}

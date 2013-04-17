@@ -1,5 +1,6 @@
 package edu.hist.team3.catering.gui.panel;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
@@ -20,9 +21,16 @@ public class DishSearch extends SearchPanel<Dish> {
 		ArrayList<Dish> dishes = services.getDishManager().findDish(text);
 		DefaultListModel<LabeledObject<Dish>> model = (DefaultListModel<LabeledObject<Dish>>)getResultList().getModel();
 		model.clear();
-		for (Dish dish : dishes) {
-			LabeledObject<Dish> obj = new LabeledObject(dish.toString(), dish);
-			model.addElement(obj);
+		try {
+			for (Dish dish : dishes) {
+				int healthiness = (int)(dish.getHealthiness() * 100.0);
+				String dishText = "[" + dish.getCategory() + "] " + dish.getName() + " " + healthiness + "% healthy";
+				LabeledObject<Dish> obj = new LabeledObject<Dish>(dishText, dish);
+				model.addElement(obj);
+			}
+		} catch (SQLException e) {
+			Services.showError("Error: Could not receive info from database!");
+			e.printStackTrace();
 		}
 	}
 

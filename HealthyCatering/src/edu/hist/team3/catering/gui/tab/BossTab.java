@@ -15,6 +15,7 @@ import javax.swing.event.ListSelectionListener;
 
 import edu.hist.team3.catering.database.Job;
 import edu.hist.team3.catering.database.manager.Services;
+import edu.hist.team3.catering.gui.frame.CustomerEditFrame;
 import edu.hist.team3.catering.gui.panel.EmployeeSearch;
 import edu.hist.team3.catering.gui.panel.JobSearch;
 

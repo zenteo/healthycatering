@@ -165,6 +165,7 @@ public class PlanEditFrame extends JFrame {
 				if (pd != null) {
 					try {
 						plan.getDishes().remove(pd);
+						dishSearch.doSearch();
 					}
 					catch (SQLException e) {
 						e.printStackTrace();

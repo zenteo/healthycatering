@@ -103,7 +103,7 @@ public class BossTab extends JPanel {
 
 		});
 		
-		JButton addEmployeeButton2 = new JButton("Upgrade customer");
+		JButton addEmployeeButton2 = new JButton("Employ customer");
 		addEmployeeButton2.addActionListener(new ActionListener() {
 
 			@Override

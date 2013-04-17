@@ -15,12 +15,6 @@ public class CustomerSearch extends SearchPanel<Customer> {
 		onSearch("");
 	}
 	
-	public Customer getSelected() {
-		if (getResultList().getSelectedValue() == null)
-			return null;
-		return getResultList().getSelectedValue().getObject();
-	}
-	
 	@Override
 	public void onSearch(String text) {
 		ArrayList<Customer> ret = services.getCustomerManager().findCustomer(text);

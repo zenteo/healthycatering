@@ -1,4 +1,4 @@
-package edu.hist.team3.catering.gui.tabs;
+package edu.hist.team3.catering.gui.tab;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -32,10 +32,10 @@ import edu.hist.team3.catering.database.managers.Services;
  *+ removeMenu()
  */
 @SuppressWarnings("serial")
-public class MenuGUI extends JPanel{
+public class MenuTab extends JPanel{
 	private Services services;
 	
-	public MenuGUI(Services services) {
+	public MenuTab(Services services) {
 		this.services = services;
 		
 		Dimension buttonDimension = new Dimension(190, 70);

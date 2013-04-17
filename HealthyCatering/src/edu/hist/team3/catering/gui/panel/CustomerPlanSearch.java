@@ -25,12 +25,6 @@ public class CustomerPlanSearch extends SearchPanel<Plan> {
 		return this.customer;
 	}
 	
-	public Plan getSelected() {
-		if (getResultList().getSelectedValue() == null)
-			return null;
-		return getResultList().getSelectedValue().getObject();
-	}
-	
 	@Override
 	public void onSearch(String text) {
 		DefaultListModel<LabeledObject<Plan>> model = (DefaultListModel<LabeledObject<Plan>>)getResultList().getModel();

@@ -1,4 +1,4 @@
-package edu.hist.team3.catering.gui.tabs;
+package edu.hist.team3.catering.gui.tab;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -21,10 +21,10 @@ import edu.hist.team3.catering.database.managers.Services;
  + changeDeliveryStatus()
  */
 @SuppressWarnings("serial")
-public class CookingGUI extends JPanel {
+public class CookingTab extends JPanel {
 	private Services services;
 	
-	public CookingGUI(Services services) {
+	public CookingTab(Services services) {
 		this.services = services;
 		
 		Dimension buttonDimension = new Dimension(190, 70);

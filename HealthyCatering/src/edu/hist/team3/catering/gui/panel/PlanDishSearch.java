@@ -13,12 +13,7 @@ public class PlanDishSearch extends SearchPanel<PlanDish> {
 
 	public PlanDishSearch(Plan plan) {
 		this.plan = plan;
-	}
-
-	public PlanDish getSelected() {
-		if (getResultList().getSelectedValue() == null)
-			return null;
-		return getResultList().getSelectedValue().getObject();
+		doSearch();
 	}
 	
 	@Override

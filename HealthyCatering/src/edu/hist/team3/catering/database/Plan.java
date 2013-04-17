@@ -91,7 +91,12 @@ public class Plan extends DatabaseRow {
 		String sql = "UPDATE Plan SET ";
 		sql += "customer_id = " + customer.getId();
 		sql += ", start_date = '" + startDate.toString() + "'";
-		sql += ", end_date = '" + endDate.toString() + "'";
+		if (endDate == null) {
+			sql += ", end_date = null";
+		}
+		else {
+			sql += ", end_date = '" + endDate.toString() + "'";
+		}
 		sql += ", days_of_week = " + daysOfWeek;
 		sql += ", sum_income = " + sumIncome;
 		sql += ", sum_outcome = " + sumOutcome;

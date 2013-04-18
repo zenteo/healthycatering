@@ -40,6 +40,7 @@ public class JobEditFrame extends JFrame implements ActionListener {
 		setSize(300, 400);
 		setLocationRelativeTo(null);
 		setTitle("Job editor");
+		setAlwaysOnTop(true);
 		add(editPanel, BorderLayout.CENTER);
 		add(applyButton, BorderLayout.SOUTH);
 	}

@@ -10,13 +10,13 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField; 
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import edu.hist.team3.catering.database.manager.EmployeeManager;
+import edu.hist.team3.catering.database.Employee;
 import edu.hist.team3.catering.database.manager.Services;
 
-public class LoginGUI extends JFrame {
+public class LoginFrame extends JFrame {
 	private Services services;
 	private Toolkit toolkit;
 	private JTextField loginField;
@@ -25,7 +25,7 @@ public class LoginGUI extends JFrame {
 	/**
 	 * Creates a new Login window
 	 */
-	public LoginGUI(Services services) {
+	public LoginFrame(Services services) {
 		super("User login");
 		this.services = services;
 		
@@ -79,15 +79,15 @@ public class LoginGUI extends JFrame {
 	 * Then checks with the database if they are correct.
 	 */
 	private void login() {
-		EmployeeManager eManager = services.getEmployeeManager();
-		if(eManager == null)
-			System.out.println("Is fucked");
 		String username = loginField.getText();
 		String password = extractPassword(passwordField.getPassword());
-		
-		if (eManager.getEmployee(username, password) != null) {
+		Employee employee = services.getEmployeeManager().getEmployee(username, password);
+		if (employee != null) {
 			setVisible(false);
-			new MainGUI(eManager.getEmployee(username, password), services);
+			new MainFrame(employee, services);
+		}
+		else {
+			Services.showError("Wrong username or password!");
 		}
 		
 	}

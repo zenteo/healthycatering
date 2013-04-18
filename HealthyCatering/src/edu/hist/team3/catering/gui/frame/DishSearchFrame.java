@@ -16,7 +16,7 @@ public class DishSearchFrame extends JFrame {
 	private Dish selected;
 	
 	public DishSearchFrame(Services services) {
-		super("Select dish");
+
 		this.dishSearch = new DishSearch(services);
 		setLayout(new BorderLayout());
 		add(dishSearch, BorderLayout.CENTER);
@@ -29,6 +29,8 @@ public class DishSearchFrame extends JFrame {
 			}
 		});
 		add(select, BorderLayout.SOUTH);
+		setAlwaysOnTop(true);
+		setTitle("Select dish");
 		setSize(300, 200);
 	}
 

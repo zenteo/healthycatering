@@ -2,6 +2,7 @@ package edu.hist.team3.catering.gui.panel;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.sql.SQLException;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -34,11 +35,12 @@ public class CustomerEditPanel extends JPanel {
 		address.setText(customer.getAddress());
 	}
 	
-	public void apply(Customer customer) {
+	public void apply(Customer customer) throws SQLException {
 		customer.setFirstName(firstName.getText());
 		customer.setLastName(lastName.getText());
 		customer.setPhone(phoneNumber.getText());
 		customer.setAddress(address.getText());
+		customer.commit();
 	}
 	
 	public JTextField getFirstName() {

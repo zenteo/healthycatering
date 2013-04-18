@@ -33,8 +33,14 @@ public class DishManager {
 		return manager.getDish(id);
 	}
 
-	public Dish addDish()throws SQLException{
-		return manager.createDish();
+	public Dish createDish() {
+		try {
+			return manager.createDish();
+		}
+		catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return null;
 	}
 	
 	public void removeDish(int id)throws SQLException{

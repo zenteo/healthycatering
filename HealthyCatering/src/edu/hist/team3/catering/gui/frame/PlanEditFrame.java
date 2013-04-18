@@ -37,8 +37,6 @@ public class PlanEditFrame extends JFrame {
 	private DishSearchFrame dishSearchFrame;
 
 	public PlanEditFrame(final Plan plan, final Services services) {
-		super("Plan editor");
-
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -96,8 +94,8 @@ public class PlanEditFrame extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				double discountValue;
 				int countValue;
-				discountValue = (Double) discount.getValue();
-				countValue = (Integer) count.getValue();
+				discountValue = ((Number)discount.getValue()).doubleValue();
+				countValue = ((Number)count.getValue()).intValue();
 				if (selectedDish != null) {
 					try {
 						PlanDish pd = plan.getDishes().add(selectedDish);
@@ -123,8 +121,8 @@ public class PlanEditFrame extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				double discountValue;
 				int countValue;
-				discountValue = (Double) discount.getValue();
-				countValue = (Integer) count.getValue();
+				discountValue = ((Number)discount.getValue()).doubleValue();
+				countValue = ((Number)count.getValue()).intValue();
 				PlanDish dp = dishSearch.getSelected();
 				if (dp != null && selectedDish != null) {
 					try {
@@ -173,7 +171,9 @@ public class PlanEditFrame extends JFrame {
 
 		add(new JScrollPane(contentPane));
 
+		setTitle("Plan editor");
 		setSize(600, 400);
+		setAlwaysOnTop(true);
 		setLocationRelativeTo(null);
 	}
 }

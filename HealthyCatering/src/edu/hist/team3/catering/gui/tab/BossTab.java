@@ -74,7 +74,7 @@ public class BossTab extends JPanel {
 		centerPanel.add(jobSearch);
 		add(centerPanel, BorderLayout.CENTER);
 
-		JButton addEmployeeButton = new JButton("Add Employee");
+		JButton addEmployeeButton = new JButton("Add employee");
 		addEmployeeButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -142,7 +142,7 @@ public class BossTab extends JPanel {
 
 		});
 
-		JButton editEmployeeButton = new JButton("Edit Employee");
+		JButton editEmployeeButton = new JButton("Edit employee");
 		editEmployeeButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -164,7 +164,7 @@ public class BossTab extends JPanel {
 
 		});
 
-		JButton getEmployeeButton = new JButton("Get Employee Stats");
+		JButton getEmployeeButton = new JButton("Get session hours");
 		getEmployeeButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -179,7 +179,7 @@ public class BossTab extends JPanel {
 
 		});
 
-		JButton removeEmployeeButton = new JButton("Remove Employee");
+		JButton removeEmployeeButton = new JButton("Remove employee");
 		removeEmployeeButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -200,7 +200,7 @@ public class BossTab extends JPanel {
 
 		});
 
-		JButton addJobButton = new JButton("Add Job");
+		JButton addJobButton = new JButton("Add job");
 		addJobButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -217,7 +217,7 @@ public class BossTab extends JPanel {
 
 		});
 
-		JButton editJobButton = new JButton("Edit Job");
+		JButton editJobButton = new JButton("Edit job");
 		editJobButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -239,7 +239,7 @@ public class BossTab extends JPanel {
 
 		});
 
-		JButton removeJobButton = new JButton("Remove Job");
+		JButton removeJobButton = new JButton("Remove job");
 		removeJobButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -257,7 +257,7 @@ public class BossTab extends JPanel {
 			}
 		});
 
-		JButton giveJobButton = new JButton("Give Job");
+		JButton giveJobButton = new JButton("Give job");
 		giveJobButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

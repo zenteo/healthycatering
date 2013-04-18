@@ -1,11 +1,10 @@
 package edu.hist.team3.catering.gui.panel;
 
+import java.awt.GridLayout;
 import java.sql.SQLException;
 
-import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -54,7 +53,7 @@ public class JobEditPanel extends JPanel {
 		hourlySalary.setValue(new Double(0.0));
 		percentSales.setValue(new Double(0.0));
 		
-		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		setLayout(new GridLayout(11, 1));
 		add(new PropertyPanel<JTextField>("Name:", nameField));
 		add(new PropertyPanel<JFormattedTextField>("Yearly salary:", yearlySalary));
 		add(new PropertyPanel<JFormattedTextField>("Hourly salary:", hourlySalary));

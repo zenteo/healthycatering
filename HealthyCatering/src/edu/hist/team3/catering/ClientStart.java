@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 
 import edu.hist.team3.catering.database.DatabaseManager;
 import edu.hist.team3.catering.database.manager.Services;
-import edu.hist.team3.catering.gui.LoginGUI;
+import edu.hist.team3.catering.gui.LoginFrame;
 import edu.hist.team3.catering.gui.panel.CustomerSearch;
 
 public class ClientStart {
@@ -24,7 +24,7 @@ public class ClientStart {
 		}
 		if (databaseManager != null) {
 			Services services = new Services(databaseManager);
-			new LoginGUI(services).setVisible(true);
+			new LoginFrame(services).setVisible(true);
 		}
 	}
 

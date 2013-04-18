@@ -40,12 +40,15 @@ public class CustomerEditFrame extends JFrame implements ActionListener {
 		add(customerPanel, BorderLayout.CENTER);
 		add(button, BorderLayout.SOUTH);
 		pack();
+		setTitle("Customer editor");
 		setSize(300, 200);
 		setLocationRelativeTo(null);
+		setAlwaysOnTop(true);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		this.setVisible(false);
 		if (customer == null) {
 			customer = services.getCustomerManager().createCustomer();
 			if (customer == null) {
@@ -53,12 +56,12 @@ public class CustomerEditFrame extends JFrame implements ActionListener {
 				return;
 			}
 		}
-		customerPanel.apply(customer);
 		try {
-			customer.commit();
-		} catch (SQLException e) {
+			customerPanel.apply(customer);
+		}
+		catch (SQLException e1) {
+			e1.printStackTrace();
 			Services.showError("Error: Could not change customer!");
 		}
-		this.setVisible(false);
 	}
 }

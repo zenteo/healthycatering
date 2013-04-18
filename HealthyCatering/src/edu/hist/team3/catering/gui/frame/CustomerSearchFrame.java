@@ -16,7 +16,7 @@ public class CustomerSearchFrame extends JFrame {
 	private Customer selected;
 	
 	public CustomerSearchFrame(Services services) {
-		super("Select customer");
+
 		this.customerSearch = new CustomerSearch(services);
 		setLayout(new BorderLayout());
 		add(customerSearch, BorderLayout.CENTER);
@@ -29,6 +29,8 @@ public class CustomerSearchFrame extends JFrame {
 			}
 		});
 		add(select, BorderLayout.SOUTH);
+		setAlwaysOnTop(true);
+		setTitle("Select customer");
 		setSize(300, 200);
 	}
 

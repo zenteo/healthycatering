@@ -50,7 +50,7 @@ public class DishResource extends DatabaseRow {
 		try (PreparedStatement ps = getManager().prepareStatement(sql)) {
 			try (ResultSet rs = ps.executeQuery()) {
 				if (rs.next()) {
-					this.amount = rs.getInt(1);
+					this.amount = rs.getDouble(1);
 				}
 			}
 		}
@@ -97,6 +97,7 @@ public class DishResource extends DatabaseRow {
 	 * @return The amount of resource
 	 */
 	public double getAmount() {
+		tryFetch();
 		return amount;
 	}
 	

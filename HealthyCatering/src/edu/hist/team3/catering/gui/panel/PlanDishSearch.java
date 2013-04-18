@@ -16,25 +16,20 @@ public class PlanDishSearch extends SearchPanel<PlanDish> {
 		this.plan = plan;
 		doSearch();
 	}
-	
+
 	@Override
 	public void onSearch(String text) {
 		DefaultListModel<LabeledObject<PlanDish>> model = (DefaultListModel<LabeledObject<PlanDish>>) getResultList()
 				.getModel();
 		model.clear();
 		Iterator<PlanDish> it = plan.getDishes().iterator();
-		try {
-			while (it.hasNext()) {
-				PlanDish pd = it.next();
-				String txt;
-				txt = pd.getCount() + " x " + pd.getDish().getName();
-				if (txt.toLowerCase().contains(text)) {
-					model.addElement(new LabeledObject<PlanDish>(txt, pd));
-				}
+		while (it.hasNext()) {
+			PlanDish pd = it.next();
+			String txt;
+			txt = pd.getCount() + " x " + pd.getDish().getName();
+			if (txt.toLowerCase().contains(text)) {
+				model.addElement(new LabeledObject<PlanDish>(txt, pd));
 			}
-		} catch (SQLException e) {
-			Services.showError("Could not fetch info from database.");
-			e.printStackTrace();
 		}
 	}
 

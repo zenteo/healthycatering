@@ -30,15 +30,26 @@ public class PlanDishList {
 	
 	public PlanDish get(Dish dish) {
 		assert(dish != null);
-		return plan.getManager().getPlanDish(plan, dish);
+		tryFetch();
+		Iterator<PlanDish> it = iterator();
+		while (it.hasNext()) {
+			PlanDish ret = it.next();
+			if (ret.getDish().equals(dish)) {
+				return ret;
+			}
+				
+		}
+		return null;
 	}
 	
 	public void remove(Dish dish) throws SQLException {
 		assert(dish != null);
-		PlanDish link = plan.getManager().getPlanDish(plan, dish);
-		link.remove();
-		if (links != null) {
-			links.remove(link);
+		PlanDish link = get(dish);
+		if (link != null) {
+			link.remove();
+			if (links != null) {
+				links.remove(link);
+			}
 		}
 	}
 	

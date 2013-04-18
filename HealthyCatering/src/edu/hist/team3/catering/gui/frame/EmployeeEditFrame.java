@@ -27,9 +27,10 @@ public class EmployeeEditFrame extends JFrame implements ActionListener {
 		setSize(600, 200);
 		setLocationRelativeTo(null);
 		setTitle("Employee editor");
+		setAlwaysOnTop(true);
 		add(editPanel, BorderLayout.CENTER);
 		add(applyButton, BorderLayout.SOUTH);
-		
+		setTitle("Employee editor");
 		editPanel.fillInfo(employee);
 		this.employee = employee;
 	}

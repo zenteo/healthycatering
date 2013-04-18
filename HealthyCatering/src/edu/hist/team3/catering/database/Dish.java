@@ -115,7 +115,7 @@ public class Dish extends DatabaseRow {
 	 * @return The name
 	 * @throws SQLException
 	 */
-	public String getName() throws SQLException {
+	public String getName() {
 		super.tryFetch();
 		return name;
 	}

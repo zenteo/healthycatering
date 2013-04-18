@@ -1,15 +1,24 @@
 package edu.hist.team3.catering.gui.tab;
 
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.sql.SQLException;
 
-import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import edu.hist.team3.catering.database.Dish;
+import edu.hist.team3.catering.database.Resource;
 import edu.hist.team3.catering.database.manager.Services;
+import edu.hist.team3.catering.gui.frame.DishEditFrame;
+import edu.hist.team3.catering.gui.frame.ResourceEditFrame;
+import edu.hist.team3.catering.gui.panel.DishSearch;
+import edu.hist.team3.catering.gui.panel.ResourceSearch;
 
 
 /*
@@ -34,166 +43,155 @@ import edu.hist.team3.catering.database.manager.Services;
 @SuppressWarnings("serial")
 public class MenuTab extends JPanel{
 	private Services services;
+	private DishSearch dishSearch;
+	private ResourceSearch resourceSearch;
 	
-	public MenuTab(Services services) {
+	public MenuTab(final Services services) {
 		this.services = services;
+		this.dishSearch = new DishSearch(services);
+		this.resourceSearch = new ResourceSearch(services);
 		
-		Dimension buttonDimension = new Dimension(190, 70);
-
 		JPanel leftPanel = new JPanel();
-		leftPanel.setLayout(new FlowLayout());
-		leftPanel.setPreferredSize(new Dimension(190, 640));
-		JPanel fillPanel1 = new JPanel();
-		fillPanel1.setLayout(new FlowLayout());
-		fillPanel1.setPreferredSize(new Dimension(190, 640));
-		JPanel fillPanel2 = new JPanel();
-		fillPanel2.setLayout(new FlowLayout());
-		fillPanel2.setPreferredSize(new Dimension(190, 640));
-		JPanel centerPanel = new JPanel();
-		centerPanel.setLayout(new FlowLayout());
-		centerPanel.setPreferredSize(new Dimension(190, 640));
+		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
+		
 		JPanel rightPanel = new JPanel();
-		rightPanel.setLayout(new FlowLayout());
-		rightPanel.setPreferredSize(new Dimension(190, 640));
+		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.PAGE_AXIS));
 		
-		JButton findResourcesButton = new JButton("Get Resources");
-		findResourcesButton.setPreferredSize(buttonDimension);
-		findResourcesButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			}
-			
-		});
-		JButton editResourcesButton = new JButton("Edit Resources");
-		editResourcesButton.setPreferredSize(buttonDimension);
-		editResourcesButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			}
-			
-		});
-		JButton addResourcesButton = new JButton("Add Resources");
-		addResourcesButton.setPreferredSize(buttonDimension);
-		addResourcesButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			}
-			
-		});
-		JButton removeResourcesButton = new JButton("Remove Resources");
-		removeResourcesButton.setPreferredSize(buttonDimension);
-		removeResourcesButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			}
-			
-		});
-		JButton findDishButton = new JButton("Find Dish");
-		findDishButton.setPreferredSize(buttonDimension);
-		findDishButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			}
-			
-		});
-		JButton EditDishButton = new JButton("Edit Dish");
-		EditDishButton.setPreferredSize(buttonDimension);
-		EditDishButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			}
-			
-		});
-		JButton AddDishButton = new JButton("Add Dish");
-		AddDishButton.setPreferredSize(buttonDimension);
-		AddDishButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			}
-			
-		});
-		JButton RemoveDishButton = new JButton("Remove Dish");
-		RemoveDishButton.setPreferredSize(buttonDimension);
-		RemoveDishButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			}
-			
-		});
-		JButton findMenuButton = new JButton("Find Menu");
-		findMenuButton.setPreferredSize(buttonDimension);
-		findMenuButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			}
-			
-		});
-		JButton editMenuButton = new JButton("Edit Menu");
-		editMenuButton.setPreferredSize(buttonDimension);
-		editMenuButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			}
-			
-		});
-		JButton addMenuButton = new JButton("Add Menu");
-		addMenuButton.setPreferredSize(buttonDimension);
-		addMenuButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			}
-			
-		});
-		JButton removeMenuButton = new JButton("Remove Menu");
-		removeMenuButton.setPreferredSize(buttonDimension);
-		removeMenuButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			}
-			
-		});
-		leftPanel.add(findResourcesButton);
-		leftPanel.add(Box.createRigidArea(buttonDimension));
-		leftPanel.add(editResourcesButton);
-		leftPanel.add(Box.createRigidArea(buttonDimension));
-		leftPanel.add(addResourcesButton);
-		leftPanel.add(Box.createRigidArea(buttonDimension));
-		leftPanel.add(removeResourcesButton);
-		centerPanel.add(findDishButton);
-		centerPanel.add(Box.createRigidArea(buttonDimension));
-		centerPanel.add(EditDishButton);
-		centerPanel.add(Box.createRigidArea(buttonDimension));
-		centerPanel.add(AddDishButton);
-		centerPanel.add(Box.createRigidArea(buttonDimension));
-		centerPanel.add(RemoveDishButton);
-		rightPanel.add(findMenuButton);
-		rightPanel.add(Box.createRigidArea(buttonDimension));
-		rightPanel.add(editMenuButton);
-		rightPanel.add(Box.createRigidArea(buttonDimension));
-		rightPanel.add(addMenuButton);
-		rightPanel.add(Box.createRigidArea(buttonDimension));
-		rightPanel.add(removeMenuButton);
-		fillPanel1.add(Box.createRigidArea(buttonDimension));
-		fillPanel2.add(Box.createRigidArea(buttonDimension));
+		JPanel centerPanel = new JPanel();
+		centerPanel.setLayout(new GridLayout(1, 2));
+		centerPanel.add(dishSearch);
+		centerPanel.add(resourceSearch);
 		
-		add(leftPanel);
-		add(fillPanel1);
-		add(centerPanel);
-		add(fillPanel2);
-		add(rightPanel);
+		JButton button = new JButton("Add dish");
+		button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Dish dish = services.getDishManager().createDish();
+				if (dish != null) {
+					DishEditFrame editFrame = new DishEditFrame(dish, services);
+					editFrame.addComponentListener(new ComponentAdapter() {
+						@Override
+						public void componentHidden(ComponentEvent arg0) {
+							dishSearch.doSearch();
+						}
+					});
+					editFrame.setVisible(true);
+				}
+				else {
+					Services.showError("Error: Could not create dish!");
+				}
+			}
+		});
+		leftPanel.add(button);
 		
+		button = new JButton("Edit dish");
+		button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Dish dish = dishSearch.getSelected();
+				if (dish != null) {
+					DishEditFrame editFrame = new DishEditFrame(dish, services);
+					editFrame.addComponentListener(new ComponentAdapter() {
+						@Override
+						public void componentHidden(ComponentEvent arg0) {
+							dishSearch.doSearch();
+						}
+					});
+					editFrame.setVisible(true);
+				}
+				else {
+					Services.showError("Select a dish first!");
+				}
+			}
+		});
+		leftPanel.add(button);
+		
+		button = new JButton("Remove dish");
+		button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Dish dish = dishSearch.getSelected();
+				if (dish != null) {
+					try {
+						dish.remove();
+						dishSearch.doSearch();
+					}
+					catch (SQLException e) {
+						e.printStackTrace();
+						Services.showError("Error: Could not remove dish!");
+					}
+				}
+				else {
+					Services.showError("Select a dish first!");
+				}
+			}
+		});
+		leftPanel.add(button);
+		
+		button = new JButton("Add resource");
+		button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				ResourceEditFrame editFrame = new ResourceEditFrame(services);
+				editFrame.addComponentListener(new ComponentAdapter() {
+					@Override
+					public void componentHidden(ComponentEvent arg0) {
+						resourceSearch.doSearch();
+					}
+				});
+				editFrame.setVisible(true);
+			}
+		});
+		rightPanel.add(button);
+		
+		button = new JButton("Edit resource");
+		button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Resource res = resourceSearch.getSelected();
+				if (res != null) {
+					ResourceEditFrame editFrame = new ResourceEditFrame(res);
+					editFrame.addComponentListener(new ComponentAdapter() {
+						@Override
+						public void componentHidden(ComponentEvent arg0) {
+							resourceSearch.doSearch();
+						}
+					});
+					editFrame.setVisible(true);
+				}
+				else {
+					Services.showError("Select a resource first!");
+				}
+			}
+		});
+		rightPanel.add(button);
+		
+		button = new JButton("Remove resource");
+		button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Resource res = resourceSearch.getSelected();
+				if (res != null) {
+					try {
+						res.remove();
+						resourceSearch.doSearch();
+					}
+					catch (SQLException e) {
+						e.printStackTrace();
+						Services.showError("Error: Could not remove resource!");
+					}
+				}
+				else {
+					Services.showError("Select a resource first!");
+				}
+			}
+		});
+		rightPanel.add(button);
+		
+		setLayout(new BorderLayout());
+		add(leftPanel, BorderLayout.WEST);
+		add(rightPanel, BorderLayout.EAST);
+		add(centerPanel, BorderLayout.CENTER);
 	}
 	
 }

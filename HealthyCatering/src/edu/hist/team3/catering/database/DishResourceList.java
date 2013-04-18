@@ -30,15 +30,26 @@ public class DishResourceList {
 	
 	public DishResource get(Resource resource) {
 		assert(dish != null);
-		return dish.getManager().getDishResource(dish, resource);
+		tryFetch();
+		Iterator<DishResource> it = iterator();
+		while (it.hasNext()) {
+			DishResource ret = it.next();
+			if (ret.getResource().equals(resource)) {
+				return ret;
+			}
+				
+		}
+		return null;
 	}
 	
 	public void remove(Resource resource) throws SQLException {
 		assert(dish != null);
-		DishResource link = dish.getManager().getDishResource(dish, resource);
-		link.remove();
-		if (links != null) {
-			links.remove(link);
+		DishResource link = get(resource);
+		if (link != null) {
+			link.remove();
+			if (links != null) {
+				links.remove(link);
+			}
 		}
 	}
 	

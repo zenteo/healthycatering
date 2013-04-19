@@ -1,0 +1,100 @@
+package edu.hist.team3.catering.gui.panel;
+
+import java.awt.GridLayout;
+import java.sql.SQLException;
+
+import javax.swing.JFormattedTextField;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import edu.hist.team3.catering.database.Resource;
+
+/*	private String name;		// name			VARCHAR(64)		NOT NULL
+ *	private String category;	// category		VARCHAR(64)
+ *	private String description;	// description	VARCHAR(256)
+ *	private String producer;	// producer		VARCHAR(64)
+ *	private String source;		// source		VARCHAR(64)
+ *	private double stockCount;	// stock_count	DOUBLE			NOT NULL
+ *	private double costs;		// costs		DOUBLE
+ *	private double amount;		// amount		DOUBLE
+ *	private double weight;		// weight		DOUBLE
+ *	private double volume;		// volume		DOUBLE
+ *	private double calories;	// calories		DOUBLE
+ *	private double healthiness;	// healthiness	DOUBLE
+*/
+
+public class ResourceEditPanel extends JPanel {
+	private JTextField name;
+	private JTextField category;
+	private JTextField description;
+	private JTextField producer;
+	private JTextField source;
+	private JFormattedTextField costs;
+	private JFormattedTextField amount;
+	private JFormattedTextField weight;
+	private JFormattedTextField volume;
+	private JFormattedTextField calories;
+	private JFormattedTextField healthiness;
+	
+	public ResourceEditPanel() {
+		this.name = new JTextField();
+		this.category = new JTextField();
+		this.description = new JTextField();
+		this.producer = new JTextField();
+		this.source = new JTextField();
+		this.costs = new JFormattedTextField();
+		this.costs.setValue(new Double(0.0));
+		this.amount = new JFormattedTextField();
+		this.amount.setValue(new Double(0.0));
+		this.weight = new JFormattedTextField();
+		this.weight.setValue(new Double(0.0));
+		this.volume = new JFormattedTextField();
+		this.volume.setValue(new Double(0.0));
+		this.calories = new JFormattedTextField();
+		this.calories.setValue(new Double(0.0));
+		this.healthiness = new JFormattedTextField();
+		this.healthiness.setValue(new Double(0.0));
+		
+		setLayout(new GridLayout(11, 1));
+		add(new PropertyPanel<JTextField>("Name:", name));
+		add(new PropertyPanel<JTextField>("Category:", category));
+		add(new PropertyPanel<JTextField>("Description:", description));
+		add(new PropertyPanel<JTextField>("Producer:", producer));
+		add(new PropertyPanel<JTextField>("Source:", source));
+		add(new PropertyPanel<JFormattedTextField>("Costs:", costs));
+		add(new PropertyPanel<JFormattedTextField>("Amount:", amount));
+		add(new PropertyPanel<JFormattedTextField>("Weight:", weight));
+		add(new PropertyPanel<JFormattedTextField>("Volume:", volume));
+		add(new PropertyPanel<JFormattedTextField>("Calories:", calories));
+		add(new PropertyPanel<JFormattedTextField>("Healthiness:", healthiness));
+	}
+	
+	public void fillInfo(Resource res) {
+		name.setText(res.getName());
+		category.setText(res.getCategory());
+		description.setText(res.getDescription());
+		producer.setText(res.getProducer());
+		source.setText(res.getSource());
+		costs.setValue(res.getCosts());
+		amount.setValue(res.getAmount());
+		weight.setValue(res.getWeight());
+		volume.setValue(res.getVolume());
+		calories.setValue(res.getCalories());
+		healthiness.setValue(res.getHealthiness() * 100.0);
+	}
+	
+	public void apply(Resource res) throws SQLException {
+		res.setName(name.getText());
+		res.setCategory(category.getText());
+		res.setDescription(description.getText());
+		res.setProducer(producer.getText());
+		res.setSource(source.getText());
+		res.setCosts((double)costs.getValue());
+		res.setAmount((double)amount.getValue());
+		res.setWeight((double)weight.getValue());
+		res.setVolume((double)volume.getValue());
+		res.setCalories((double)calories.getValue());
+		res.setHealthiness((double)healthiness.getValue());
+		res.commit();
+	}
+}

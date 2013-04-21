@@ -89,12 +89,12 @@ public class ResourceEditPanel extends JPanel {
 		res.setDescription(description.getText());
 		res.setProducer(producer.getText());
 		res.setSource(source.getText());
-		res.setCosts((double)costs.getValue());
-		res.setAmount((double)amount.getValue());
-		res.setWeight((double)weight.getValue());
-		res.setVolume((double)volume.getValue());
-		res.setCalories((double)calories.getValue());
-		res.setHealthiness((double)healthiness.getValue());
+		res.setCosts(((Number)costs.getValue()).doubleValue());
+		res.setAmount(((Number)amount.getValue()).doubleValue());
+		res.setWeight(((Number)weight.getValue()).doubleValue());
+		res.setVolume(((Number)volume.getValue()).doubleValue());
+		res.setCalories(((Number)calories.getValue()).doubleValue());
+		res.setHealthiness(((Number)healthiness.getValue()).doubleValue());
 		res.commit();
 	}
 }

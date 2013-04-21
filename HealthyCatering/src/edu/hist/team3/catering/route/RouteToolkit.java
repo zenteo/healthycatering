@@ -33,6 +33,22 @@ public class RouteToolkit {
 		return instance;
 	}
 	
+	public ArrayList<String> rearrange(ArrayList<String> locations, String firstAddress) {
+		ArrayList<String> ret = new ArrayList<String>();
+		for (int i = 0; i < locations.size(); i++) {
+			if (locations.get(i).equals(firstAddress)) {
+				for (int j = i; j < locations.size(); j++) {
+					ret.add(locations.get(j));
+				}
+				for (int j = 0; j < i; j++) {
+					ret.add(locations.get(j));
+				}
+				return ret;
+			}
+		}
+		return locations;
+	}
+	
 	public ArrayList<String> computeShortest(Collection<String> locations) {
 		ArrayList<String> ret = new ArrayList<String>();
 		Collection<String> route = tspService.calculateRoute(locations);

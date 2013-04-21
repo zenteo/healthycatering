@@ -8,6 +8,7 @@ public class Services {
 	private final CustomerManager customer;
 	private final EmployeeManager employee;
 	private final ResourceManager resource;
+	private final DeliveryManager delivery;
 	private final DishManager dish;
 	private final PlanManager plan;
 	private final JobManager job;
@@ -16,6 +17,7 @@ public class Services {
 		customer = new CustomerManager(manager);
 		employee = new EmployeeManager(manager);
 		resource = new ResourceManager(manager);
+		delivery = new DeliveryManager(manager, this);
 		dish = new DishManager(manager);
 		plan = new PlanManager(manager);
 		job = new JobManager(manager);
@@ -31,6 +33,10 @@ public class Services {
 
 	public ResourceManager getResourceManager() {
 		return resource;
+	}
+
+	public DeliveryManager getDeliveryManager() {
+		return delivery;
 	}
 
 	public DishManager getDishManager() {

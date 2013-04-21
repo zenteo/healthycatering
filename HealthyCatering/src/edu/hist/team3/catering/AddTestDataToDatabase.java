@@ -64,11 +64,11 @@ public class AddTestDataToDatabase {
 			dishResource.commit();
 			
 			Customer customer = manager.createCustomer();
-			customer.setFirstName("Ola");
-			customer.setLastName("Nordmann");
+			customer.setFirstName("Admin");
+			customer.setLastName("Administrator");
 			customer.setPhone("+4712345678");
 			customer.setCreationDate(Date.valueOf("1234-12-24")); // Just a test-date
-			customer.setAddress("Gokkgata 01, Gokk");
+			customer.setAddress("Klæbuveien 125, 7034 Trondheim");
 			customer.commit();
 			
 			Customer customer2 = manager.createCustomer();
@@ -88,8 +88,8 @@ public class AddTestDataToDatabase {
 			job.commit();
 			
 			Employee employee = manager.createEmployee(customer, job);
-			employee.setUsername("test");
-			employee.setPassword("test");
+			employee.setUsername("admin");
+			employee.setPassword("admin");
 			employee.setEmail("horny_pussy@pimp.no");
 			employee.setEmploymentDate(Date.valueOf("1234-11-23")); // Also test-date
 			employee.setSessionHours(1.0); // Worked for 1 hour in his whole life.

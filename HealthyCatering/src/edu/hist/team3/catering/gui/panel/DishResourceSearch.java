@@ -15,8 +15,19 @@ public class DishResourceSearch extends SearchPanel<DishResource> {
 		doSearch();
 	}
 
+	public Dish getDish() {
+		return dish;
+	}
+	
+	public void setDish(Dish dish) {
+		this.dish = dish;
+		doSearch();
+	}
+	
 	@Override
 	public void onSearch(String text) {
+		if (dish == null)
+			return;
 		DefaultListModel<LabeledObject<DishResource>> model;
 		model = (DefaultListModel<LabeledObject<DishResource>>)getResultList().getModel();
 		model.clear();

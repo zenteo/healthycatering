@@ -1,17 +1,21 @@
 package edu.hist.team3.catering.gui.panel;
 
 import java.awt.BorderLayout;
+import java.sql.Date;
 import java.sql.SQLException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import edu.hist.team3.catering.database.Plan;
 import edu.hist.team3.catering.database.manager.Services;
 
 public class PlanEditPanel extends JPanel {
 	private Plan plan;
+	private JTextField startDate;
+	private JTextField endDate;
 	private JCheckBox mondays;
 	private JCheckBox tuesdays;
 	private JCheckBox wednesdays;
@@ -22,6 +26,8 @@ public class PlanEditPanel extends JPanel {
 	
 	public PlanEditPanel(Plan plan) {
 		this.plan = plan;
+		startDate = new JTextField();
+		endDate = new JTextField();
 		mondays = new JCheckBox("Mondays");
 		tuesdays = new JCheckBox("Tuesdays");
 		wednesdays = new JCheckBox("Wednesdays");
@@ -32,6 +38,8 @@ public class PlanEditPanel extends JPanel {
 		
 		JPanel options = new JPanel();
 		options.setLayout(new BoxLayout(options, BoxLayout.PAGE_AXIS));
+		options.add(startDate);
+		options.add(endDate);
 		options.add(mondays);
 		options.add(tuesdays);
 		options.add(wednesdays);
@@ -47,6 +55,10 @@ public class PlanEditPanel extends JPanel {
 	}
 	
 	public void fillInfo() {
+		startDate.setText(plan.getStartDate().toString());
+		if (plan.getEndDate() != null) {
+			endDate.setText(plan.getEndDate().toString());
+		}
 		mondays.setSelected(plan.isDeliveredOn(Plan.DAY_MONDAY));
 		tuesdays.setSelected(plan.isDeliveredOn(Plan.DAY_TUESDAY));
 		wednesdays.setSelected(plan.isDeliveredOn(Plan.DAY_WEDNESDAY));
@@ -57,6 +69,18 @@ public class PlanEditPanel extends JPanel {
 	}
 	
 	public void apply() {
+		try {
+			Date sDate = Date.valueOf(startDate.getText());
+			plan.setStartDate(sDate);
+		}
+		catch(IllegalArgumentException ex) {
+		}
+		try {
+			Date eDate = Date.valueOf(endDate.getText());
+			plan.setEndDate(eDate);
+		}
+		catch(IllegalArgumentException ex) {
+		}
 		plan.setDaysOfWeek(Plan.DAY_NONE);
 		if (mondays.isSelected())
 			plan.setDeliveredOn(Plan.DAY_MONDAY);

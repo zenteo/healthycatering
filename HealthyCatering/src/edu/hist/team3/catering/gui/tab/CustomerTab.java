@@ -167,18 +167,14 @@ public class CustomerTab extends JPanel {
 				if (customer != null) {
 					Plan plan = planSearch.getSelected();
 					if (plan != null) {
-						plan = services.getPlanManager().editPlan(plan);
-						if (plan != null) {
-							PlanEditFrame pf = new PlanEditFrame(plan, services);
-							pf.addComponentListener(new ComponentAdapter() {
-								@Override
-								public void componentHidden(ComponentEvent arg0) {
-									planSearch.doSearch();
-								}
-							});
-							pf.setVisible(true);
-							planSearch.doSearch();
-						}
+						PlanEditFrame pf = new PlanEditFrame(plan, services);
+						pf.addComponentListener(new ComponentAdapter() {
+							@Override
+							public void componentHidden(ComponentEvent arg0) {
+								planSearch.doSearch();
+							}
+						});
+						pf.setVisible(true);
 					}
 					else {
 						Services.showError("Select a plan first!");

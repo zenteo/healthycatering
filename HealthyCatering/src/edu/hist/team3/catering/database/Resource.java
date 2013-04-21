@@ -60,9 +60,11 @@ public class Resource extends DatabaseRow {
 					this.source = rs.getString(5);
 					this.stockCount = rs.getDouble(6);
 					this.costs = rs.getDouble(7);
-					this.weight = rs.getDouble(8);
-					this.calories = rs.getDouble(9);
-					this.healthiness = rs.getDouble(10);
+					this.amount = rs.getDouble(8);
+					this.weight = rs.getDouble(9);
+					this.volume = rs.getDouble(10);
+					this.calories = rs.getDouble(11);
+					this.healthiness = rs.getDouble(12);
 				}
 			}
 		}

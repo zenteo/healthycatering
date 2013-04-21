@@ -1,6 +1,8 @@
 package edu.hist.team3.catering.gui.tab;
 
 import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 
-import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
@@ -123,8 +124,15 @@ public class CookingTab extends JPanel {
 		centerContent.add(dishList);
 		centerContent.add(resourceList);
 
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.weightx = 1.0;
+		c.gridy = GridBagConstraints.RELATIVE;
+		c.anchor = GridBagConstraints.PAGE_START;
+		
 		JPanel leftPanel = new JPanel();
-		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
+		leftPanel.setLayout(new GridBagLayout());
 
 		JButton button = new JButton("Get deliveries");
 		button.addActionListener(new ActionListener() {
@@ -148,7 +156,7 @@ public class CookingTab extends JPanel {
 				}
 			}
 		});
-		leftPanel.add(button);
+		leftPanel.add(button, c);
 
 		button = new JButton("Mark as cooked");
 		button.addActionListener(new ActionListener() {
@@ -174,10 +182,14 @@ public class CookingTab extends JPanel {
 				}
 			}
 		});
-		leftPanel.add(button);
+		leftPanel.add(button, c);
 
+		JPanel leftHolder = new JPanel();
+		leftHolder.setLayout(new BorderLayout());
+		leftHolder.add(leftPanel, BorderLayout.NORTH);
+		
 		setLayout(new BorderLayout());
 		add(centerContent, BorderLayout.CENTER);
-		add(leftPanel, BorderLayout.WEST);
+		add(leftHolder, BorderLayout.WEST);
 	}
 }

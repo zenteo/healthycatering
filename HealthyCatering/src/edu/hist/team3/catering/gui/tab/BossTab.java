@@ -2,6 +2,8 @@ package edu.hist.team3.catering.gui.tab;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -52,27 +54,12 @@ public class BossTab extends JPanel {
 
 		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new GridLayout(1, 2));
+		
 		employeeSearch = new EmployeeSearch(services);
-		employeeSearch.getResultList().addListSelectionListener(
-				new ListSelectionListener() {
-					@Override
-					public void valueChanged(ListSelectionEvent arg0) {
-
-					}
-				});
-
 		jobSearch = new JobSearch(services);
-		jobSearch.getResultList().addListSelectionListener(
-				new ListSelectionListener() {
-					@Override
-					public void valueChanged(ListSelectionEvent arg0) {
-
-					}
-				});
 
 		centerPanel.add(employeeSearch);
 		centerPanel.add(jobSearch);
-		add(centerPanel, BorderLayout.CENTER);
 
 		JButton addEmployeeButton = new JButton("Add employee");
 		addEmployeeButton.addActionListener(new ActionListener() {
@@ -280,24 +267,38 @@ public class BossTab extends JPanel {
 			}
 		});
 
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.weightx = 1.0;
+		c.gridy = GridBagConstraints.RELATIVE;
+		c.anchor = GridBagConstraints.PAGE_START;
+		
 		JPanel rightButtonPanel = new JPanel();
-		rightButtonPanel.setLayout(new BoxLayout(rightButtonPanel,
-				BoxLayout.PAGE_AXIS));
-		rightButtonPanel.add(addJobButton);
-		rightButtonPanel.add(editJobButton);
-		rightButtonPanel.add(removeJobButton);
-		rightButtonPanel.add(giveJobButton);
-
+		rightButtonPanel.setLayout(new GridBagLayout());
+		rightButtonPanel.add(addJobButton, c);
+		rightButtonPanel.add(editJobButton, c);
+		rightButtonPanel.add(removeJobButton, c);
+		rightButtonPanel.add(giveJobButton, c);
+		
 		JPanel leftButtonPanel = new JPanel();
-		leftButtonPanel.setLayout(new BoxLayout(leftButtonPanel,
-				BoxLayout.PAGE_AXIS));
-		leftButtonPanel.add(addEmployeeButton);
-		leftButtonPanel.add(addEmployeeButton2);
-		leftButtonPanel.add(editEmployeeButton);
-		leftButtonPanel.add(getEmployeeButton);
-		leftButtonPanel.add(removeEmployeeButton);
+		leftButtonPanel.setLayout(new GridBagLayout());
+		leftButtonPanel.add(addEmployeeButton, c);
+		leftButtonPanel.add(addEmployeeButton2, c);
+		leftButtonPanel.add(editEmployeeButton, c);
+		leftButtonPanel.add(getEmployeeButton, c);
+		leftButtonPanel.add(removeEmployeeButton, c);
 
-		add(rightButtonPanel, BorderLayout.EAST);
-		add(leftButtonPanel, BorderLayout.WEST);
+		JPanel rightHolder = new JPanel();
+		rightHolder.setLayout(new BorderLayout());
+		rightHolder.add(rightButtonPanel, BorderLayout.NORTH);
+		
+		JPanel leftHolder = new JPanel();
+		leftHolder.setLayout(new BorderLayout());
+		leftHolder.add(leftButtonPanel, BorderLayout.NORTH);
+		
+		add(rightHolder, BorderLayout.EAST);
+		add(centerPanel, BorderLayout.CENTER);
+		add(leftHolder, BorderLayout.WEST);
 	}
 }

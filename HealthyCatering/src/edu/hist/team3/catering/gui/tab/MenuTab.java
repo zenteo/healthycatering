@@ -1,6 +1,8 @@
 package edu.hist.team3.catering.gui.tab;
 
 import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -51,11 +53,18 @@ public class MenuTab extends JPanel{
 		this.dishSearch = new DishSearch(services);
 		this.resourceSearch = new ResourceSearch(services);
 		
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.weightx = 1.0;
+		c.gridy = GridBagConstraints.RELATIVE;
+		c.anchor = GridBagConstraints.PAGE_START;
+		
 		JPanel leftPanel = new JPanel();
-		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
+		leftPanel.setLayout(new GridBagLayout());
 		
 		JPanel rightPanel = new JPanel();
-		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.PAGE_AXIS));
+		rightPanel.setLayout(new GridBagLayout());
 		
 		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new GridLayout(1, 2));
@@ -82,7 +91,7 @@ public class MenuTab extends JPanel{
 				}
 			}
 		});
-		leftPanel.add(button);
+		leftPanel.add(button, c);
 		
 		button = new JButton("Edit dish");
 		button.addActionListener(new ActionListener() {
@@ -104,7 +113,7 @@ public class MenuTab extends JPanel{
 				}
 			}
 		});
-		leftPanel.add(button);
+		leftPanel.add(button, c);
 		
 		button = new JButton("Remove dish");
 		button.addActionListener(new ActionListener() {
@@ -126,7 +135,7 @@ public class MenuTab extends JPanel{
 				}
 			}
 		});
-		leftPanel.add(button);
+		leftPanel.add(button, c);
 		
 		button = new JButton("Add resource");
 		button.addActionListener(new ActionListener() {
@@ -142,7 +151,7 @@ public class MenuTab extends JPanel{
 				editFrame.setVisible(true);
 			}
 		});
-		rightPanel.add(button);
+		rightPanel.add(button, c);
 		
 		button = new JButton("Edit resource");
 		button.addActionListener(new ActionListener() {
@@ -164,7 +173,7 @@ public class MenuTab extends JPanel{
 				}
 			}
 		});
-		rightPanel.add(button);
+		rightPanel.add(button, c);
 		
 		button = new JButton("Remove resource");
 		button.addActionListener(new ActionListener() {
@@ -186,11 +195,19 @@ public class MenuTab extends JPanel{
 				}
 			}
 		});
-		rightPanel.add(button);
+		rightPanel.add(button, c);
+		
+		JPanel leftHolder = new JPanel();
+		leftHolder.setLayout(new BorderLayout());
+		leftHolder.add(leftPanel, BorderLayout.NORTH);
+		
+		JPanel rightHolder = new JPanel();
+		rightHolder.setLayout(new BorderLayout());
+		rightHolder.add(rightPanel, BorderLayout.NORTH);
 		
 		setLayout(new BorderLayout());
-		add(leftPanel, BorderLayout.WEST);
-		add(rightPanel, BorderLayout.EAST);
+		add(leftHolder, BorderLayout.WEST);
+		add(rightHolder, BorderLayout.EAST);
 		add(centerPanel, BorderLayout.CENTER);
 	}
 	

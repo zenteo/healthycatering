@@ -1,6 +1,8 @@
 package edu.hist.team3.catering.gui.tab;
 
 import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +10,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.sql.SQLException;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JList;
@@ -65,16 +68,22 @@ public class CustomerTab extends JPanel {
 						planSearch.setCustomer(customerSearch.getSelected());
 					}
 				});
-
 		customerPlanPanel.add(customerSearch);
 		customerPlanPanel.add(planSearch);
 
 		JPanel rightEditPanel = new JPanel();
-		rightEditPanel.setLayout(new BoxLayout(rightEditPanel, BoxLayout.PAGE_AXIS));
+		rightEditPanel.setLayout(new GridBagLayout());
 		
 		JPanel leftEditPanel = new JPanel();
-		leftEditPanel.setLayout(new BoxLayout(leftEditPanel, BoxLayout.PAGE_AXIS));
+		leftEditPanel.setLayout(new GridBagLayout());
 
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.weightx = 1.0;
+		c.gridy = GridBagConstraints.RELATIVE;
+		c.anchor = GridBagConstraints.PAGE_START;
+		
 		JButton button = new JButton("Add customer");
 		button.addActionListener(new ActionListener() {
 			@Override
@@ -89,7 +98,7 @@ public class CustomerTab extends JPanel {
 				frame.setVisible(true);
 			}
 		});
-		leftEditPanel.add(button);
+		leftEditPanel.add(button, c);
 
 		button = new JButton("Edit customer");
 		button.addActionListener(new ActionListener() {
@@ -112,7 +121,7 @@ public class CustomerTab extends JPanel {
 				}
 			}
 		});
-		leftEditPanel.add(button);
+		leftEditPanel.add(button, c);
 
 		button = new JButton("Remove customer");
 		button.addActionListener(new ActionListener() {
@@ -134,7 +143,7 @@ public class CustomerTab extends JPanel {
 				}
 			}
 		});
-		leftEditPanel.add(button);
+		leftEditPanel.add(button, c);
 
 		button = new JButton("Add plan");
 		button.addActionListener(new ActionListener() {
@@ -157,7 +166,7 @@ public class CustomerTab extends JPanel {
 				}
 			}
 		});
-		rightEditPanel.add(button);
+		rightEditPanel.add(button, c);
 
 		button = new JButton("Edit plan");
 		button.addActionListener(new ActionListener() {
@@ -185,7 +194,7 @@ public class CustomerTab extends JPanel {
 				}
 			}
 		});
-		rightEditPanel.add(button);
+		rightEditPanel.add(button, c);
 
 		button = new JButton("Remove plan");
 		button.addActionListener(new ActionListener() {
@@ -207,11 +216,19 @@ public class CustomerTab extends JPanel {
 				}
 			}
 		});
-		rightEditPanel.add(button);
-
+		rightEditPanel.add(button, c);
+		
+		JPanel leftHolder = new JPanel();
+		leftHolder.setLayout(new BorderLayout());
+		leftHolder.add(leftEditPanel, BorderLayout.NORTH);
+		
+		JPanel rightHolder = new JPanel();
+		rightHolder.setLayout(new BorderLayout());
+		rightHolder.add(rightEditPanel, BorderLayout.NORTH);
+		
 		setLayout(new BorderLayout());
-		add(leftEditPanel, BorderLayout.WEST);
+		add(leftHolder, BorderLayout.WEST);
 		add(customerPlanPanel, BorderLayout.CENTER);
-		add(rightEditPanel, BorderLayout.EAST);
+		add(rightHolder, BorderLayout.EAST);
 	}
 }

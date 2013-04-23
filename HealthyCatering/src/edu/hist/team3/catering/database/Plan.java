@@ -269,7 +269,7 @@ public class Plan extends DatabaseRow {
 		Iterator<PlanDish> it = getDishes().iterator();
 		while (it.hasNext()) {
 			PlanDish planDish = it.next();
-			double count = planDish.getCount();
+			int count = planDish.getCount();
 			Iterator<DishResource> it2 = planDish.getDish().getResources().iterator();
 			while (it2.hasNext()) {
 				DishResource dishResource = it2.next();
@@ -283,6 +283,29 @@ public class Plan extends DatabaseRow {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Delivers the plan
+	 */
+	public void deliver() {
+		tryFetch();
+		setChanged();
+		Iterator<PlanDish> it = getDishes().iterator();
+		while (it.hasNext()) {
+			PlanDish planDish = it.next();
+			int count = planDish.getCount();
+			Iterator<DishResource> it2 = planDish.getDish().getResources().iterator();
+			while (it2.hasNext()) {
+				DishResource dishResource = it2.next();
+				Resource resource = dishResource.getResource();
+				sumOutcome += resource.getCosts() * dishResource.getAmount() * count;
+			}
+			double value = count * planDish.getDish().getPrice();
+			value -= value * planDish.getDiscount();
+			sumIncome += value;
+		}
+		
 	}
 	
 	/**

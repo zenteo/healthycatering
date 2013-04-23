@@ -44,7 +44,6 @@ public class PlanEditFrame extends JFrame {
 
 		setTitle("Plan editor");
 		setSize(600, 400);
-		setAlwaysOnTop(true);
 		setLocationRelativeTo(null);
 	}
 }

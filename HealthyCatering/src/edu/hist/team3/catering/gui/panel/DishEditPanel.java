@@ -177,13 +177,15 @@ public class DishEditPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (selected != null) {
-					try {
-						dish.getResources().remove(selected);
-						resourceSearch.doSearch();
-					}
-					catch (SQLException e) {
-						e.printStackTrace();
-						Services.showError("Error: Could not remove resource!");
+					if (Services.choiceMessage("Do you really want to remove the resource?", "Are you sure?")) {
+						try {
+							dish.getResources().remove(selected);
+							resourceSearch.doSearch();
+						}
+						catch (SQLException e) {
+							e.printStackTrace();
+							Services.showError("Error: Could not remove resource!");
+						}
 					}
 				}
 				else {

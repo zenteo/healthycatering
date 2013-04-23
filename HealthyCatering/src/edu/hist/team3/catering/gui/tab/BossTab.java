@@ -172,12 +172,15 @@ public class BossTab extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (employeeSearch.getSelected() != null) {
-					try {
-						employeeSearch.getSelected().remove();
-					}
-					catch (SQLException e1) {
-						Services.showError("Error: Could not remove employee!");
-						e1.printStackTrace();
+					if (Services.choiceMessage("Do you really want to remove the employee?", "Are you sure?")) {
+						try {
+							employeeSearch.getSelected().remove();
+							employeeSearch.doSearch();
+						}
+						catch (SQLException e1) {
+							Services.showError("Error: Could not remove employee!");
+							e1.printStackTrace();
+						}						
 					}
 				}
 				else {
@@ -231,12 +234,14 @@ public class BossTab extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (jobSearch.getSelected() != null) {
-					try {
-						jobSearch.getSelected().remove();
-						jobSearch.doSearch();
-					} catch (SQLException e1) {
-						Services.showError("Error: Could not remove job.");
-						e1.printStackTrace();
+					if (Services.choiceMessage("Do you really want to remove the job?", "Are you sure?")) {
+						try {
+							jobSearch.getSelected().remove();
+							jobSearch.doSearch();
+						} catch (SQLException e1) {
+							Services.showError("Error: Could not remove job.");
+							e1.printStackTrace();
+						}
 					}
 				} else {
 					Services.showError("Select a job first!");

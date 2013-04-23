@@ -57,7 +57,6 @@ public class DishEditFrame extends JFrame {
 		
 		setTitle("Dish editor");
 		setSize(900, 300);
-		setAlwaysOnTop(true);
 		setLocationRelativeTo(null);
 	}
 }

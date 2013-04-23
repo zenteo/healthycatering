@@ -50,12 +50,21 @@ public class Services {
 	public JobManager getJobManager() {
 		return job;
 	}
-	
+
 	public static void showError(String message) {
 		JOptionPane.showMessageDialog(null, message);
 	}
-	
+
 	public static void showMessage(String message) {
 		JOptionPane.showMessageDialog(null, message);
+	}
+
+	public static boolean choiceMessage(String message, String title) {
+		Object[] options = { "Yes", "No" };
+
+		int choice = JOptionPane.showOptionDialog(null, message, title,
+				JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null,
+				options, options[1]);
+		return choice == 0;
 	}
 }

@@ -111,13 +111,15 @@ public class MenuTab extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				Dish dish = dishSearch.getSelected();
 				if (dish != null) {
-					try {
-						dish.remove();
-						dishSearch.doSearch();
-					}
-					catch (SQLException e) {
-						e.printStackTrace();
-						Services.showError("Error: Could not remove dish!");
+					if (Services.choiceMessage("Do you really want to remove the dish?", "Are you sure?")) {
+						try {
+							dish.remove();
+							dishSearch.doSearch();
+						}
+						catch (SQLException e) {
+							e.printStackTrace();
+							Services.showError("Error: Could not remove dish!");
+						}
 					}
 				}
 				else {
@@ -171,13 +173,15 @@ public class MenuTab extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				Resource res = resourceSearch.getSelected();
 				if (res != null) {
-					try {
-						res.remove();
-						resourceSearch.doSearch();
-					}
-					catch (SQLException e) {
-						e.printStackTrace();
-						Services.showError("Error: Could not remove resource!");
+					if (Services.choiceMessage("Do you really want to remove the resource?", "Are you sure?")) {
+						try {
+							res.remove();
+							resourceSearch.doSearch();
+						}
+						catch (SQLException e) {
+							e.printStackTrace();
+							Services.showError("Error: Could not remove resource!");
+						}
 					}
 				}
 				else {

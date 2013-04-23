@@ -42,12 +42,12 @@ public class DeliveryTab extends JPanel {
 	public DeliveryTab(final Services services) {
 		this.services = services;
 		
-		final JList<LabeledObject<ArrayList<Delivery>>> addressList;
+		final JList<LabeledObject<LabeledObject<ArrayList<Delivery>>>> addressList;
 		final JList<String> dishList;
 		final ImagePanel mapPanel;
 		
-		addressList = new JList<LabeledObject<ArrayList<Delivery>>>();
-		addressList.setModel(new DefaultListModel<LabeledObject<ArrayList<Delivery>>>());
+		addressList = new JList<LabeledObject<LabeledObject<ArrayList<Delivery>>>>();
+		addressList.setModel(new DefaultListModel<LabeledObject<LabeledObject<ArrayList<Delivery>>>>());
 		
 		dishList = new JList<String>();
 		dishList.setModel(new DefaultListModel<String>());
@@ -57,13 +57,13 @@ public class DeliveryTab extends JPanel {
 		addressList.addListSelectionListener(new ListSelectionListener(){
 			@Override
 			public void valueChanged(ListSelectionEvent arg0) {
-				final LabeledObject<ArrayList<Delivery>> lo = addressList.getSelectedValue();
+				final LabeledObject<LabeledObject<ArrayList<Delivery>>> lo = addressList.getSelectedValue();
 				DefaultListModel<String> model;
 				model = (DefaultListModel<String>)dishList.getModel();
 				model.clear();
 				mapPanel.setImage(null);
 				if (lo != null) {
-					for (Delivery delivery : lo.getObject()) {
+					for (Delivery delivery : lo.getObject().getObject()) {
 						Iterator<PlanDish> it = delivery.getPlan().getDishes().iterator();
 						while (it.hasNext()) {
 							PlanDish planDish = it.next();
@@ -75,10 +75,10 @@ public class DeliveryTab extends JPanel {
 						new Thread(new Runnable(){
 							@Override
 							public void run() {
-								DefaultListModel<LabeledObject<ArrayList<Delivery>>> addressModel;
-								addressModel = (DefaultListModel<LabeledObject<ArrayList<Delivery>>>)addressList.getModel();
-								String from = addressModel.get(index - 1).getLabel();
-								String to = lo.getLabel();
+								DefaultListModel<LabeledObject<LabeledObject<ArrayList<Delivery>>>> addressModel;
+								addressModel = (DefaultListModel<LabeledObject<LabeledObject<ArrayList<Delivery>>>>)addressList.getModel();
+								String from = addressModel.get(index - 1).getObject().getLabel();
+								String to = lo.getObject().getLabel();
 								RouteToolkit routeTool = RouteToolkit.getInstance();
 								Routes directions = routeTool.fetchDirections(from, to);
 								mapPanel.setImage(routeTool.fetchMap(directions));
@@ -122,11 +122,11 @@ public class DeliveryTab extends JPanel {
 				RouteToolkit routeTool = RouteToolkit.getInstance();
 				ArrayList<String> route = routeTool.computeShortestLoop(addresses);
 				route = routeTool.rearrange(route, firstAddress);
-				DefaultListModel<LabeledObject<ArrayList<Delivery>>> model;
-				model = (DefaultListModel<LabeledObject<ArrayList<Delivery>>>)addressList.getModel();
+				DefaultListModel<LabeledObject<LabeledObject<ArrayList<Delivery>>>> model;
+				model = (DefaultListModel<LabeledObject<LabeledObject<ArrayList<Delivery>>>>)addressList.getModel();
 				model.clear();
 				for (String address : route) {
-					model.addElement(new LabeledObject<ArrayList<Delivery>>(address, deliveryMap.get(address)));
+					model.addElement(new LabeledObject<LabeledObject<ArrayList<Delivery>>>(address, new LabeledObject<ArrayList<Delivery>>(address, deliveryMap.get(address))));
 				}
 			}
 		});
@@ -136,12 +136,14 @@ public class DeliveryTab extends JPanel {
 		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				final LabeledObject<ArrayList<Delivery>> lo = addressList.getSelectedValue();
+				final LabeledObject<LabeledObject<ArrayList<Delivery>>> lo = addressList.getSelectedValue();
 				if (lo != null) {
 					boolean failed = false;
-					for (Delivery delivery : lo.getObject()) {
+					lo.setLabel("[Delivered]");
+					addressList.repaint();
+					for (Delivery delivery : lo.getObject().getObject()) {
 						try {
-							delivery.setStatus(Delivery.STATUS_DELIVERED);
+							delivery.deliver();
 							delivery.commit();
 						}
 						catch (SQLException ex) {

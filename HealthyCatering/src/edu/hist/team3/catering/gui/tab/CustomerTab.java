@@ -118,14 +118,16 @@ public class CustomerTab extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				Customer customer = customerSearch.getSelected();
 				if (customer != null) {
-					try {
-						customer.remove();
-					} catch (SQLException e) {
-						JOptionPane.showMessageDialog(null,
-								"Error: Could not remove customer!");
-						e.printStackTrace();
+					if (Services.choiceMessage("Do you really want to remove the customer?", "Are you sure?")) {
+						try {
+							customer.remove();
+						} catch (SQLException e) {
+							JOptionPane.showMessageDialog(null,
+									"Error: Could not remove customer!");
+							e.printStackTrace();
+						}
+						customerSearch.doSearch();
 					}
-					customerSearch.doSearch();
 				}
 				else {
 					Services.showError("Select a customer first!");
@@ -193,8 +195,10 @@ public class CustomerTab extends JPanel {
 				if (customer != null) {
 					Plan plan = planSearch.getSelected();
 					if (plan != null) {
-						services.getPlanManager().removePlan(plan);
-						planSearch.doSearch();
+						if (Services.choiceMessage("Do you really want to remove the plan?", "Are you sure?")) {
+							services.getPlanManager().removePlan(plan);
+							planSearch.doSearch();
+						}
 					}
 					else {
 						Services.showError("Select a plan first!");

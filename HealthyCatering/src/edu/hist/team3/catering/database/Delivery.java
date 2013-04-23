@@ -149,7 +149,19 @@ public class Delivery extends DatabaseRow{
 	 * Cooks the delivery
 	 */
 	public void cook() {
+		if (getStatus() != Delivery.STATUS_NONE)
+			return;
 		setStatus(Delivery.STATUS_COOKED);
 		getPlan().cook();
+	}
+	
+	/**
+	 * Delivers the delivery
+	 */
+	public void deliver() {
+		if (getStatus() == Delivery.STATUS_DELIVERED)
+			return;
+		setStatus(Delivery.STATUS_DELIVERED);
+		getPlan().deliver();
 	}
 }

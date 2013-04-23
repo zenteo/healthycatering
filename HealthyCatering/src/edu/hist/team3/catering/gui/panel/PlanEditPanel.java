@@ -164,11 +164,13 @@ public class PlanEditPanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				PlanDish pd = dishSearch.getSelected();
 				if (pd != null) {
-					try {
-						plan.getDishes().remove(pd);
-						dishSearch.doSearch();
-					} catch (SQLException e) {
-						e.printStackTrace();
+					if (Services.choiceMessage("Do you really want to remove the dish?", "Are you sure?")) {
+						try {
+							plan.getDishes().remove(pd);
+							dishSearch.doSearch();
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
 					}
 				} else {
 					Services.showError("Select a dish first!");

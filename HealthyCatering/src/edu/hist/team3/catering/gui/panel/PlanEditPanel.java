@@ -1,16 +1,28 @@
 package edu.hist.team3.catering.gui.panel;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.sql.Date;
 import java.sql.SQLException;
 
-import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
+import edu.hist.team3.catering.database.Dish;
 import edu.hist.team3.catering.database.Plan;
+import edu.hist.team3.catering.database.PlanDish;
 import edu.hist.team3.catering.database.manager.Services;
+import edu.hist.team3.catering.gui.frame.DishSearchFrame;
 
 public class PlanEditPanel extends JPanel {
 	private Plan plan;
@@ -23,8 +35,14 @@ public class PlanEditPanel extends JPanel {
 	private JCheckBox fridays;
 	private JCheckBox saturdays;
 	private JCheckBox sundays;
+	private PlanDishSearch dishSearch;
+	private JFormattedTextField count;
+	private JFormattedTextField discount;
+	private JButton dishSelector;
+	private Dish selectedDish;
+	private DishSearchFrame dishSearchFrame;
 	
-	public PlanEditPanel(Plan plan) {
+	public PlanEditPanel(final Plan plan, Services services) {
 		this.plan = plan;
 		startDate = new JTextField();
 		endDate = new JTextField();
@@ -37,9 +55,14 @@ public class PlanEditPanel extends JPanel {
 		sundays = new JCheckBox("Sundays");
 		
 		JPanel options = new JPanel();
-		options.setLayout(new BoxLayout(options, BoxLayout.PAGE_AXIS));
-		options.add(startDate);
-		options.add(endDate);
+		options.setLayout(new GridLayout(8, 1));
+		JPanel gridOptions = new JPanel();
+		gridOptions.setLayout(new GridLayout(2, 2));
+		gridOptions.add(new JLabel("Start date:"));
+		gridOptions.add(startDate);
+		gridOptions.add(new JLabel("End date:"));
+		gridOptions.add(endDate);
+		options.add(gridOptions);
 		options.add(mondays);
 		options.add(tuesdays);
 		options.add(wednesdays);
@@ -48,8 +71,124 @@ public class PlanEditPanel extends JPanel {
 		options.add(saturdays);
 		options.add(sundays);
 		
+		dishSearchFrame = new DishSearchFrame(services);
+		dishSearchFrame.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentHidden(ComponentEvent arg0) {
+				selectedDish = dishSearchFrame.getSelected();
+				if (endDate.getText().equals("")) {
+					discount.setValue(selectedDish.getLongtermDiscount() * 100.0);
+				}
+				else {
+					discount.setValue(selectedDish.getDefaultDiscount() * 100.0);
+				}
+			}
+		});
+
+		dishSearch = new PlanDishSearch(plan);
+
+		dishSearch.getResultList().addListSelectionListener(
+				new ListSelectionListener() {
+					@Override
+					public void valueChanged(ListSelectionEvent arg0) {
+						PlanDish selected = dishSearch.getSelected();
+						if (selected != null) {
+							selectedDish = selected.getDish();
+							count.setValue(selected.getCount());
+							discount.setValue(selected.getDiscount() * 100.0);
+						}
+					}
+				});
+
+		JPanel editPanel = new JPanel();
+		editPanel.setLayout(new GridLayout(4, 1));
+
+		gridOptions = new JPanel();
+		gridOptions.setLayout(new GridLayout(2, 2));
+		
+		count = new JFormattedTextField();
+		count.setValue(new Integer(1));
+		gridOptions.add(new JLabel("Count:"));
+		gridOptions.add(count);
+
+		discount = new JFormattedTextField();
+		discount.setValue(new Double(0.0));
+		gridOptions.add(new JLabel("Discount:"));
+		gridOptions.add(discount);
+
+		editPanel.add(gridOptions);
+		
+		JButton dishSelector = new JButton("Select dish");
+		dishSelector.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				dishSearchFrame.setVisible(true);
+			}
+		});
+		editPanel.add(dishSelector);
+
+		JButton button = new JButton("Add/Save");
+		button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				double discountValue;
+				int countValue;
+				discountValue = ((Number)discount.getValue()).doubleValue();
+				countValue = ((Number)count.getValue()).intValue();
+				if (selectedDish != null) {
+					try {
+						PlanDish pd = plan.getDishes().get(selectedDish);
+						if (pd == null) {
+							pd = plan.getDishes().add(selectedDish);
+						}
+						pd.setCount(((Number)count.getValue()).intValue());
+						pd.setDiscount(((Number)discount.getValue()).doubleValue() / 100.0);
+						pd.commit();
+						dishSearch.doSearch();
+					} catch (SQLException e) {
+						// TODO Rollback?
+						Services.showError("Could not save the changes to the database.");
+						e.printStackTrace();
+					}
+				} else {
+					Services.showError("Select a dish first!");
+				}
+			}
+		});
+		editPanel.add(button);
+
+
+		button = new JButton("Remove");
+		button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				PlanDish pd = dishSearch.getSelected();
+				if (pd != null) {
+					try {
+						plan.getDishes().remove(pd);
+						dishSearch.doSearch();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				} else {
+					Services.showError("Select a dish first!");
+				}
+			}
+		});
+		editPanel.add(button);
+
+		JPanel optionsHolder = new JPanel();
+		optionsHolder.setLayout(new BorderLayout());
+		optionsHolder.add(options, BorderLayout.NORTH);
+		
+		JPanel editHolder = new JPanel();
+		editHolder.setLayout(new BorderLayout());
+		editHolder.add(editPanel, BorderLayout.NORTH);
+		
 		setLayout(new BorderLayout());
-		add(options, BorderLayout.NORTH);
+		add(optionsHolder, BorderLayout.WEST);
+		add(dishSearch, BorderLayout.CENTER);
+		add(editHolder, BorderLayout.EAST);
 		
 		fillInfo();
 	}

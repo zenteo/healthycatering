@@ -71,9 +71,9 @@ public class DishEditPanel extends JPanel {
 		this.price = new JFormattedTextField();
 		this.price.setValue(dish.getPrice());
 		this.defaultDiscount = new JFormattedTextField();
-		this.defaultDiscount.setValue(dish.getDefaultDiscount());
+		this.defaultDiscount.setValue(dish.getDefaultDiscount() * 100.0);
 		this.longtermDiscount = new JFormattedTextField();
-		this.longtermDiscount.setValue(dish.getLongtermDiscount());
+		this.longtermDiscount.setValue(dish.getLongtermDiscount() * 100.0);
 		this.amount = new JFormattedTextField();
 		this.amount.setValue(new Double(0.0));
 		
@@ -197,8 +197,8 @@ public class DishEditPanel extends JPanel {
 		dish.setCategory(category.getText());
 		dish.setHealthiness(((Number)healthiness.getValue()).doubleValue() / 100.0);
 		dish.setPrice(((Number)price.getValue()).doubleValue());
-		dish.setDefaultDiscount(((Number)defaultDiscount.getValue()).doubleValue());
-		dish.setLongtermDiscount(((Number)longtermDiscount.getValue()).doubleValue());
+		dish.setDefaultDiscount(((Number)defaultDiscount.getValue()).doubleValue() / 100.0);
+		dish.setLongtermDiscount(((Number)longtermDiscount.getValue()).doubleValue() / 100.0);
 		dish.commit();
 	}
 }

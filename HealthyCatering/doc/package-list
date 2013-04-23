@@ -1,4 +1,8 @@
 edu.hist.team3.catering
 edu.hist.team3.catering.database
+edu.hist.team3.catering.database.manager
 edu.hist.team3.catering.gui
+edu.hist.team3.catering.gui.frame
+edu.hist.team3.catering.gui.panel
+edu.hist.team3.catering.gui.tab
 edu.hist.team3.catering.route

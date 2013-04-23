@@ -240,6 +240,16 @@ public class Resource extends DatabaseRow {
 		super.tryFetch();
 		return stockCount;
 	}
+	
+	/**
+	 * Sets the stock count to a new value.
+	 * @param stockCount The new stock count
+	 */
+	public void addStockCount(double deltaStockCount) {
+		tryFetch();
+		super.setChanged();
+		this.stockCount += deltaStockCount;
+	}
 
 	/**
 	 * Sets the stock count to a new value.

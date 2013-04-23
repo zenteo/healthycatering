@@ -5,5 +5,8 @@
 	<classpathentry kind="lib" path="lib/derbyclient.jar"/>
 	<classpathentry kind="lib" path="lib/tspsolver.jar"/>
 	<classpathentry kind="lib" path="lib/gson-2.2.2.jar"/>
+	<classpathentry kind="lib" path="lib/jfreechart-1.0.14.jar"/>
+	<classpathentry kind="lib" path="lib/jfreechart-1.0.14-swt.jar"/>
+	<classpathentry kind="lib" path="lib/jcommon-1.0.17.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

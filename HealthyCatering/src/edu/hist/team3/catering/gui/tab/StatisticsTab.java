@@ -8,6 +8,7 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.DefaultPieDataset;
 
 import edu.hist.team3.catering.database.manager.Services;
@@ -26,8 +27,9 @@ public class StatisticsTab extends JPanel {
 		data.setValue("The pie!", 50);
 		data.setValue("Not the pie!", 50);
 		
-		JFreeChart chart = ChartFactory.createPieChart3D("Fucking pie", data, true, true, false);
-		ChartPanel frame = new ChartPanel(chart);
+		PiePlot pie = new PiePlot(data);
+		JFreeChart chart = new JFreeChart(pie);
+		ChartPanel frame = new ChartPanel(chart);	
 		add(frame, BorderLayout.CENTER);
 	}
 }

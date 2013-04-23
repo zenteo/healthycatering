@@ -26,11 +26,15 @@ public class EmployeeEditPanel extends JPanel {
 		jobTitle = new JLabel();
 		
 		JPanel employeeEdit = new JPanel();
-		employeeEdit.setLayout(new GridLayout(4, 1));
-		employeeEdit.add(new PropertyPanel<JTextField>("Username:", username));
-		employeeEdit.add(new PropertyPanel<JTextField>("Password:", password));
-		employeeEdit.add(new PropertyPanel<JTextField>("Email:", email));
-		employeeEdit.add(new PropertyPanel<JLabel>("Job:", jobTitle));
+		employeeEdit.setLayout(new GridLayout(4, 2));
+		employeeEdit.add(new JLabel("Username:"));
+		employeeEdit.add(username);
+		employeeEdit.add(new JLabel("Password:"));
+		employeeEdit.add(password);
+		employeeEdit.add(new JLabel("Email:"));
+		employeeEdit.add("Email:", email);
+		employeeEdit.add(new JLabel("Job:"));
+		employeeEdit.add(jobTitle);
 		
 		setLayout(new GridLayout(1, 2));
 		add(customerEdit);

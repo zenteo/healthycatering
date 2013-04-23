@@ -144,7 +144,7 @@ public class MainFrame extends JFrame implements WindowListener {
 					new CookingTab(services)));
 
 		if (job.hasPrivileges(Job.PRIVILEGE_RESOURCES))
-			tabsPanel.addTab("Resources", new JScrollPane(new ResourcesTab(
+			tabsPanel.addTab("Stocks", new JScrollPane(new ResourcesTab(
 					services)));
 
 		if (job.hasPrivileges(Job.PRIVILEGE_SALESMAN))

@@ -27,6 +27,4 @@ public class ResourceSearch extends SearchPanel<Resource> {
 			model.addElement(lo);
 		}
 	}
-	
-	
 }

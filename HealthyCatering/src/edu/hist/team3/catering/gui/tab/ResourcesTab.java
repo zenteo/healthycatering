@@ -1,15 +1,21 @@
 package edu.hist.team3.catering.gui.tab;
 
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
-import javax.swing.Box;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
+import edu.hist.team3.catering.database.Resource;
 import edu.hist.team3.catering.database.manager.Services;
+import edu.hist.team3.catering.gui.panel.StocksSearch;
 
 /*
  * Stocks GUI
@@ -28,52 +34,57 @@ public class ResourcesTab extends JPanel {
 	public ResourcesTab(Services services) {
 		this.services = services;
 		
-		Dimension buttonDimension = new Dimension(190, 70);
-		JPanel centerPanel = new JPanel();
-		centerPanel.setLayout(new FlowLayout());
-		centerPanel.setPreferredSize(new Dimension(190, 640));
+		final StocksSearch stockSearch = new StocksSearch(services);
+		final JFormattedTextField stockCount = new JFormattedTextField();
 		
-		JButton getResourcesButton = new JButton("Get Resources");
-		getResourcesButton.setPreferredSize(buttonDimension);
-		getResourcesButton.addActionListener(new ActionListener() {
-
+		stockSearch.getResultList().addListSelectionListener(new ListSelectionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void valueChanged(ListSelectionEvent arg0) {
+				Resource selected = stockSearch.getSelected();
+				if (selected != null) {
+					stockCount.setValue(selected.getStockCount());
+				}
 			}
-			
-		});JButton getTodaysResourcesButton = new JButton("Get todays resources");
-		getTodaysResourcesButton.setPreferredSize(buttonDimension);
-		getTodaysResourcesButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			}
-			
-		});JButton getCriticallyLowButton = new JButton("Get resources with low number");
-		getCriticallyLowButton.setPreferredSize(buttonDimension);
-		getCriticallyLowButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			}
-			
-		});JButton setStockCountButton = new JButton("Set the Stock count");
-		setStockCountButton.setPreferredSize(buttonDimension);
-		setStockCountButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			}
-			
 		});
-		centerPanel.add(getResourcesButton);
-		centerPanel.add(Box.createRigidArea(buttonDimension));
-		centerPanel.add(getTodaysResourcesButton);
-		centerPanel.add(Box.createRigidArea(buttonDimension));
-		centerPanel.add(getCriticallyLowButton);
-		centerPanel.add(Box.createRigidArea(buttonDimension));
-		centerPanel.add(setStockCountButton);
-		add(centerPanel);
+		
+		JButton button = new JButton("Save");
+		button.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Resource selected = stockSearch.getSelected();
+				if (selected != null) {
+					selected.setStockCount(((Number)stockCount.getValue()).doubleValue());
+					try {
+						selected.commit();
+						stockSearch.doSearch();
+					}
+					catch (SQLException e) {
+						Services.showError("Error: Could not save changes!");
+					}
+				}
+				else {
+					Services.showError("Select a resource first!");
+				}
+			}
+		});
+		
+		JPanel options = new JPanel();
+		options.setLayout(new GridLayout(1, 2));
+		options.add(new JLabel("Stocks count:"));
+		options.add(stockCount);
+		
+		JPanel rightPanel = new JPanel();
+		rightPanel.setLayout(new GridLayout(2, 1));
+		rightPanel.add(options);
+		rightPanel.add(button);
+		
+		JPanel rightHolder = new JPanel();
+		rightHolder.setLayout(new BorderLayout());
+		rightHolder.add(rightPanel, BorderLayout.NORTH);
+		
+		setLayout(new BorderLayout());
+		add(stockSearch, BorderLayout.CENTER);
+		add(rightHolder, BorderLayout.EAST);
 	}
 	
 }

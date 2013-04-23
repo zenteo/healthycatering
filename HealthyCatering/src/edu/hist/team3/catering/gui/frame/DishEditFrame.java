@@ -53,10 +53,10 @@ public class DishEditFrame extends JFrame {
 		content.setLayout(new BorderLayout());
 		content.add(dishPanel, BorderLayout.CENTER);
 		content.add(button, BorderLayout.SOUTH);
-		add(new JScrollPane(content));
+		add(content);
 		
 		setTitle("Dish editor");
-		setSize(700, 300);
+		setSize(900, 300);
 		setAlwaysOnTop(true);
 		setLocationRelativeTo(null);
 	}

@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 import java.sql.SQLException;
 
 import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -55,18 +56,29 @@ public class ResourceEditPanel extends JPanel {
 		this.healthiness = new JFormattedTextField();
 		this.healthiness.setValue(new Double(0.0));
 		
-		setLayout(new GridLayout(11, 1));
-		add(new PropertyPanel<JTextField>("Name:", name));
-		add(new PropertyPanel<JTextField>("Category:", category));
-		add(new PropertyPanel<JTextField>("Description:", description));
-		add(new PropertyPanel<JTextField>("Producer:", producer));
-		add(new PropertyPanel<JTextField>("Source:", source));
-		add(new PropertyPanel<JFormattedTextField>("Costs:", costs));
-		add(new PropertyPanel<JFormattedTextField>("Amount:", amount));
-		add(new PropertyPanel<JFormattedTextField>("Weight:", weight));
-		add(new PropertyPanel<JFormattedTextField>("Volume:", volume));
-		add(new PropertyPanel<JFormattedTextField>("Calories:", calories));
-		add(new PropertyPanel<JFormattedTextField>("Healthiness:", healthiness));
+		setLayout(new GridLayout(11, 2));
+		add(new JLabel("Name:"));
+		add(name);
+		add(new JLabel("Category:"));
+		add(category);
+		add(new JLabel("Description:"));
+		add(description);
+		add(new JLabel("Producer:"));
+		add(producer);
+		add(new JLabel("Source:"));
+		add(source);
+		add(new JLabel("Costs:"));
+		add(costs);
+		add(new JLabel("Amount:"));
+		add(amount);
+		add(new JLabel("Weight:"));
+		add(weight);
+		add(new JLabel("Volume:"));
+		add(volume);
+		add(new JLabel("Calories:"));
+		add(calories);
+		add(new JLabel("Healthiness:"));
+		add(healthiness);
 	}
 	
 	public void fillInfo(Resource res) {

@@ -1,8 +1,6 @@
 package edu.hist.team3.catering.gui.tab;
 
 import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,7 +8,6 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.sql.SQLException;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -53,18 +50,11 @@ public class MenuTab extends JPanel{
 		this.dishSearch = new DishSearch(services);
 		this.resourceSearch = new ResourceSearch(services);
 		
-		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 0;
-		c.weightx = 1.0;
-		c.gridy = GridBagConstraints.RELATIVE;
-		c.anchor = GridBagConstraints.PAGE_START;
-		
 		JPanel leftPanel = new JPanel();
-		leftPanel.setLayout(new GridBagLayout());
+		leftPanel.setLayout(new GridLayout(3, 1));
 		
 		JPanel rightPanel = new JPanel();
-		rightPanel.setLayout(new GridBagLayout());
+		rightPanel.setLayout(new GridLayout(3, 1));
 		
 		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new GridLayout(1, 2));
@@ -91,7 +81,7 @@ public class MenuTab extends JPanel{
 				}
 			}
 		});
-		leftPanel.add(button, c);
+		leftPanel.add(button);
 		
 		button = new JButton("Edit dish");
 		button.addActionListener(new ActionListener() {
@@ -113,7 +103,7 @@ public class MenuTab extends JPanel{
 				}
 			}
 		});
-		leftPanel.add(button, c);
+		leftPanel.add(button);
 		
 		button = new JButton("Remove dish");
 		button.addActionListener(new ActionListener() {
@@ -135,7 +125,7 @@ public class MenuTab extends JPanel{
 				}
 			}
 		});
-		leftPanel.add(button, c);
+		leftPanel.add(button);
 		
 		button = new JButton("Add resource");
 		button.addActionListener(new ActionListener() {
@@ -151,7 +141,7 @@ public class MenuTab extends JPanel{
 				editFrame.setVisible(true);
 			}
 		});
-		rightPanel.add(button, c);
+		rightPanel.add(button);
 		
 		button = new JButton("Edit resource");
 		button.addActionListener(new ActionListener() {
@@ -173,7 +163,7 @@ public class MenuTab extends JPanel{
 				}
 			}
 		});
-		rightPanel.add(button, c);
+		rightPanel.add(button);
 		
 		button = new JButton("Remove resource");
 		button.addActionListener(new ActionListener() {
@@ -195,7 +185,7 @@ public class MenuTab extends JPanel{
 				}
 			}
 		});
-		rightPanel.add(button, c);
+		rightPanel.add(button);
 		
 		JPanel leftHolder = new JPanel();
 		leftHolder.setLayout(new BorderLayout());

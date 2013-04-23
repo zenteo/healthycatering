@@ -145,24 +145,11 @@ public class Delivery extends DatabaseRow{
 		this.status = status;
 	}
 	
+	/**
+	 * Cooks the delivery
+	 */
 	public void cook() {
 		setStatus(Delivery.STATUS_COOKED);
-		Plan plan = getPlan();
-		Iterator<PlanDish> it = plan.getDishes().iterator();
-		while (it.hasNext()) {
-			PlanDish planDish = it.next();
-			double count = planDish.getCount();
-			Iterator<DishResource> it2 = planDish.getDish().getResources().iterator();
-			while (it2.hasNext()) {
-				DishResource dishResource = it2.next();
-				dishResource.getResource().addStockCount(-dishResource.getAmount()*count);
-				try {
-					dishResource.getResource().commit();
-				}
-				catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
+		getPlan().cook();
 	}
 }

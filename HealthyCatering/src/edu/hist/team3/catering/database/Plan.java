@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
+import java.util.Iterator;
 
 public class Plan extends DatabaseRow {
 	// The different flags for the 'daysOfWeek' attribute:
@@ -259,6 +260,29 @@ public class Plan extends DatabaseRow {
 	public void setSumOutcome(double sumOutcome) {
 		super.setChanged();
 		this.sumOutcome = sumOutcome;
+	}
+	
+	/**
+	 * Cooks the plan
+	 */
+	public void cook() {
+		Iterator<PlanDish> it = getDishes().iterator();
+		while (it.hasNext()) {
+			PlanDish planDish = it.next();
+			double count = planDish.getCount();
+			Iterator<DishResource> it2 = planDish.getDish().getResources().iterator();
+			while (it2.hasNext()) {
+				DishResource dishResource = it2.next();
+				Resource resource = dishResource.getResource();
+				dishResource.getResource().addStockCount(-dishResource.getAmount()*count);
+				try {
+					dishResource.getResource().commit();
+				}
+				catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 	
 	/**

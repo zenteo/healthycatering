@@ -266,28 +266,21 @@ public class BossTab extends JPanel {
 				}
 			}
 		});
-
-		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 0;
-		c.weightx = 1.0;
-		c.gridy = GridBagConstraints.RELATIVE;
-		c.anchor = GridBagConstraints.PAGE_START;
 		
 		JPanel rightButtonPanel = new JPanel();
-		rightButtonPanel.setLayout(new GridBagLayout());
-		rightButtonPanel.add(addJobButton, c);
-		rightButtonPanel.add(editJobButton, c);
-		rightButtonPanel.add(removeJobButton, c);
-		rightButtonPanel.add(giveJobButton, c);
+		rightButtonPanel.setLayout(new GridLayout(4, 1));
+		rightButtonPanel.add(addJobButton);
+		rightButtonPanel.add(editJobButton);
+		rightButtonPanel.add(removeJobButton);
+		rightButtonPanel.add(giveJobButton);
 		
 		JPanel leftButtonPanel = new JPanel();
-		leftButtonPanel.setLayout(new GridBagLayout());
-		leftButtonPanel.add(addEmployeeButton, c);
-		leftButtonPanel.add(addEmployeeButton2, c);
-		leftButtonPanel.add(editEmployeeButton, c);
-		leftButtonPanel.add(getEmployeeButton, c);
-		leftButtonPanel.add(removeEmployeeButton, c);
+		leftButtonPanel.setLayout(new GridLayout(5, 1));
+		leftButtonPanel.add(addEmployeeButton);
+		leftButtonPanel.add(addEmployeeButton2);
+		leftButtonPanel.add(editEmployeeButton);
+		leftButtonPanel.add(getEmployeeButton);
+		leftButtonPanel.add(removeEmployeeButton);
 
 		JPanel rightHolder = new JPanel();
 		rightHolder.setLayout(new BorderLayout());

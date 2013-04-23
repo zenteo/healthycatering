@@ -17,15 +17,19 @@ public class CustomerEditPanel extends JPanel {
 	private JTextField address;
 	
 	public CustomerEditPanel() {
-		setLayout(new GridLayout(4, 1));
+		setLayout(new GridLayout(4, 2));
 		this.firstName = new JTextField();
 		this.lastName = new JTextField();
 		this.phoneNumber = new JTextField();
 		this.address = new JTextField();
-		add(new PropertyPanel<JTextField>("First name:", firstName));
-		add(new PropertyPanel<JTextField>("Last name:", lastName));
-		add(new PropertyPanel<JTextField>("Phone number:", phoneNumber));
-		add(new PropertyPanel<JTextField>("Address:", address));
+		add(new JLabel("First name:"));
+		add(firstName);
+		add(new JLabel("Last name:"));
+		add(lastName);
+		add(new JLabel("Phone number:"));
+		add(phoneNumber);
+		add(new JLabel("Address"));
+		add(address);
 	}
 	
 	public void fillInfo(Customer customer) {

@@ -1,10 +1,12 @@
 package edu.hist.team3.catering.gui.panel;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.sql.SQLException;
 
 import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -47,25 +49,37 @@ public class JobEditPanel extends JPanel {
 		salemanPrivileges = new JCheckBox("Salesman privileges");
 		driverPrivileges = new JCheckBox("Driver privileges");
 		nutritiousPrivileges = new JCheckBox("Nutritious privileges");
-		resourcesPrivileges = new JCheckBox("Resource privileges");
+		resourcesPrivileges = new JCheckBox("Stocks privileges");
 		statisticsPrivileges = new JCheckBox("Statistics privileges");
 		yearlySalary.setValue(new Double(0.0));
 		hourlySalary.setValue(new Double(0.0));
 		percentSales.setValue(new Double(0.0));
 		
-		setLayout(new GridLayout(11, 1));
-		add(new PropertyPanel<JTextField>("Name:", nameField));
-		add(new PropertyPanel<JFormattedTextField>("Yearly salary:", yearlySalary));
-		add(new PropertyPanel<JFormattedTextField>("Hourly salary:", hourlySalary));
-		add(new PropertyPanel<JFormattedTextField>("Percent sales:", percentSales));
-		add(adminPrivileges);
-		add(cookPrivileges);
-		add(salemanPrivileges);
-		add(driverPrivileges);
-		add(nutritiousPrivileges);
-		add(resourcesPrivileges);
-		add(statisticsPrivileges);
+		JPanel options = new JPanel();
+		options.setLayout(new GridLayout(4, 2));
+		options.add(new JLabel("Name:"));
+		options.add(nameField);
+		options.add(new JLabel("Yearly salary:"));
+		options.add(yearlySalary);
+		options.add(new JLabel("Hourly salary:"));
+		options.add(hourlySalary);
+		options.add(new JLabel("Percent sales:"));
+		options.add(percentSales);
+		add(options);
+		
+		JPanel content = new JPanel();
+		content.setLayout(new GridLayout(7, 1));
+		content.add(adminPrivileges);
+		content.add(cookPrivileges);
+		content.add(salemanPrivileges);
+		content.add(driverPrivileges);
+		content.add(nutritiousPrivileges);
+		content.add(resourcesPrivileges);
+		content.add(statisticsPrivileges);
 
+		setLayout(new BorderLayout());
+		add(options, BorderLayout.NORTH);
+		add(content, BorderLayout.CENTER);
 	}
 	
 	public void fillInfo(Job job) {

@@ -9,9 +9,9 @@ import java.awt.event.ComponentEvent;
 import java.sql.SQLException;
 import java.util.Iterator;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
@@ -78,14 +78,20 @@ public class DishEditPanel extends JPanel {
 		this.amount.setValue(new Double(0.0));
 		
 		JPanel leftPanel = new JPanel();
-		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
+		leftPanel.setLayout(new GridLayout(7, 2));
 		
-		leftPanel.add(new PropertyPanel<JTextField>("Name:", name));
-		leftPanel.add(new PropertyPanel<JTextField>("Category:", category));
-		leftPanel.add(new PropertyPanel<JTextField>("Price:", price));
-		leftPanel.add(new PropertyPanel<JTextField>("Default discount:", defaultDiscount));
-		leftPanel.add(new PropertyPanel<JTextField>("Longterm discount:", longtermDiscount));
-		leftPanel.add(new PropertyPanel<JTextField>("Healthiness:", healthiness));
+		leftPanel.add(new JLabel("Name:"));
+		leftPanel.add(name);
+		leftPanel.add(new JLabel("Category:"));
+		leftPanel.add(category);
+		leftPanel.add(new JLabel("Price:"));
+		leftPanel.add(price);
+		leftPanel.add(new JLabel("Default discount:"));
+		leftPanel.add(defaultDiscount);
+		leftPanel.add(new JLabel("Longterm discount:"));
+		leftPanel.add(longtermDiscount);
+		leftPanel.add(new JLabel("Healthiness:"));
+		leftPanel.add(healthiness);
 		
 		JButton button = new JButton("Compute healthiness");
 		button.addActionListener(new ActionListener() {
@@ -105,6 +111,7 @@ public class DishEditPanel extends JPanel {
 				healthiness.setValue(sum);
 			}
 		});
+		leftPanel.add(new JLabel());
 		leftPanel.add(button);
 		
 		JPanel rightPanel = new JPanel();
@@ -186,10 +193,18 @@ public class DishEditPanel extends JPanel {
 		});
 		rightPanel.add(button);
 		
+		JPanel leftHolder = new JPanel();
+		leftHolder.setLayout(new BorderLayout());
+		leftHolder.add(leftPanel, BorderLayout.NORTH);
+		
+		JPanel rightHolder = new JPanel();
+		rightHolder.setLayout(new BorderLayout());
+		rightHolder.add(rightPanel, BorderLayout.NORTH);
+		
 		setLayout(new BorderLayout());
-		add(leftPanel, BorderLayout.WEST);
+		add(leftHolder, BorderLayout.WEST);
 		add(resourceSearch, BorderLayout.CENTER);
-		add(rightPanel, BorderLayout.EAST);
+		add(rightHolder, BorderLayout.EAST);
 	}
 	
 	public void apply() throws SQLException {

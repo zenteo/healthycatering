@@ -1,4 +1,4 @@
-package edu.hist.team3.catering;
+package edu.hist.team3.catering.test;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -43,11 +43,11 @@ public class TestRoute extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		ArrayList<String> locations = new ArrayList<String>();
-		locations.add("Klæbuveien 125, 7034 Trondheim");
+		locations.add("Klï¿½buveien 125, 7034 Trondheim");
 		locations.add("Kong Inges gate 21, Trondheim");
 		locations.add("Hans Finnes gate 31, Trondheim");
 		locations.add("Bugges veg 3, Trondheim");
-		locations.add("Åkervegen 5, Trondheim");
+		locations.add("ï¿½kervegen 5, Trondheim");
 		
 		RouteToolkit routeKit = RouteToolkit.getInstance();
 		

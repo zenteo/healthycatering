@@ -1,4 +1,4 @@
-package edu.hist.team3.catering;
+package edu.hist.team3.catering.test;
 
 import java.sql.SQLException;
 

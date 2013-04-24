@@ -114,7 +114,6 @@ public class DeliveryTab extends JPanel {
 						if (!deliveryMap.containsKey(address)) {
 							deliveryMap.put(address, new ArrayList<Delivery>());
 							addresses.add(address);
-							System.out.println(address);
 						}
 						deliveryMap.get(address).add(delivery);
 					}

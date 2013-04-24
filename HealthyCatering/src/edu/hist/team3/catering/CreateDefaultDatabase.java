@@ -15,12 +15,12 @@ import edu.hist.team3.catering.database.PlanDish;
 import edu.hist.team3.catering.database.Resource;
 import edu.hist.team3.catering.database.manager.Services;
 
-public class AddTestDataToDatabase {
+public class CreateDefaultDatabase {
 	
 	/**
 	 * This is just a test, and not to be used.
 	 */
-	public AddTestDataToDatabase(){
+	public CreateDefaultDatabase(){
 		
 	}
 	
@@ -33,7 +33,7 @@ public class AddTestDataToDatabase {
 			
 			manager = new DatabaseManager("jdbc:derby://db.stud.aitel.hist.no:1527/13ing1gr3", "team3", "Ikj721");
 			
-			System.out.println("Test creation of database rows:");
+			System.out.println("Create default data:");
 			
 			Resource resource = manager.createResource();
 			resource.setName("Porkchops");
@@ -106,21 +106,6 @@ public class AddTestDataToDatabase {
 			delivery.commit();
 			
 			System.out.println("Done.");
-			
-			System.out.println("Test removal of database rows:");
-			
-			// Comment the following code to see changes in database:
-			/*
-			delivery.remove();
-			planDish.remove();
-			plan.remove();
-			employee.remove();
-			job.remove();
-			customer.remove();
-			dishResource.remove();
-			resource.remove();
-			*/
-			System.out.println("Done");
 			
 		}
 		catch (SQLException e) {

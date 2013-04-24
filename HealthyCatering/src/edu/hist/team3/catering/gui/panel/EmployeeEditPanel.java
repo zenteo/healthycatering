@@ -16,6 +16,7 @@ public class EmployeeEditPanel extends JPanel {
 	private JTextField password;
 	private JTextField email;
 	private JLabel jobTitle;
+	private JLabel employmentDate;
 	
 	
 	public EmployeeEditPanel() {
@@ -24,9 +25,10 @@ public class EmployeeEditPanel extends JPanel {
 		password = new JTextField();
 		email = new JTextField();
 		jobTitle = new JLabel();
+		employmentDate = new JLabel();
 		
 		JPanel employeeEdit = new JPanel();
-		employeeEdit.setLayout(new GridLayout(4, 2));
+		employeeEdit.setLayout(new GridLayout(5, 2));
 		employeeEdit.add(new JLabel("Username:"));
 		employeeEdit.add(username);
 		employeeEdit.add(new JLabel("Password:"));
@@ -35,6 +37,8 @@ public class EmployeeEditPanel extends JPanel {
 		employeeEdit.add("Email:", email);
 		employeeEdit.add(new JLabel("Job:"));
 		employeeEdit.add(jobTitle);
+		employeeEdit.add(new JLabel("Employed:"));
+		employeeEdit.add(employmentDate);
 		
 		setLayout(new GridLayout(1, 2));
 		add(customerEdit);
@@ -48,6 +52,7 @@ public class EmployeeEditPanel extends JPanel {
 		username.setText(employee.getUsername());
 		password.setText(employee.getPassword());
 		email.setText(employee.getEmail());
+		employmentDate.setText(employee.getEmploymentDate().toString());
 	}
 	
 	public void apply(Employee employee) throws SQLException {

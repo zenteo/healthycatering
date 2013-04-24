@@ -2,8 +2,6 @@ package edu.hist.team3.catering.gui.tab;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,12 +9,9 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.sql.SQLException;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import edu.hist.team3.catering.database.Customer;
 import edu.hist.team3.catering.database.Employee;
@@ -45,12 +40,10 @@ public class BossTab extends JPanel {
 	private Services services;
 	private EmployeeSearch employeeSearch;
 	private JobSearch jobSearch;
-	private JList<Job> jobList;
 
 	public BossTab(final Services services) {
 		setLayout(new BorderLayout());
 		this.services = services;
-		Dimension buttonDimension = new Dimension(150, 70);
 
 		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new GridLayout(1, 2));

@@ -2,6 +2,7 @@ package edu.hist.team3.catering.gui.tab;
 
 import java.awt.BorderLayout;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.jfree.chart.ChartFactory;
@@ -31,5 +32,35 @@ public class StatisticsTab extends JPanel {
 		JFreeChart chart = new JFreeChart(pie);
 		ChartPanel frame = new ChartPanel(chart);	
 		add(frame, BorderLayout.CENTER);
+	}
+	
+	public JPanel outcomePanel() {
+		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+		Double value = services.getDeliveryManager().getTotalOutcome();
+
+		JLabel text;
+		if (value != -1.0)
+			text = new JLabel("Total outcome: " + value);
+		else
+			text = new JLabel("Unable to fetch information.");
+		
+		panel.add(text, BorderLayout.CENTER);
+		return panel;
+	}
+	
+	public JPanel incomePanel() {
+		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+		Double value = services.getDeliveryManager().getTotalIncome();
+
+		JLabel text;
+		if (value != -1.0)
+			text = new JLabel("Total income: " + value);
+		else
+			text = new JLabel("Unable to fetch information.");
+		
+		panel.add(text, BorderLayout.CENTER);
+		return panel;
 	}
 }

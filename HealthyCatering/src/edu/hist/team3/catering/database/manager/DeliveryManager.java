@@ -72,4 +72,29 @@ public class DeliveryManager {
 		}
 		return ret;
 	}
+	
+	public double getTotalOutcome() {
+		try (ResultSet result = manager.performSql("SELECT SUM(DELIVERY.SUM_OUTCOME) AS total_outcome FROM DELIVERY")){
+			if (result.next()) {
+				return result.getDouble(1);
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1.0;
+	}
+
+	public double getTotalIncome() {
+		try (ResultSet result = manager.performSql("SELECT SUM(DELIVERY.SUM_INCOME) AS total_income FROM DELIVERY")){
+			if (result.next()) {
+				return result.getDouble(1);
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1.0;
+	}
+
 }

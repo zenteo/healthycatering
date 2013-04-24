@@ -2,21 +2,18 @@ package edu.hist.team3.catering.gui.tab;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Date;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import edu.hist.team3.catering.database.Customer;
 import edu.hist.team3.catering.database.Employee;
@@ -151,13 +148,31 @@ public class BossTab extends JPanel {
 
 		});
 
-		JButton getEmployeeButton = new JButton("Get session hours");
+		JButton getEmployeeButton = new JButton("Get info");
 		getEmployeeButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (employeeSearch.getSelected() != null) {
-					Services.showMessage("Used this program for: " + employeeSearch.getSelected().getSessionHours() + " hours!");
+				Employee selected = employeeSearch.getSelected();
+				if (selected != null) {
+					Job job = selected.getJob();
+					double wage = job.getHourlySalary() * selected.getSessionHours();
+					Calendar now = Calendar.getInstance();
+					Calendar employment = Calendar.getInstance();
+					employment.setTime(selected.getEmploymentDate());
+					now.add(Calendar.YEAR, -employment.get(Calendar.YEAR));
+					now.add(Calendar.DAY_OF_YEAR, -employment.get(Calendar.DAY_OF_YEAR));
+					System.out.println(now.get(Calendar.DAY_OF_YEAR));
+					double years = now.get(Calendar.YEAR);
+					years += now.get(Calendar.DAY_OF_YEAR) / 365.25;
+					years += now.get(Calendar.HOUR_OF_DAY) / 24 / 365.25;
+					years += now.get(Calendar.MINUTE) / 60.0 / 24 / 365.25;
+					years += now.get(Calendar.SECOND) / 60.0 / 60.0 / 24 / 365.25;;
+					double yearlyWage = wage / years;
+					String message = "Used this program for: " + selected.getSessionHours() + " hours!\n";
+					message += "Wage til now, based on this number: " + wage + "\n";
+					message += "Yearly wage ,based on this number: " + yearlyWage + "\n";
+					Services.showMessage(message);
 				}
 				else {
 					Services.showError("Select an employee first!");

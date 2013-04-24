@@ -83,7 +83,7 @@ public class AddTestDataToDatabase {
 			employee.setUsername("admin");
 			employee.setPassword("admin");
 			employee.setEmail("horny_pussy@pimp.no");
-			employee.setEmploymentDate(Date.valueOf("1234-11-23")); // Also test-date
+			employee.setEmploymentDate(Date.valueOf("2013-01-23")); // Also test-date
 			employee.setSessionHours(0.0); // Worked for 0.0 hour in his whole life.
 			employee.commit();
 

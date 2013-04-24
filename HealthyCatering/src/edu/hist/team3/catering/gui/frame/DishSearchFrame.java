@@ -31,6 +31,7 @@ public class DishSearchFrame extends JFrame {
 		add(select, BorderLayout.SOUTH);
 		setAlwaysOnTop(true);
 		setTitle("Select dish");
+		setLocationRelativeTo(null);
 		setSize(300, 200);
 	}
 

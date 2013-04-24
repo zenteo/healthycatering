@@ -22,12 +22,18 @@ import edu.hist.team3.catering.database.manager.Services;
 public class StatisticsTab extends JPanel {
 	private Services services;
 	private JPanel centralPanel;
+	private JPanel leftPanel;
 	private JComboBox chartSelection;
 	
 	public StatisticsTab(Services services) {
 		this.services = services;
 		setLayout(new BorderLayout());
 		
+		update();
+	}
+	
+	private void update() {
+		this.removeAll();
 		String[] choiceList = {
 				"Income chart",
 				"Some other chart"
@@ -41,8 +47,6 @@ public class StatisticsTab extends JPanel {
 		});
 		
 		
-		JPanel outcomePanel = new JPanel();
-		outcomePanel.setLayout(new BorderLayout());
 		Double outValue = services.getDeliveryManager().getTotalOutcome();
 
 		JLabel outText;
@@ -50,12 +54,8 @@ public class StatisticsTab extends JPanel {
 			outText = new JLabel("Total outcome: " + outValue);
 		else
 			outText = new JLabel("Unable to fetch information.");
-
-		outcomePanel.add(outText, BorderLayout.CENTER);
-
 		
-		JPanel incomePanel = new JPanel();
-		incomePanel.setLayout(new BorderLayout());
+		
 		Double innValue = services.getDeliveryManager().getTotalIncome();
 
 		JLabel innText;
@@ -64,7 +64,6 @@ public class StatisticsTab extends JPanel {
 		else
 			innText = new JLabel("Unable to fetch information.");
 		
-		incomePanel.add(innText, BorderLayout.CENTER);
 
 		
 		JButton refreshButton = new JButton("Refresh");
@@ -72,25 +71,23 @@ public class StatisticsTab extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				update();
 			}
 			
 		});
 
-		
 		JPanel leftHolder = new JPanel();
 		leftHolder.setLayout(new GridLayout(4,1));
-		leftHolder.add(incomePanel);
-		leftHolder.add(outcomePanel);
+		leftHolder.add(innText);
+		leftHolder.add(outText);
 		leftHolder.add(refreshButton);
 		leftHolder.add(chartSelection);
 		
-		JPanel leftPanel = new JPanel();
+		leftPanel = new JPanel();
 		leftPanel.setLayout(new BorderLayout());
-		
 		leftPanel.add(leftHolder, BorderLayout.NORTH);
 		
-		centralPanel = new JPanel();		
+		centralPanel = new JPanel();
 		add(leftPanel, BorderLayout.WEST);
 		add(centralPanel, BorderLayout.CENTER);
 	}

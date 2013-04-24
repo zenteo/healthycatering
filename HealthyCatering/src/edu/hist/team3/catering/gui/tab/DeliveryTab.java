@@ -72,6 +72,10 @@ public class DeliveryTab extends JPanel {
 					}
 					final int index = addressList.getSelectedIndex();
 					if (index > 0) {
+						synchronized(mapPanel) {
+							mapPanel.setLoading(true);
+							mapPanel.repaint();
+						}
 						new Thread(new Runnable(){
 							@Override
 							public void run() {
@@ -81,7 +85,10 @@ public class DeliveryTab extends JPanel {
 								String to = lo.getObject().getLabel();
 								RouteToolkit routeTool = RouteToolkit.getInstance();
 								Routes directions = routeTool.fetchDirections(from, to);
-								mapPanel.setImage(routeTool.fetchMap(directions));
+								synchronized(mapPanel) {
+									mapPanel.setImage(routeTool.fetchMap(directions));
+									mapPanel.setLoading(false);
+								}
 							}
 							
 						}).start();

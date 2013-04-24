@@ -42,12 +42,10 @@ public class BossTab extends JPanel {
 	private Services services;
 	private EmployeeSearch employeeSearch;
 	private JobSearch jobSearch;
-	private JList<Job> jobList;
 
 	public BossTab(final Services services) {
 		setLayout(new BorderLayout());
 		this.services = services;
-		Dimension buttonDimension = new Dimension(150, 70);
 
 		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new GridLayout(1, 2));

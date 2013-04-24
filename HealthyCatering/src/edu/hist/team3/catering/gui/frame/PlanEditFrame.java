@@ -31,16 +31,30 @@ public class PlanEditFrame extends JFrame {
 	private PlanEditPanel planPanel;
 
 	public PlanEditFrame(final Plan plan, final Services services) {
-		planPanel = new PlanEditPanel(plan, services);
+		JPanel content = new JPanel();
+		content.setLayout(new BorderLayout());
 		
+		planPanel = new PlanEditPanel(plan, services);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				planPanel.apply();
 			}
 		});
-
-		add(new JScrollPane(planPanel));
+		content.add(planPanel, BorderLayout.CENTER);
+		
+		JButton closeButton = new JButton("Close window");
+		closeButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				planPanel.apply();
+				setVisible(false);
+			}
+		});
+		
+		content.add(closeButton, BorderLayout.SOUTH);
+		
+		add(new JScrollPane(content));
 
 		setTitle("Plan editor");
 		setSize(600, 400);

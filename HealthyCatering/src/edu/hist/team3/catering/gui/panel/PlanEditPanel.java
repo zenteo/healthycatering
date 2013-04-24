@@ -53,6 +53,9 @@ public class PlanEditPanel extends JPanel {
 		fridays = new JCheckBox("Fridays");
 		saturdays = new JCheckBox("Saturdays");
 		sundays = new JCheckBox("Sundays");
+		count = new JFormattedTextField();
+		discount = new JFormattedTextField();
+		
 		
 		JPanel options = new JPanel();
 		options.setLayout(new GridLayout(8, 1));
@@ -76,11 +79,13 @@ public class PlanEditPanel extends JPanel {
 			@Override
 			public void componentHidden(ComponentEvent arg0) {
 				selectedDish = dishSearchFrame.getSelected();
-				if (endDate.getText().equals("")) {
-					discount.setValue(selectedDish.getLongtermDiscount() * 100.0);
-				}
-				else {
-					discount.setValue(selectedDish.getDefaultDiscount() * 100.0);
+				if (selectedDish != null) {
+					if (endDate.getText().equals("")) {
+						discount.setValue(selectedDish.getLongtermDiscount() * 100.0);
+					}
+					else {
+						discount.setValue(selectedDish.getDefaultDiscount() * 100.0);
+					}
 				}
 			}
 		});
@@ -106,12 +111,10 @@ public class PlanEditPanel extends JPanel {
 		gridOptions = new JPanel();
 		gridOptions.setLayout(new GridLayout(2, 2));
 		
-		count = new JFormattedTextField();
 		count.setValue(new Integer(1));
 		gridOptions.add(new JLabel("Count:"));
 		gridOptions.add(count);
 
-		discount = new JFormattedTextField();
 		discount.setValue(new Double(0.0));
 		gridOptions.add(new JLabel("Discount:"));
 		gridOptions.add(discount);

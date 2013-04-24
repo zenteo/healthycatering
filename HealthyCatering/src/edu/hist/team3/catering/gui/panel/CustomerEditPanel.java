@@ -15,21 +15,25 @@ public class CustomerEditPanel extends JPanel {
 	private JTextField lastName;
 	private JTextField phoneNumber;
 	private JTextField address;
+	private JLabel created;
 	
 	public CustomerEditPanel() {
-		setLayout(new GridLayout(4, 2));
+		setLayout(new GridLayout(5, 2));
 		this.firstName = new JTextField();
 		this.lastName = new JTextField();
 		this.phoneNumber = new JTextField();
 		this.address = new JTextField();
+		this.created = new JLabel();
 		add(new JLabel("First name:"));
 		add(firstName);
 		add(new JLabel("Last name:"));
 		add(lastName);
 		add(new JLabel("Phone number:"));
 		add(phoneNumber);
-		add(new JLabel("Address"));
+		add(new JLabel("Address:"));
 		add(address);
+		add(new JLabel("Created:"));
+		add(created);
 	}
 	
 	public void fillInfo(Customer customer) {
@@ -37,6 +41,7 @@ public class CustomerEditPanel extends JPanel {
 		lastName.setText(customer.getLastName());
 		phoneNumber.setText(customer.getPhone());
 		address.setText(customer.getAddress());
+		created.setText(customer.getCreationDate().toString());
 	}
 	
 	public void apply(Customer customer) throws SQLException {

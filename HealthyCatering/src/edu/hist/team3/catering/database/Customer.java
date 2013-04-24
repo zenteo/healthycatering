@@ -41,7 +41,7 @@ public class Customer extends DatabaseRow {
 	public static Customer createDefault(DatabaseManager manager)
 			throws SQLException {
 		String sql = "INSERT INTO Customer(first_name, last_name, address, phone, creation_date, type)"
-				+ "VALUES ('', '', '', '', '2013-03-01', 0)";
+				+ "VALUES ('', '', '', '', CURRENT_DATE, 0)";
 		Customer ret = null;
 		try (PreparedStatement ps = manager.prepareStatement(sql, "id")) {
 			ps.executeUpdate();

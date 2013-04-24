@@ -15,6 +15,7 @@ import javax.swing.event.ListSelectionListener;
 
 import edu.hist.team3.catering.database.Resource;
 import edu.hist.team3.catering.database.manager.Services;
+import edu.hist.team3.catering.gui.frame.ResourceInfoFrame;
 import edu.hist.team3.catering.gui.panel.StocksSearch;
 
 /*
@@ -47,8 +48,8 @@ public class ResourcesTab extends JPanel {
 			}
 		});
 		
-		JButton button = new JButton("Save");
-		button.addActionListener(new ActionListener(){
+		JButton button1 = new JButton("Save");
+		button1.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Resource selected = stockSearch.getSelected();
@@ -68,15 +69,31 @@ public class ResourcesTab extends JPanel {
 			}
 		});
 		
+		JButton button2 = new JButton("Info");
+		button2.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Resource selected = stockSearch.getSelected();
+				if (selected != null) {
+					ResourceInfoFrame infoFrame = new ResourceInfoFrame(selected);
+					infoFrame.setVisible(true);
+				}
+				else {
+					Services.showError("Select a resource first!");
+				}
+			}
+		});
+		
 		JPanel options = new JPanel();
 		options.setLayout(new GridLayout(1, 2));
 		options.add(new JLabel("Stocks count:"));
 		options.add(stockCount);
 		
 		JPanel rightPanel = new JPanel();
-		rightPanel.setLayout(new GridLayout(2, 1));
+		rightPanel.setLayout(new GridLayout(3, 1));
 		rightPanel.add(options);
-		rightPanel.add(button);
+		rightPanel.add(button1);
+		rightPanel.add(button2);
 		
 		JPanel rightHolder = new JPanel();
 		rightHolder.setLayout(new BorderLayout());

@@ -1,6 +1,7 @@
 package edu.hist.team3.catering.gui.tab;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,11 +39,13 @@ public class StatisticsTab extends JPanel {
 				"Income chart",
 				"Some other chart"
 		};
-		chartSelection = new JComboBox(choiceList);
+		chartSelection = new JComboBox<String>(choiceList);
 		chartSelection.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
-				System.out.println(chartSelection.getSelectedIndex());
+				CardLayout layout = (CardLayout) centralPanel.getLayout();
+				layout.show(centralPanel, (String) arg0.getItem());
+				//changeChart(chartSelection.getSelectedIndex());
 			}
 		});
 		
@@ -66,7 +69,7 @@ public class StatisticsTab extends JPanel {
 		
 
 		
-		JButton refreshButton = new JButton("Refresh");
+		JButton refreshButton = new JButton("Refresh everything");
 		refreshButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -87,12 +90,14 @@ public class StatisticsTab extends JPanel {
 		leftPanel.setLayout(new BorderLayout());
 		leftPanel.add(leftHolder, BorderLayout.NORTH);
 		
-		centralPanel = new JPanel();
+		centralPanel = new JPanel(new CardLayout());
+		centralPanel.add(testPieChart(), choiceList[0]);
+		centralPanel.add(testNothingChart(), choiceList[1]);
 		add(leftPanel, BorderLayout.WEST);
 		add(centralPanel, BorderLayout.CENTER);
 	}
 	
-	public void displayTestPieChart() {
+	public JPanel testPieChart() {
 		DefaultPieDataset data = new DefaultPieDataset();
 		data.setValue("The pie!", 50);
 		data.setValue("Not the pie!", 50);
@@ -100,6 +105,12 @@ public class StatisticsTab extends JPanel {
 		PiePlot pie = new PiePlot(data);
 		JFreeChart chart = new JFreeChart(pie);
 		ChartPanel frame = new ChartPanel(chart);	
-		add(frame, BorderLayout.CENTER);
+		return frame;
+	}
+	
+	private JPanel testNothingChart() {
+		JPanel panel = new JPanel();
+		panel.add(new JLabel("Fuck you"));
+		return panel;
 	}
 }

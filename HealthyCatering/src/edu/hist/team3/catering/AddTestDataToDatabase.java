@@ -68,19 +68,11 @@ public class AddTestDataToDatabase {
 			customer.setLastName("Administrator");
 			customer.setPhone("+4712345678");
 			customer.setCreationDate(Date.valueOf("1234-12-24")); // Just a test-date
-			customer.setAddress("Klæbuveien 125, 7034 Trondheim");
+			customer.setAddress("Klï¿½buveien 125, 7034 Trondheim");
 			customer.commit();
-			
-			Customer customer2 = manager.createCustomer();
-			customer2.setFirstName("Trine");
-			customer2.setLastName("Transe");
-			customer2.setPhone("+4712345678");
-			customer2.setCreationDate(Date.valueOf("2010-12-13"));
-			customer2.setAddress("Fittestad 1, Shit");
-			customer2.commit();
 
 			Job job = manager.createJob();
-			job.setName("Chilling, looking cool");
+			job.setName("Administrator");
 			job.setHourlySalary(400.0); // 400 NOK / hour
 			job.setYearlySalary(660000.0); // 660 000 NOK / year
 			job.setPercentSales(1.0); // 100% of all sales
@@ -92,17 +84,9 @@ public class AddTestDataToDatabase {
 			employee.setPassword("admin");
 			employee.setEmail("horny_pussy@pimp.no");
 			employee.setEmploymentDate(Date.valueOf("1234-11-23")); // Also test-date
-			employee.setSessionHours(1.0); // Worked for 1 hour in his whole life.
+			employee.setSessionHours(0.0); // Worked for 0.0 hour in his whole life.
 			employee.commit();
-			
-			Employee employee2 = manager.createEmployee(customer2, job);
-			employee2.setUsername("asdf");
-			employee2.setPassword("fdsa");
-			employee2.setEmail("Idunno");
-			employee2.setEmploymentDate(Date.valueOf("1234-1-1"));
-			employee2.setSessionHours(134.0);
-			employee2.commit();
-			
+
 			Plan plan = manager.createPlan(customer);
 			plan.setDaysOfWeek(Plan.DAY_MONDAY);
 			plan.setSumIncome(14);

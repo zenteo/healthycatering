@@ -194,7 +194,8 @@ public class Delivery extends DatabaseRow{
 		if (getStatus() != Delivery.STATUS_NONE)
 			return;
 		setStatus(Delivery.STATUS_COOKED);
-		getPlan().cook();
+		super.setChanged();
+		sumOutcome = getPlan().cook();
 	}
 	
 	/**
@@ -204,6 +205,7 @@ public class Delivery extends DatabaseRow{
 		if (getStatus() == Delivery.STATUS_DELIVERED)
 			return;
 		setStatus(Delivery.STATUS_DELIVERED);
-		getPlan().deliver();
+		super.setChanged();
+		sumIncome = getPlan().deliver();
 	}
 }

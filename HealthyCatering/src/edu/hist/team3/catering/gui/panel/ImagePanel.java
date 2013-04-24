@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 public class ImagePanel extends JPanel {
 	private BufferedImage image;
+	private boolean loading;
 
 	public ImagePanel() {
 		image = null;
@@ -14,6 +15,14 @@ public class ImagePanel extends JPanel {
 	
 	public ImagePanel(BufferedImage image) {
 		this.image = image;
+	}
+	
+	public boolean isLoading() {
+		return loading;
+	}
+	
+	public void setLoading(boolean value) {
+		this.loading = value;
 	}
 	
 	public BufferedImage getImage() {
@@ -32,6 +41,9 @@ public class ImagePanel extends JPanel {
 		}
 		else {
 			super.paintComponent(g);
+			if (isLoading()) {
+				g.drawString("Loading...", getWidth() / 2, getHeight() / 2);
+			}
 		}
 	}
 }

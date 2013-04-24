@@ -54,6 +54,7 @@ public class ResourceSearchFrame extends JFrame {
 		
 		add(bottomPanel, BorderLayout.SOUTH);
 		setAlwaysOnTop(true);
+		setLocationRelativeTo(null);
 		setTitle("Select resource");
 		setSize(300, 200);
 	}

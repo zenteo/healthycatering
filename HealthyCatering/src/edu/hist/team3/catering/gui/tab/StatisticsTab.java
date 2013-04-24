@@ -5,8 +5,6 @@ import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PiePlot;
@@ -21,6 +19,8 @@ public class StatisticsTab extends JPanel {
 		this.services = services;
 		setLayout(new BorderLayout());
 		displayTestPieChart();
+		
+		add(totalPanel());
 	}
 	
 	public void displayTestPieChart() {
@@ -34,7 +34,7 @@ public class StatisticsTab extends JPanel {
 		add(frame, BorderLayout.CENTER);
 	}
 	
-	public JPanel outcomePanel() {
+	private JPanel outcomePanel() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		Double value = services.getDeliveryManager().getTotalOutcome();
@@ -49,7 +49,7 @@ public class StatisticsTab extends JPanel {
 		return panel;
 	}
 	
-	public JPanel incomePanel() {
+	private JPanel incomePanel() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		Double value = services.getDeliveryManager().getTotalIncome();
@@ -62,5 +62,13 @@ public class StatisticsTab extends JPanel {
 		
 		panel.add(text, BorderLayout.CENTER);
 		return panel;
+	}
+	
+	private JPanel totalPanel() {
+		JPanel total = new JPanel();
+		total.setLayout(new BorderLayout());
+		total.add(incomePanel(), BorderLayout.NORTH);
+		total.add(outcomePanel(), BorderLayout.SOUTH);
+		return total;
 	}
 }

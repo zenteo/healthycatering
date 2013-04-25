@@ -67,22 +67,26 @@ public class StatisticsTab extends JPanel {
 		else
 			innText = new JLabel("Unable to fetch information.");
 		
+		JLabel brutto;
+		if (innValue != -1.0 || outValue != -1.0)
+			brutto = new JLabel("Total: " + (innValue - outValue));
+		else
+			brutto = new JLabel("");
 
 		
 		JButton refreshButton = new JButton("Refresh everything");
 		refreshButton.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				update();
 			}
-			
 		});
 
 		JPanel leftHolder = new JPanel();
-		leftHolder.setLayout(new GridLayout(4,1));
+		leftHolder.setLayout(new GridLayout(5,1));
 		leftHolder.add(innText);
 		leftHolder.add(outText);
+		leftHolder.add(brutto);
 		leftHolder.add(refreshButton);
 		leftHolder.add(chartSelection);
 		
@@ -93,6 +97,7 @@ public class StatisticsTab extends JPanel {
 		centralPanel = new JPanel(new CardLayout());
 		centralPanel.add(testPieChart(), choiceList[0]);
 		centralPanel.add(testNothingChart(), choiceList[1]);
+		
 		add(leftPanel, BorderLayout.WEST);
 		add(centralPanel, BorderLayout.CENTER);
 	}

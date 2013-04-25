@@ -13,9 +13,12 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
 import edu.hist.team3.catering.database.manager.Services;
@@ -37,7 +40,7 @@ public class StatisticsTab extends JPanel {
 		this.removeAll();
 		String[] choiceList = {
 				"Income chart",
-				"Some other chart"
+				"Stats chart"
 		};
 		chartSelection = new JComboBox<String>(choiceList);
 		chartSelection.addItemListener(new ItemListener() {
@@ -96,7 +99,7 @@ public class StatisticsTab extends JPanel {
 		
 		centralPanel = new JPanel(new CardLayout());
 		centralPanel.add(testPieChart(), choiceList[0]);
-		centralPanel.add(testNothingChart(), choiceList[1]);
+		centralPanel.add(statsChart(), choiceList[1]);
 		
 		add(leftPanel, BorderLayout.WEST);
 		add(centralPanel, BorderLayout.CENTER);
@@ -113,9 +116,27 @@ public class StatisticsTab extends JPanel {
 		return frame;
 	}
 	
-	private JPanel testNothingChart() {
-		JPanel panel = new JPanel();
-		panel.add(new JLabel("Fuck you"));
-		return panel;
+	private JPanel statsChart() {
+		
+		DefaultCategoryDataset data = new DefaultCategoryDataset();
+		data.setValue(1, "Datastuff", "Something");
+		data.setValue(2, "Datastuff", "Something else");
+		data.setValue(2, "Datastuff", "Something else2");
+		data.setValue(2, "Datastuff", "Something else3");
+		data.setValue(2, "Datastuff", "Something else4");
+		
+		JFreeChart chart = ChartFactory.createBarChart(
+			"A bar chart",
+			"Somethings", 
+			"Datastuff", 
+			data, 
+			PlotOrientation.VERTICAL, 
+			false, 
+			true, 
+			false
+		);
+		
+		ChartPanel chartPanel = new ChartPanel(chart);
+		return chartPanel;
 	}
 }

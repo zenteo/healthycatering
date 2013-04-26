@@ -19,10 +19,8 @@ import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DefaultPieDataset;
 
 import edu.hist.team3.catering.database.manager.Services;
 
@@ -43,7 +41,6 @@ public class StatisticsTab extends JPanel {
 	private void update() {
 		this.removeAll();
 		String[] choiceList = {
-				"Income chart",
 				"Year",
 				"Profits current year"
 		};
@@ -95,23 +92,11 @@ public class StatisticsTab extends JPanel {
 		leftPanel.add(leftHolder, BorderLayout.NORTH);
 		
 		centralPanel = new JPanel(new CardLayout());
-		centralPanel.add(testPieChart(), choiceList[0]);
-		centralPanel.add(profitYearChart(), choiceList[1]);
-		centralPanel.add(profitMonthsCurrentYearChart(), choiceList[2]);
+		centralPanel.add(profitYearChart(), choiceList[0]);
+		centralPanel.add(profitMonthsCurrentYearChart(), choiceList[1]);
 		
 		add(leftPanel, BorderLayout.WEST);
 		add(centralPanel, BorderLayout.CENTER);
-	}
-	
-	public JPanel testPieChart() {
-		DefaultPieDataset data = new DefaultPieDataset();
-		data.setValue("The pie!", 50);
-		data.setValue("Not the pie!", 50);
-		
-		PiePlot pie = new PiePlot(data);
-		JFreeChart chart = new JFreeChart(pie);
-		ChartPanel frame = new ChartPanel(chart);	
-		return frame;
 	}
 	
 	private JPanel profitYearChart() {
@@ -139,13 +124,13 @@ public class StatisticsTab extends JPanel {
 	}
 	
 	private JPanel profitMonthsCurrentYearChart() {
-		DecimalFormat df = new DecimalFormat("#.##");
 		DefaultCategoryDataset data = new DefaultCategoryDataset();
 		int year = new GregorianCalendar().get(Calendar.YEAR);
-
+		
 		for (int month=1; month <= 12; month++) {
-			int lastDayOfMonth = new GregorianCalendar(year, month, 1).getMaximum(Calendar.DAY_OF_MONTH);
-			double profit = services.getDeliveryManager().getProfitOver("" + year + "-" + month + "-01", "" + year + "-12-" + lastDayOfMonth);
+			int lastDayOfMonth = getDaysInMonth(month, year);
+			System.out.println(lastDayOfMonth);
+			double profit = services.getDeliveryManager().getProfitOver("" + year + "-" + month + "-01", "" + year + "-" + month + "-" + lastDayOfMonth);
 			data.setValue(profit, "data", "" + getMonth(month));
 		}
 		
@@ -192,6 +177,39 @@ public class StatisticsTab extends JPanel {
 			return "December";
 		}
 		return "Error";
+	}
+	
+	private int getDaysInMonth(int i, int year) {
+		switch(i) {
+		case 1:
+			return 31;
+		case 2:
+			if(year % 4 == 0)
+				return 29;
+			else
+				return 28;
+		case 3:
+			return 31;
+		case 4:
+			return 30;
+		case 5:
+			return 31;
+		case 6:
+			return 30;
+		case 7:
+			return 31;
+		case 8:
+			return 31;
+		case 9:
+			return 30;
+		case 10:
+			return 31;
+		case 11: 
+			return 30;
+		case 12:
+			return 31;
+		}
+		return 0;
 	}
 
 }

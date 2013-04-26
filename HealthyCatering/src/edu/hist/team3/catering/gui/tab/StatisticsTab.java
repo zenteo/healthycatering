@@ -7,6 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.text.DecimalFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -23,11 +26,12 @@ import org.jfree.data.general.DefaultPieDataset;
 
 import edu.hist.team3.catering.database.manager.Services;
 
+@SuppressWarnings("serial")
 public class StatisticsTab extends JPanel {
 	private Services services;
 	private JPanel centralPanel;
 	private JPanel leftPanel;
-	private JComboBox chartSelection;
+	private JComboBox<String> chartSelection;
 	
 	public StatisticsTab(Services services) {
 		this.services = services;
@@ -40,7 +44,8 @@ public class StatisticsTab extends JPanel {
 		this.removeAll();
 		String[] choiceList = {
 				"Income chart",
-				"Stats chart"
+				"Year",
+				"Profits current year"
 		};
 		chartSelection = new JComboBox<String>(choiceList);
 		chartSelection.addItemListener(new ItemListener() {
@@ -52,27 +57,19 @@ public class StatisticsTab extends JPanel {
 			}
 		});
 		
-		
-		Double outValue = services.getDeliveryManager().getTotalOutcome();
+		DecimalFormat form = new DecimalFormat("#.##");
+		String outValue = form.format(services.getDeliveryManager().getTotalOutcome());
+		String innValue = form.format(services.getDeliveryManager().getTotalIncome());
 
-		JLabel outText;
-		if (outValue != -1.0)
-			outText = new JLabel("Total outcome: " + outValue);
-		else
-			outText = new JLabel("Unable to fetch information.");
-		
-		
-		Double innValue = services.getDeliveryManager().getTotalIncome();
-
-		JLabel innText;
-		if (innValue != -1.0)
-			innText = new JLabel("Total income: " + innValue);
-		else
-			innText = new JLabel("Unable to fetch information.");
+		JLabel outText = new JLabel("Total outcome: " + outValue);
+		JLabel innText = new JLabel("Total income: " + innValue);
 		
 		JLabel brutto;
-		if (innValue != -1.0 || outValue != -1.0)
-			brutto = new JLabel("Total: " + (innValue - outValue));
+		double inn = services.getDeliveryManager().getTotalIncome(); 
+		double out = services.getDeliveryManager().getTotalOutcome();
+		
+		if (inn != -1.0 || out != -1.0)
+			brutto = new JLabel("Total: " + form.format(inn - out));
 		else
 			brutto = new JLabel("");
 
@@ -99,7 +96,8 @@ public class StatisticsTab extends JPanel {
 		
 		centralPanel = new JPanel(new CardLayout());
 		centralPanel.add(testPieChart(), choiceList[0]);
-		centralPanel.add(statsChart(), choiceList[1]);
+		centralPanel.add(profitYearChart(), choiceList[1]);
+		centralPanel.add(profitMonthsCurrentYearChart(), choiceList[2]);
 		
 		add(leftPanel, BorderLayout.WEST);
 		add(centralPanel, BorderLayout.CENTER);
@@ -116,19 +114,19 @@ public class StatisticsTab extends JPanel {
 		return frame;
 	}
 	
-	private JPanel statsChart() {
-		
+	private JPanel profitYearChart() {
+		DecimalFormat df = new DecimalFormat("#.##");
 		DefaultCategoryDataset data = new DefaultCategoryDataset();
-		data.setValue(1, "Datastuff", "Something");
-		data.setValue(2, "Datastuff", "Something else");
-		data.setValue(2, "Datastuff", "Something else2");
-		data.setValue(2, "Datastuff", "Something else3");
-		data.setValue(2, "Datastuff", "Something else4");
+		int year = new GregorianCalendar().get(Calendar.YEAR);
+		for (int i=2013; i <= year; i++) {
+			double profit = services.getDeliveryManager().getProfitOver("" + i + "-01-01", "" + i + "-12-31");
+			data.setValue(profit, "data", "" + i + ": " + df.format(profit));
+		}
 		
-		JFreeChart chart = ChartFactory.createBarChart(
-			"A bar chart",
-			"Somethings", 
-			"Datastuff", 
+		JFreeChart chart = ChartFactory.createBarChart3D(
+			"Yearly profits", 
+			"Months", 
+			"Profit", 
 			data, 
 			PlotOrientation.VERTICAL, 
 			false, 
@@ -139,4 +137,61 @@ public class StatisticsTab extends JPanel {
 		ChartPanel chartPanel = new ChartPanel(chart);
 		return chartPanel;
 	}
+	
+	private JPanel profitMonthsCurrentYearChart() {
+		DecimalFormat df = new DecimalFormat("#.##");
+		DefaultCategoryDataset data = new DefaultCategoryDataset();
+		int year = new GregorianCalendar().get(Calendar.YEAR);
+
+		for (int month=1; month <= 12; month++) {
+			int lastDayOfMonth = new GregorianCalendar(year, month, 1).getMaximum(Calendar.DAY_OF_MONTH);
+			double profit = services.getDeliveryManager().getProfitOver("" + year + "-" + month + "-01", "" + year + "-12-" + lastDayOfMonth);
+			data.setValue(profit, "data", "" + getMonth(month));
+		}
+		
+		JFreeChart chart = ChartFactory.createBarChart3D(
+			"Profits for " + year, 
+			"Months", 
+			"Profit", 
+			data, 
+			PlotOrientation.VERTICAL, 
+			false, 
+			true, 
+			false
+		);
+		
+		ChartPanel chartPanel = new ChartPanel(chart);
+		return chartPanel;
+	}
+	
+	private String getMonth(int i) {
+		switch (i) {
+		case 1:
+			return "January";
+		case 2:
+			return "February";
+		case 3:
+			return "March";
+		case 4:
+			return "April";
+		case 5:
+			return "May";
+		case 6:
+			return "June";
+		case 7:
+			return "July";
+		case 8:
+			return "August";
+		case 9:
+			return "September";
+		case 10:
+			return "October";
+		case 11:
+			return "November";
+		case 12:
+			return "December";
+		}
+		return "Error";
+	}
+
 }

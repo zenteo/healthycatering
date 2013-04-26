@@ -101,13 +101,24 @@ public class DeliveryManager {
 	}
 
 	public double getTotalIncome() {
-		try (ResultSet result = manager
-				.performSql("SELECT SUM(DELIVERY.SUM_INCOME) AS total_income FROM DELIVERY")) {
+		try (ResultSet result = manager.performSql("SELECT SUM(DELIVERY.SUM_INCOME) AS total_income FROM DELIVERY")) {
 			if (result.next()) {
 				return result.getDouble(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		return -1.0;
+	}
+	
+	public double getProfitOver(String startDate, String endDate) {
+		try (ResultSet result = manager.performSql(
+				"SELECT SUM(DELIVERY.SUM_INCOME) AS total_income, SUM(DELIVERY.SUM_OUTCOME) AS total_outcome FROM DELIVERY WHERE DATE BETWEEN '" + startDate + "' AND '" + endDate + "'")) {
+			if(result.next()) {
+				return (result.getDouble(1) - result.getDouble(2));
+			} 
+		} catch (SQLException e) {
+				e.printStackTrace();
 		}
 		return -1.0;
 	}

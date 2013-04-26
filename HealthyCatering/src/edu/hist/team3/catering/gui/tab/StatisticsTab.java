@@ -129,7 +129,6 @@ public class StatisticsTab extends JPanel {
 		
 		for (int month=1; month <= 12; month++) {
 			int lastDayOfMonth = getDaysInMonth(month, year);
-			System.out.println(lastDayOfMonth);
 			double profit = services.getDeliveryManager().getProfitOver("" + year + "-" + month + "-01", "" + year + "-" + month + "-" + lastDayOfMonth);
 			data.setValue(profit, "data", "" + getMonth(month));
 		}

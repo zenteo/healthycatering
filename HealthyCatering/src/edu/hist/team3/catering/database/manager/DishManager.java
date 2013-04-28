@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import edu.hist.team3.catering.database.Customer;
 import edu.hist.team3.catering.database.DatabaseManager;
 import edu.hist.team3.catering.database.Dish;
 

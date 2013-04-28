@@ -5,13 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
 
 import edu.hist.team3.catering.database.Customer;
 import edu.hist.team3.catering.database.DatabaseManager;
-import edu.hist.team3.catering.database.Delivery;
 import edu.hist.team3.catering.database.Plan;
-import edu.hist.team3.catering.database.PlanDish;
 
 public class PlanManager {
 	private DatabaseManager manager;

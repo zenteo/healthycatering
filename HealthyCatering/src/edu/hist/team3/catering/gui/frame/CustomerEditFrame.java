@@ -7,12 +7,12 @@ import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 import edu.hist.team3.catering.database.Customer;
 import edu.hist.team3.catering.database.manager.Services;
 import edu.hist.team3.catering.gui.panel.CustomerEditPanel;
 
+@SuppressWarnings("serial")
 public class CustomerEditFrame extends JFrame implements ActionListener {
 	private Services services;
 	private CustomerEditPanel customerPanel;

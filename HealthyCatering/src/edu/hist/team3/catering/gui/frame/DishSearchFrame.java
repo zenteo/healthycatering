@@ -11,6 +11,7 @@ import edu.hist.team3.catering.database.Dish;
 import edu.hist.team3.catering.database.manager.Services;
 import edu.hist.team3.catering.gui.panel.DishSearch;
 
+@SuppressWarnings("serial")
 public class DishSearchFrame extends JFrame {
 	private DishSearch dishSearch;
 	private Dish selected;

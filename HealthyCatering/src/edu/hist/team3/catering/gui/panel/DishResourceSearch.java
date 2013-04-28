@@ -7,6 +7,7 @@ import javax.swing.DefaultListModel;
 import edu.hist.team3.catering.database.Dish;
 import edu.hist.team3.catering.database.DishResource;
 
+@SuppressWarnings("serial")
 public class DishResourceSearch extends SearchPanel<DishResource> {
 	private Dish dish;
 	

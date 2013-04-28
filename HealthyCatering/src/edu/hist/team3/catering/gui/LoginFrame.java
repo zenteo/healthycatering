@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,9 +17,9 @@ import javax.swing.JTextField;
 import edu.hist.team3.catering.database.Employee;
 import edu.hist.team3.catering.database.manager.Services;
 
+@SuppressWarnings("serial")
 public class LoginFrame extends JFrame {
 	private Services services;
-	private Toolkit toolkit;
 	private JTextField loginField;
 	private JPasswordField passwordField;
 	

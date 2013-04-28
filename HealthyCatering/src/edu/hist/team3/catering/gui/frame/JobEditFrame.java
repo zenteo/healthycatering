@@ -12,6 +12,7 @@ import edu.hist.team3.catering.database.Job;
 import edu.hist.team3.catering.database.manager.Services;
 import edu.hist.team3.catering.gui.panel.JobEditPanel;
 
+@SuppressWarnings("serial")
 public class JobEditFrame extends JFrame implements ActionListener {
 	private JobEditPanel editPanel;
 	private JButton applyButton;

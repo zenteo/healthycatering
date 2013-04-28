@@ -10,12 +10,12 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import edu.hist.team3.catering.database.Dish;
 import edu.hist.team3.catering.database.manager.Services;
 import edu.hist.team3.catering.gui.panel.DishEditPanel;
 
+@SuppressWarnings("serial")
 public class DishEditFrame extends JFrame {
 	private DishEditPanel dishPanel;
 

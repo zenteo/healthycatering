@@ -32,7 +32,6 @@ public class DatabaseManagerTest {
 	@Before
 	public void testConnection() throws SQLException {
 		// First we setup a connection to the database
-		DatabaseManager databaseManager = null;
 		manager = new DatabaseManager("jdbc:derby://db.stud.aitel.hist.no:1527/13ing1gr3", "team3", "Ikj721");
 	}
 	

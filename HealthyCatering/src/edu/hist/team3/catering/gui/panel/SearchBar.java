@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+@SuppressWarnings("serial")
 public class SearchBar extends JPanel implements ActionListener {
 	private JButton searchButton;
 	private JTextField searchText;

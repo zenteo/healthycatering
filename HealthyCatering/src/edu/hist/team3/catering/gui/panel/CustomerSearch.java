@@ -7,6 +7,7 @@ import javax.swing.DefaultListModel;
 import edu.hist.team3.catering.database.Customer;
 import edu.hist.team3.catering.database.manager.Services;
 
+@SuppressWarnings("serial")
 public class CustomerSearch extends SearchPanel<Customer> {
 	private Services services;
 	

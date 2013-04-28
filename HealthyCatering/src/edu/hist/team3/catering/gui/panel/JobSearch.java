@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 
-import edu.hist.team3.catering.database.Employee;
 import edu.hist.team3.catering.database.Job;
 import edu.hist.team3.catering.database.manager.Services;
 
+@SuppressWarnings("serial")
 public class JobSearch extends SearchPanel<Job> {
 	private Services services;
 	

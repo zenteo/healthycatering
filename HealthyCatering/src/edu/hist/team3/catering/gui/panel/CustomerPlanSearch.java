@@ -1,6 +1,5 @@
 package edu.hist.team3.catering.gui.panel;
 
-import java.sql.SQLException;
 import java.util.Iterator;
 
 import javax.swing.DefaultListModel;
@@ -9,6 +8,7 @@ import edu.hist.team3.catering.database.Customer;
 import edu.hist.team3.catering.database.Plan;
 import edu.hist.team3.catering.database.PlanDish;
 
+@SuppressWarnings("serial")
 public class CustomerPlanSearch extends SearchPanel<Plan> {
 	private Customer customer = null;
 

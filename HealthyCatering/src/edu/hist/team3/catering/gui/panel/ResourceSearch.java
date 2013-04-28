@@ -7,6 +7,7 @@ import javax.swing.DefaultListModel;
 import edu.hist.team3.catering.database.Resource;
 import edu.hist.team3.catering.database.manager.Services;
 
+@SuppressWarnings("serial")
 public class ResourceSearch extends SearchPanel<Resource> {
 	private Services services;
 	

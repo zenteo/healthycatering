@@ -11,6 +11,7 @@ import edu.hist.team3.catering.database.Customer;
 import edu.hist.team3.catering.database.manager.Services;
 import edu.hist.team3.catering.gui.panel.CustomerSearch;
 
+@SuppressWarnings("serial")
 public class CustomerSearchFrame extends JFrame {
 	private CustomerSearch customerSearch;
 	private Customer selected;

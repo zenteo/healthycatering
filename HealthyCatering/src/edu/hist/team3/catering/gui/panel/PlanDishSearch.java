@@ -1,14 +1,13 @@
 package edu.hist.team3.catering.gui.panel;
 
-import java.sql.SQLException;
 import java.util.Iterator;
 
 import javax.swing.DefaultListModel;
 
 import edu.hist.team3.catering.database.Plan;
 import edu.hist.team3.catering.database.PlanDish;
-import edu.hist.team3.catering.database.manager.Services;
 
+@SuppressWarnings("serial")
 public class PlanDishSearch extends SearchPanel<PlanDish> {
 	private Plan plan;
 

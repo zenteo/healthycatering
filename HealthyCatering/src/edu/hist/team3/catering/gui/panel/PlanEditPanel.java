@@ -24,6 +24,7 @@ import edu.hist.team3.catering.database.PlanDish;
 import edu.hist.team3.catering.database.manager.Services;
 import edu.hist.team3.catering.gui.frame.DishSearchFrame;
 
+@SuppressWarnings("serial")
 public class PlanEditPanel extends JPanel {
 	private Plan plan;
 	private JTextField startDate;

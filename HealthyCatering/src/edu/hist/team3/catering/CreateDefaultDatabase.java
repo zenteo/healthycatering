@@ -5,15 +5,8 @@ import java.sql.SQLException;
 
 import edu.hist.team3.catering.database.Customer;
 import edu.hist.team3.catering.database.DatabaseManager;
-import edu.hist.team3.catering.database.Delivery;
-import edu.hist.team3.catering.database.Dish;
-import edu.hist.team3.catering.database.DishResource;
 import edu.hist.team3.catering.database.Employee;
 import edu.hist.team3.catering.database.Job;
-import edu.hist.team3.catering.database.Plan;
-import edu.hist.team3.catering.database.PlanDish;
-import edu.hist.team3.catering.database.Resource;
-import edu.hist.team3.catering.database.manager.Services;
 
 public class CreateDefaultDatabase {
 	

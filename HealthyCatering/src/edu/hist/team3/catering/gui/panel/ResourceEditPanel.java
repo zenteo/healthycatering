@@ -24,6 +24,7 @@ import edu.hist.team3.catering.database.Resource;
  *	private double healthiness;	// healthiness	DOUBLE
 */
 
+@SuppressWarnings("serial")
 public class ResourceEditPanel extends JPanel {
 	private JTextField name;
 	private JTextField category;

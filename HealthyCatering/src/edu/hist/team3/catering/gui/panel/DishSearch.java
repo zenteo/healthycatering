@@ -1,6 +1,5 @@
 package edu.hist.team3.catering.gui.panel;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
@@ -8,6 +7,7 @@ import javax.swing.DefaultListModel;
 import edu.hist.team3.catering.database.Dish;
 import edu.hist.team3.catering.database.manager.Services;
 
+@SuppressWarnings("serial")
 public class DishSearch extends SearchPanel<Dish> {
 	private Services services;
 

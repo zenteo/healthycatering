@@ -26,6 +26,7 @@ import edu.hist.team3.catering.database.Job;
  *	public static final int PRIVILEGE_STATISTICS = 64; // 1000000
  */
 
+@SuppressWarnings("serial")
 public class JobEditPanel extends JPanel {
 	private JTextField nameField;
 	private JFormattedTextField yearlySalary;

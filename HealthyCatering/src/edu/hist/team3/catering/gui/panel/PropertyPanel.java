@@ -6,6 +6,7 @@ import java.awt.Component;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class PropertyPanel<T extends Component> extends JPanel {
 	private JLabel label;
 	private T field;

@@ -2,7 +2,6 @@ package edu.hist.team3.catering.database.manager;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
 import java.util.ArrayList;
 
 import edu.hist.team3.catering.database.Customer;

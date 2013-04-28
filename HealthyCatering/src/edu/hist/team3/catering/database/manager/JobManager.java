@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import edu.hist.team3.catering.database.DatabaseManager;
-import edu.hist.team3.catering.database.Employee;
 import edu.hist.team3.catering.database.Job;
 
 public class JobManager {

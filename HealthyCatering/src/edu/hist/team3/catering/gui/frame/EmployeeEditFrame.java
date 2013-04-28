@@ -11,8 +11,8 @@ import javax.swing.JFrame;
 import edu.hist.team3.catering.database.Employee;
 import edu.hist.team3.catering.database.manager.Services;
 import edu.hist.team3.catering.gui.panel.EmployeeEditPanel;
-import edu.hist.team3.catering.gui.panel.JobEditPanel;
 
+@SuppressWarnings("serial")
 public class EmployeeEditFrame extends JFrame implements ActionListener {
 	private EmployeeEditPanel editPanel;
 	private JButton applyButton;

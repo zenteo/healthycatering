@@ -12,6 +12,7 @@ import edu.hist.team3.catering.database.Resource;
 import edu.hist.team3.catering.database.manager.Services;
 import edu.hist.team3.catering.gui.panel.ResourceEditPanel;
 
+@SuppressWarnings("serial")
 public class ResourceEditFrame extends JFrame implements ActionListener {
 	private Services services;
 	private ResourceEditPanel resourceEdit;

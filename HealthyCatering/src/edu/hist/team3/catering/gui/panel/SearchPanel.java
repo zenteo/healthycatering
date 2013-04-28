@@ -7,8 +7,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import edu.hist.team3.catering.database.Plan;
-
+@SuppressWarnings("serial")
 public abstract class SearchPanel<T> extends JPanel implements SearchListener {
 	protected SearchBar searchBar;
 	protected JList<LabeledObject<T>> searchResult;

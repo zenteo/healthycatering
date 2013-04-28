@@ -3,13 +3,13 @@ package edu.hist.team3.catering.gui.panel;
 import java.awt.GridLayout;
 import java.sql.SQLException;
 
-import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import edu.hist.team3.catering.database.Employee;
 
+@SuppressWarnings("serial")
 public class EmployeeEditPanel extends JPanel {
 	private CustomerEditPanel customerEdit;
 	private JTextField username;

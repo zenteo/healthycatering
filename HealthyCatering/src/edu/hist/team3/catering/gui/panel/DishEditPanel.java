@@ -31,6 +31,7 @@ import edu.hist.team3.catering.gui.frame.ResourceSearchFrame;
  *	private double longtermDiscount;			// longterm_discount	DOUBLE		NOT NULL
  */
 
+@SuppressWarnings("serial")
 public class DishEditPanel extends JPanel {
 	private Dish dish;
 	private JTextField name;

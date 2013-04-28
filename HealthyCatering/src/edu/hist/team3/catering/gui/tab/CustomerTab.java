@@ -9,7 +9,6 @@ import java.awt.event.ComponentEvent;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
@@ -22,7 +21,6 @@ import edu.hist.team3.catering.gui.frame.CustomerEditFrame;
 import edu.hist.team3.catering.gui.frame.PlanEditFrame;
 import edu.hist.team3.catering.gui.panel.CustomerPlanSearch;
 import edu.hist.team3.catering.gui.panel.CustomerSearch;
-import edu.hist.team3.catering.gui.panel.LabeledObject;
 
 /*
  * Customer GUI
@@ -43,7 +41,6 @@ public class CustomerTab extends JPanel {
 	private final Services services;
 	private CustomerSearch customerSearch;
 	private CustomerPlanSearch planSearch;
-	private JList<LabeledObject<Plan>> planList;
 
 	/**
 	 * GUI for editing customer information and adding orders. Extends a JPanel

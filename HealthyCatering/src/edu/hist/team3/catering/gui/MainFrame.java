@@ -31,6 +31,7 @@ import edu.hist.team3.catering.gui.tab.MenuTab;
 import edu.hist.team3.catering.gui.tab.ResourcesTab;
 import edu.hist.team3.catering.gui.tab.StatisticsTab;
 
+@SuppressWarnings("serial")
 public class MainFrame extends JFrame implements WindowListener {
 	private Calendar loggedInAt;
 	private Services services;

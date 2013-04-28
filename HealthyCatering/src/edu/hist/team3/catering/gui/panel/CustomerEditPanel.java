@@ -1,6 +1,5 @@
 package edu.hist.team3.catering.gui.panel;
 
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.sql.SQLException;
 
@@ -10,6 +9,7 @@ import javax.swing.JTextField;
 
 import edu.hist.team3.catering.database.Customer;
 
+@SuppressWarnings("serial")
 public class CustomerEditPanel extends JPanel {
 	private JTextField firstName;
 	private JTextField lastName;

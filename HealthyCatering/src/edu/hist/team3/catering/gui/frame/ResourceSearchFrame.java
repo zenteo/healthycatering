@@ -1,7 +1,6 @@
 package edu.hist.team3.catering.gui.frame;
 
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,6 +12,7 @@ import edu.hist.team3.catering.database.Resource;
 import edu.hist.team3.catering.database.manager.Services;
 import edu.hist.team3.catering.gui.panel.ResourceSearch;
 
+@SuppressWarnings("serial")
 public class ResourceSearchFrame extends JFrame {
 	private ResourceSearch resourceSearch;
 	private Resource selected;

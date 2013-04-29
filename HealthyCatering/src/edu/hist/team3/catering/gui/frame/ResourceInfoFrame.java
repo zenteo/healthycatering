@@ -10,7 +10,10 @@ import edu.hist.team3.catering.gui.panel.ResourceEditPanel;
 @SuppressWarnings("serial")
 public class ResourceInfoFrame extends JFrame {
 	ResourceEditPanel editPanel;
-	
+	/**
+	 * Creates a new instance of ResourceInfoFrame
+	 * @param resource
+	 */
 	public ResourceInfoFrame(Resource resource) {
 		this.setLayout(new BorderLayout());
 		editPanel = new ResourceEditPanel();

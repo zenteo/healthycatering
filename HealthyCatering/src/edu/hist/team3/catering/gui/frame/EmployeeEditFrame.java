@@ -17,7 +17,10 @@ public class EmployeeEditFrame extends JFrame implements ActionListener {
 	private EmployeeEditPanel editPanel;
 	private JButton applyButton;
 	private Employee employee;
-	
+	/**
+	 * Creates a new instance of EmployeeEditFrame based on employee
+	 * @param employee
+	 */
 	public EmployeeEditFrame(Employee employee) {
 		editPanel = new EmployeeEditPanel();
 		applyButton = new JButton("Save changes");

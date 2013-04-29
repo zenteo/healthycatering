@@ -18,20 +18,29 @@ public class CustomerEditFrame extends JFrame implements ActionListener {
 	private CustomerEditPanel customerPanel;
 	private JButton button;
 	private Customer customer = null;
-
+	/**
+	 * Creates a new instance of CustomerEditFrame based on Services
+	 * @param services
+	 */
 	public CustomerEditFrame(Services services) {
 		super("Add customer");
 		this.services = services;
 		init("Create");
 	}
-
+	/**
+	 * Creates a new instance of CustomerEditFrame based on Customer
+	 * @param customer
+	 */
 	public CustomerEditFrame(Customer customer) {
 		super("Edit customer");
 		this.customer = customer;
 		init("Save");
 		customerPanel.fillInfo(customer);
 	}
-
+	/**
+	 * Initializes the Customer Editor
+	 * @param buttonText
+	 */
 	private void init(String buttonText) {
 		this.setLayout(new BorderLayout());
 		customerPanel = new CustomerEditPanel();

@@ -10,7 +10,10 @@ import edu.hist.team3.catering.database.manager.Services;
 @SuppressWarnings("serial")
 public class DishSearch extends SearchPanel<Dish> {
 	private Services services;
-
+	/**
+	 * Creates a new instance of DishSearch based on services
+	 * @param services
+	 */
 	public DishSearch(Services services) {
 		this.services = services;
 		doSearch();

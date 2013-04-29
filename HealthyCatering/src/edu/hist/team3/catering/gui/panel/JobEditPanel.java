@@ -39,7 +39,9 @@ public class JobEditPanel extends JPanel {
 	private JCheckBox nutritiousPrivileges;
 	private JCheckBox resourcesPrivileges;
 	private JCheckBox statisticsPrivileges;
-	
+	/**
+	 * Creates a new instance of JobEditPanel
+	 */
 	public JobEditPanel() {
 		nameField = new JTextField();
 		yearlySalary = new JFormattedTextField();
@@ -82,7 +84,10 @@ public class JobEditPanel extends JPanel {
 		add(options, BorderLayout.NORTH);
 		add(content, BorderLayout.CENTER);
 	}
-	
+	/**
+	 * Fills in information based on Job
+	 * @param job
+	 */
 	public void fillInfo(Job job) {
 		adminPrivileges.setSelected(job.hasPrivileges(Job.PRIVILEGE_ADMIN));
 		cookPrivileges.setSelected(job.hasPrivileges(Job.PRIVILEGE_COOK));
@@ -97,7 +102,11 @@ public class JobEditPanel extends JPanel {
 		hourlySalary.setValue(job.getHourlySalary());
 		percentSales.setValue(job.getPercentSales());
 	}
-	
+	/**
+	 * Commits a new job
+	 * @param job
+	 * @throws SQLException
+	 */
 	public void apply(Job job) throws SQLException {
 		job.setName(nameField.getText());
 		job.setYearlySalary((Double)yearlySalary.getValue());

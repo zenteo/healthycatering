@@ -43,7 +43,11 @@ public class DishEditPanel extends JPanel {
 	private DishResourceSearch resourceSearch;
 	private JFormattedTextField amount;
 	private Resource selected;
-	
+	/**
+	 * Creates a new instance of DishEditPanel based on dish and services
+	 * @param dish
+	 * @param services
+	 */
 	public DishEditPanel(final Dish dish, final Services services) {
 		this.dish = dish;
 		this.resourceSearch = new DishResourceSearch(dish);
@@ -209,7 +213,10 @@ public class DishEditPanel extends JPanel {
 		add(resourceSearch, BorderLayout.CENTER);
 		add(rightHolder, BorderLayout.EAST);
 	}
-	
+	/**
+	 * Sends to database
+	 * @throws SQLException
+	 */
 	public void apply() throws SQLException {
 		dish.setName(name.getText());
 		dish.setCategory(category.getText());

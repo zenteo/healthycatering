@@ -10,16 +10,25 @@ import edu.hist.team3.catering.database.DishResource;
 @SuppressWarnings("serial")
 public class DishResourceSearch extends SearchPanel<DishResource> {
 	private Dish dish;
-	
+	/**
+	 * Creates a new instance of DishResourceSearch based on dish
+	 * @param dish
+	 */
 	public DishResourceSearch(Dish dish) {
 		this.dish = dish;
 		doSearch();
 	}
-
+/**
+ * Gives you the dish
+ * @return dish
+ */
 	public Dish getDish() {
 		return dish;
 	}
-	
+	/**
+	 * Sets the dish
+	 * @param dish
+	 */
 	public void setDish(Dish dish) {
 		this.dish = dish;
 		doSearch();

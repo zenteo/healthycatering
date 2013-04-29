@@ -10,7 +10,10 @@ import edu.hist.team3.catering.database.manager.Services;
 @SuppressWarnings("serial")
 public class EmployeeSearch extends SearchPanel<Employee> {
 	private Services services;
-	
+	/**
+	 * Creates a new instance of employeesearch based on services 
+	 * @param services
+	 */
 	public EmployeeSearch(Services services) {
 		this.services = services;
 		onSearch("");

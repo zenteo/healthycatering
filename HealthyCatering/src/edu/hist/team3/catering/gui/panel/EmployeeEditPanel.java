@@ -18,7 +18,9 @@ public class EmployeeEditPanel extends JPanel {
 	private JLabel jobTitle;
 	private JLabel employmentDate;
 	
-	
+	/**
+	 * Creates a new instance of EmployeeeEditPanel
+	 */
 	public EmployeeEditPanel() {
 		customerEdit = new CustomerEditPanel();
 		username = new JTextField();
@@ -45,7 +47,10 @@ public class EmployeeEditPanel extends JPanel {
 		add(employeeEdit);
 		
 	}
-	
+	/**
+	 * Fills in information about employee
+	 * @param employee
+	 */
 	public void fillInfo(Employee employee) {
 		customerEdit.fillInfo(employee.getCustomer());
 		jobTitle.setText(employee.getJob().getName());
@@ -54,7 +59,11 @@ public class EmployeeEditPanel extends JPanel {
 		email.setText(employee.getEmail());
 		employmentDate.setText(employee.getEmploymentDate().toString());
 	}
-	
+	/**
+	 * Commits to database
+	 * @param employee
+	 * @throws SQLException
+	 */
 	public void apply(Employee employee) throws SQLException {
 		customerEdit.apply(employee.getCustomer());
 		employee.setUsername(username.getText());

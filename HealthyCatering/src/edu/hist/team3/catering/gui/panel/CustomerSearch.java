@@ -10,7 +10,10 @@ import edu.hist.team3.catering.database.manager.Services;
 @SuppressWarnings("serial")
 public class CustomerSearch extends SearchPanel<Customer> {
 	private Services services;
-	
+	/**
+	 * Creates a new instance of CustomerSearch based on services
+	 * @param services
+	 */
 	public CustomerSearch(Services services) {
 		this.services = services;
 		onSearch("");

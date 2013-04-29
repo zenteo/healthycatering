@@ -11,16 +11,24 @@ import edu.hist.team3.catering.database.PlanDish;
 @SuppressWarnings("serial")
 public class CustomerPlanSearch extends SearchPanel<Plan> {
 	private Customer customer = null;
-
+	/**
+	 * Creates a new instance of CustomerPlanSearch
+	 */
 	public CustomerPlanSearch() {
 
 	}
-
+	/**
+	 * Sets customer to search for
+	 * @param customer
+	 */
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 		doSearch();
 	}
-
+	/**
+	 * Gives the customer
+	 * @return customer
+	 */
 	public Customer getCustomer() {
 		return this.customer;
 	}

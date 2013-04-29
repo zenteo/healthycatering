@@ -18,7 +18,11 @@ import edu.hist.team3.catering.gui.panel.PlanEditPanel;
 @SuppressWarnings("serial")
 public class PlanEditFrame extends JFrame {
 	private PlanEditPanel planPanel;
-
+	/**
+	 * Creates a new instance of PlanEditFrame based on plan and services
+	 * @param plan
+	 * @param services
+	 */
 	public PlanEditFrame(final Plan plan, final Services services) {
 		JPanel content = new JPanel();
 		content.setLayout(new BorderLayout());

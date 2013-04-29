@@ -16,7 +16,10 @@ import edu.hist.team3.catering.gui.panel.ResourceSearch;
 public class ResourceSearchFrame extends JFrame {
 	private ResourceSearch resourceSearch;
 	private Resource selected;
-	
+	/**
+	 * Creates a new instance of ResourceSearchFrame based on services
+	 * @param services
+	 */
 	public ResourceSearchFrame(Services services) {
 
 		this.resourceSearch = new ResourceSearch(services);
@@ -58,11 +61,17 @@ public class ResourceSearchFrame extends JFrame {
 		setTitle("Select resource");
 		setSize(300, 200);
 	}
-
+	/**
+	 * Gives Selected resource
+	 * @return Selected resource
+	 */
 	public Resource getSelected() {
 		return selected;
 	}
-
+	/**
+	 * Sets selected resource
+	 * @param selected
+	 */
 	public void setSelected(Resource selected) {
 		this.selected = selected;
 	}

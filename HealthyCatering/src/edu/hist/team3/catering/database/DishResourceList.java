@@ -9,16 +9,27 @@ import java.util.Iterator;
 public class DishResourceList {
 	private HashSet<DishResource> links = null;
 	private final Dish dish;
-	
+	/**
+	 * Creates a new instance of DishResourceList
+	 * @param dish
+	 */
 	public DishResourceList(Dish dish) {
 		assert(dish != null);
 		this.dish = dish;
 	}
-	
+	/**
+	 * Gives the dish
+	 * @return
+	 */
 	public Dish getDish() {
 		return dish;
 	}
-	
+	/**
+	 * adds a resource to a dish
+	 * @param resource
+	 * @return DishResource
+	 * @throws SQLException
+	 */
 	public DishResource add(Resource resource) throws SQLException {
 		assert(dish != null);
 		DishResource link = dish.getManager().createDishResource(dish, resource);
@@ -27,7 +38,11 @@ public class DishResourceList {
 		}
 		return link;
 	}
-	
+	/**
+	 * Gives DishResources based on resource
+	 * @param resource
+	 * @return DishResource
+	 */
 	public DishResource get(Resource resource) {
 		assert(dish != null);
 		tryFetch();
@@ -41,7 +56,11 @@ public class DishResourceList {
 		}
 		return null;
 	}
-	
+	/**
+	 * removes a resource
+	 * @param resource
+	 * @throws SQLException
+	 */
 	public void remove(Resource resource) throws SQLException {
 		assert(dish != null);
 		DishResource link = get(resource);
@@ -52,7 +71,10 @@ public class DishResourceList {
 			}
 		}
 	}
-	
+	/**
+	 * removes all resources
+	 * @throws SQLException
+	 */
 	public void removeAll() throws SQLException {
 		Iterator<DishResource> it = iterator();
 		while (it.hasNext()) {
@@ -60,7 +82,11 @@ public class DishResourceList {
 		}
 		links.clear();
 	}
-	
+	/**
+	 * Gives if Dish has resource
+	 * @param resource
+	 * @return yes/no if resource
+	 */
 	public boolean contains(Resource resource) {
 		tryFetch();
 		return links.contains(dish.getManager().getDishResource(dish, resource));

@@ -151,4 +151,10 @@ public class DatabaseManagerTest {
 		Dish dish = manager.getDish(1);
 		assertTrue("Dish name was not found", dish.getName() != null);
 	}
+	
+	@Test
+	public void testDeliveryStatus() {
+		Delivery del = manager.getDelivery(1);
+		assertTrue("Unable to get status", del.getStatus() != Delivery.STATUS_NONE);
+	}
 }

@@ -15,7 +15,10 @@ import edu.hist.team3.catering.gui.panel.DishSearch;
 public class DishSearchFrame extends JFrame {
 	private DishSearch dishSearch;
 	private Dish selected;
-	
+	/**
+	 * Creates a new DishSearchFrame based on services
+	 * @param services
+	 */
 	public DishSearchFrame(Services services) {
 
 		this.dishSearch = new DishSearch(services);
@@ -35,11 +38,17 @@ public class DishSearchFrame extends JFrame {
 		setLocationRelativeTo(null);
 		setSize(300, 200);
 	}
-
+	/**
+	 * Gives the selected dish
+	 * @return dish you selected
+	 */
 	public Dish getSelected() {
 		return selected;
 	}
-
+	/**
+	 * Sets selected dish
+	 * @param selected
+	 */
 	public void setSelected(Dish selected) {
 		this.selected = selected;
 	}

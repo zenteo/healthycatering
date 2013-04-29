@@ -26,19 +26,14 @@ import edu.hist.team3.catering.gui.panel.LabeledObject;
 import edu.hist.team3.catering.route.RouteToolkit;
 import edu.hist.team3.catering.route.Routes;
 
-/*
- * Delivery GUI
---
---
-+ getDeliveres()
-+ computeDeliveryRoute()
-+ changeDeliveryStatus()
 
- */
 @SuppressWarnings("serial")
 public class DeliveryTab extends JPanel {
 	private Services services;
-	
+	/**
+	 * Creates a new Delivery tab
+	 * @param services
+	 */
 	public DeliveryTab(final Services services) {
 		this.services = services;
 		

@@ -22,19 +22,6 @@ import edu.hist.team3.catering.gui.frame.PlanEditFrame;
 import edu.hist.team3.catering.gui.panel.CustomerPlanSearch;
 import edu.hist.team3.catering.gui.panel.CustomerSearch;
 
-/*
- * Customer GUI
- --
- --
- + findPlans()
- + addPlan()
- + editPlan()
- + removePlan()
- + findCostumers()
- + addCostumer()
- + editCostumer()
- + removeCostumer()
- */
 
 @SuppressWarnings("serial")
 public class CustomerTab extends JPanel {

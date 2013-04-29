@@ -19,32 +19,15 @@ import edu.hist.team3.catering.gui.frame.ResourceEditFrame;
 import edu.hist.team3.catering.gui.panel.DishSearch;
 import edu.hist.team3.catering.gui.panel.ResourceSearch;
 
-
-/*
- * 
- *
- *Menu GUI
- *--
- *--
- *+ findResources()
- *+ editResources()
- *+ addResources()
- *+ removeResource()
- *+ findDishes()
- *+ editDises()
- *+ addDish()
- *+ removeDish()
- *+ findMenus()
- *+ addMenu()
- *+ editMenu()
- *+ removeMenu()
- */
 @SuppressWarnings("serial")
 public class MenuTab extends JPanel{
 	private Services services;
 	private DishSearch dishSearch;
 	private ResourceSearch resourceSearch;
-	
+	/**
+	 * Creates a new Menu Tab
+	 * @param services
+	 */
 	public MenuTab(final Services services) {
 		this.services = services;
 		this.dishSearch = new DishSearch(services);

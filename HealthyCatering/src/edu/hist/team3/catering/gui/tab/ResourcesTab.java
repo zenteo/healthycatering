@@ -18,20 +18,13 @@ import edu.hist.team3.catering.database.manager.Services;
 import edu.hist.team3.catering.gui.frame.ResourceInfoFrame;
 import edu.hist.team3.catering.gui.panel.StocksSearch;
 
-/*
- * Stocks GUI
- --
- --
- + getResources()
- + getTodaysResources()
- + getResourcesWithCriticallyLowStock-count()
- + changeTheStock-CountOfAResource()
-
- */
 @SuppressWarnings("serial")
 public class ResourcesTab extends JPanel {
 	private Services services;
-	
+	/**
+	 * Creates a new Resources Tab
+	 * @param services
+	 */
 	public ResourcesTab(Services services) {
 		this.services = services;
 		

@@ -30,14 +30,19 @@ public class StatisticsTab extends JPanel {
 	private JPanel centralPanel;
 	private JPanel leftPanel;
 	private JComboBox<String> chartSelection;
-	
+	/**
+	 * Creates a new Statistics Tab
+	 * @param services
+	 */
 	public StatisticsTab(Services services) {
 		this.services = services;
 		setLayout(new BorderLayout());
 		
 		update();
 	}
-	
+	/**
+	 * Updates all statistics
+	 */
 	private void update() {
 		this.removeAll();
 		String[] choiceList = {
@@ -98,7 +103,10 @@ public class StatisticsTab extends JPanel {
 		add(leftPanel, BorderLayout.WEST);
 		add(centralPanel, BorderLayout.CENTER);
 	}
-	
+	/**
+	 * Gives a chart of yearly profits
+	 * @return Image of yearly profits
+	 */
 	private JPanel profitYearChart() {
 		DecimalFormat df = new DecimalFormat("#.##");
 		DefaultCategoryDataset data = new DefaultCategoryDataset();
@@ -122,7 +130,10 @@ public class StatisticsTab extends JPanel {
 		ChartPanel chartPanel = new ChartPanel(chart);
 		return chartPanel;
 	}
-	
+	/**
+	 * Gives a chart of monthly profits
+	 * @return image of monthly profits
+	 */
 	private JPanel profitMonthsCurrentYearChart() {
 		DefaultCategoryDataset data = new DefaultCategoryDataset();
 		int year = new GregorianCalendar().get(Calendar.YEAR);
@@ -147,7 +158,11 @@ public class StatisticsTab extends JPanel {
 		ChartPanel chartPanel = new ChartPanel(chart);
 		return chartPanel;
 	}
-	
+	/**
+	 * Gives what month
+	 * @param i
+	 * @return month
+	 */
 	private String getMonth(int i) {
 		switch (i) {
 		case 1:
@@ -177,7 +192,12 @@ public class StatisticsTab extends JPanel {
 		}
 		return "Error";
 	}
-	
+	/**
+	 * Gives number of days in that month
+	 * @param i
+	 * @param year
+	 * @return number of days
+	 */
 	private int getDaysInMonth(int i, int year) {
 		switch(i) {
 		case 1:

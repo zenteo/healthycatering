@@ -25,19 +25,13 @@ import edu.hist.team3.catering.database.Resource;
 import edu.hist.team3.catering.database.manager.Services;
 import edu.hist.team3.catering.gui.panel.LabeledObject;
 
-/*
- * Cooking GUI
- --
- --
- + getDeliveries()
- + getDishesOfADelivery()
- + getResourcesOfADish()
- + changeDeliveryStatus()
- */
 @SuppressWarnings("serial")
 public class CookingTab extends JPanel {
 	private Services services;
-
+	/**
+	 * Creates a new Cooking Tab
+	 * @param services
+	 */
 	public CookingTab(final Services services) {
 		this.services = services;
 

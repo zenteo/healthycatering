@@ -25,24 +25,15 @@ import edu.hist.team3.catering.gui.frame.JobEditFrame;
 import edu.hist.team3.catering.gui.panel.EmployeeSearch;
 import edu.hist.team3.catering.gui.panel.JobSearch;
 
-/*
- * Boss GUI
- --
- --
- + addEmployee()
- + editEmployee()
- + getEmployeeStats()
- + removeEmployee()
- + addJob()
- + editJob()
- + removeJob()
- */
 @SuppressWarnings("serial")
 public class BossTab extends JPanel {
 	private Services services;
 	private EmployeeSearch employeeSearch;
 	private JobSearch jobSearch;
-
+	/**
+	 * Creates a new Boss Tab
+	 * @param services
+	 */
 	public BossTab(final Services services) {
 		setLayout(new BorderLayout());
 		this.services = services;

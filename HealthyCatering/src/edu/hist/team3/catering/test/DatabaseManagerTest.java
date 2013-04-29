@@ -1,5 +1,7 @@
 package edu.hist.team3.catering.test;
 
+import static org.junit.Assert.*;
+
 import java.sql.Date;
 import java.sql.SQLException;
 
@@ -40,18 +42,17 @@ public class DatabaseManagerTest {
 		manager.close();
 	}
 	
-	// This test is for fetching allready existing data form the database
+	// This test is for fetching already existing data form the database
 	@Test
 	public void testFetch() {
 		// Get administrator as customer
 		Customer customer = manager.getCustomer(1);
-		System.out.println(customer.toString());
+
 		// Get administrator as employee
 		Employee employee = manager.getEmployee(customer);
-		System.out.println(employee.toString());
+
 		// Get the administrator job
 		Job job = employee.getJob();
-		System.out.println(job.toString());
 	}
 	
 	public void testCreate() throws SQLException {
@@ -137,5 +138,17 @@ public class DatabaseManagerTest {
 	public void testCreateAndRemove() throws SQLException {
 		testCreate();
 		testRemoval();
+	}
+	
+	@Test
+	public void testFetchingDish() {
+		assertTrue("Dish not found", manager.getDish(0) != null);
+		
+	}
+	
+	@Test 
+	public void testGettingDishInformation() {
+		Dish dish = manager.getDish(1);
+		assertTrue("Dish name was not found", dish.getName() != null);
 	}
 }

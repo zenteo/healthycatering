@@ -13,14 +13,28 @@ import edu.hist.team3.catering.database.Plan;
 public class PlanManager {
 	private DatabaseManager manager;
 
+	/**
+	 * Creates a new PlanManager.
+	 * @param manager
+	 */
 	public PlanManager(DatabaseManager manager) {
 		this.manager = manager;
 	}
-
+	
+	/**
+	 * Returns a plan with selected id.
+	 * @param planId
+	 * @return
+	 */
 	public Plan getPlan(int planId) {
 		return manager.getPlan(planId);
 	}
 
+	/**
+	 * Returns an ArrayList of plans with selected date.
+	 * @param date
+	 * @return
+	 */
 	public ArrayList<Plan> getPlans(Date date) {
 		ArrayList<Plan> ret = new ArrayList<Plan>();
 		try (ResultSet result = manager
@@ -36,6 +50,10 @@ public class PlanManager {
 		return ret;
 	}
 
+	/**
+	 * Removes a plan with selected plan
+	 * @param plan
+	 */
 	public void removePlan(Plan plan) {
 		Calendar calendar = Calendar.getInstance();
 		plan.setEndDate(Date.valueOf(calendar.get(Calendar.YEAR) + "-"
@@ -50,6 +68,11 @@ public class PlanManager {
 		}
 	}
 
+	/**
+	 * Creates a new plan with selected Customer.
+	 * @param customer
+	 * @return
+	 */
 	public Plan createPlan(Customer customer) {
 		try {
 			return customer.getPlans().add();

@@ -10,10 +10,19 @@ import edu.hist.team3.catering.database.Resource;
 public class ResourceManager {
 	private DatabaseManager manager;
 
+	/**
+	 * Creates a new Resource Manager.
+	 * @param manager
+	 */
 	public ResourceManager(DatabaseManager manager) {
 		this.manager = manager;
 	}
 
+	/**
+	 * Returns an ArrayList of resources containing the selected search text.
+	 * @param searchText
+	 * @return
+	 */
 	public ArrayList<Resource> findResource(String searchText) {
 		searchText = searchText.toLowerCase();
 		ArrayList<Resource> resources = new ArrayList<Resource>();
@@ -30,7 +39,11 @@ public class ResourceManager {
 		}
 		return resources;
 	}
-
+	
+	/**
+	 * Returns a newly created reasource.
+	 * @return
+	 */
 	public Resource createResource() {
 		try {
 			return manager.createResource();
@@ -40,11 +53,21 @@ public class ResourceManager {
 		}
 		return null;
 	}
-
+	
+	/**
+	 * Returns a resource with the selected id.
+	 * @param id
+	 * @return
+	 */
 	public Resource getResource(int id) {
 		return manager.getResource(id);
 	}
 
+	/**
+	 * Removes a selected resource with the selected id.
+	 * @param id
+	 * @throws SQLException
+	 */
 	public void removeResource(int id) throws SQLException {
 		manager.getResource(id).remove();
 

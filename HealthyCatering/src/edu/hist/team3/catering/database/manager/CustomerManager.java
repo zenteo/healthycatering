@@ -14,6 +14,10 @@ import edu.hist.team3.catering.database.DatabaseManager;
 public class CustomerManager {
 	private DatabaseManager manager;
 	
+	/**
+	 * Creates a new CustomerManager with DatabaseManager as parameter
+	 * @param DatabaseManager
+	 */
 	public CustomerManager(DatabaseManager manager) {
 		this.manager = manager;
 	}
@@ -39,6 +43,11 @@ public class CustomerManager {
 		return ret;
 	}
 	
+	/**
+	 * Returns an ArrayList of customers which contains the selected search text
+	 * @param searchText
+	 * @return ArrayList<Customer>
+	 */
 	public ArrayList<Customer> findCustomer(String searchText) {
 		searchText = searchText.toLowerCase();
 		ArrayList<Customer> customers = new ArrayList<Customer>();
@@ -53,10 +62,19 @@ public class CustomerManager {
 		return customers;
 	}
 	
+	/**
+	 * Returns customer with the parameters id
+	 * @param id
+	 * @return Customer
+	 */
 	public Customer getCustomer(int id) {
 		return manager.getCustomer(id);
 	}
 	
+	/**
+	 * Returns a newly created blank customer.
+	 * @return
+	 */
 	public Customer createCustomer() {
 		try {
 			return manager.createCustomer();			
@@ -66,6 +84,15 @@ public class CustomerManager {
 		return null;
 	}
 	
+	/**
+	 * The Customer with the selected id is given new data with the parameters
+	 * @param id
+	 * @param firstName
+	 * @param lastName
+	 * @param phone
+	 * @param address
+	 * @return
+	 */
 	public boolean editCustomer(int id, String firstName, String lastName, String phone, String address) {
 		Customer customer = getCustomer(id);
 		customer.setFirstName(firstName);
@@ -82,6 +109,14 @@ public class CustomerManager {
 		
 	}
 	
+	/**
+	 * Creates a new customer and adds it to the database with data from parameters.
+	 * @param firstName
+	 * @param lastName
+	 * @param phone
+	 * @param address
+	 * @return
+	 */
 	public boolean addCustomer(String firstName, String lastName, String phone, String address) {
 		Customer customer = createCustomer();
 		customer.setFirstName(firstName);

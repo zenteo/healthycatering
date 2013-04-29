@@ -239,7 +239,10 @@ public class Customer extends DatabaseRow {
 	public void setType(short type) {
 		this.type = type;
 	}
-
+	/**
+	 * Gives plans
+	 * @return plans
+	 */
 	public CustomerPlanList getPlans() {
 		return plans;
 	}

@@ -38,7 +38,11 @@ public class MainFrame extends JFrame implements WindowListener {
 	private JTabbedPane tabsPanel;
 	private Toolkit toolkit;
 	private Employee employee;
-
+	/**
+	 * Creates the mainframe
+	 * @param employee
+	 * @param services
+	 */
 	public MainFrame(Employee employee, final Services services) {
 		super("Healthy Catering");
 		this.services = services;
@@ -106,7 +110,9 @@ public class MainFrame extends JFrame implements WindowListener {
 		pack();
 		setVisible(true);
 	}
-
+	/**
+	 * Exits the program
+	 */
 	private void exitProgram() {
 		Object[] options = { "Yes", "No" };
 
@@ -117,7 +123,9 @@ public class MainFrame extends JFrame implements WindowListener {
 		if (choice == 0)
 			System.exit(0);
 	}
-
+	/**
+	 * gives info about the developers
+	 */
 	private void aboutDevelopers() {
 		JFrame aboutWindow = new JFrame("About Team 3");
 		aboutWindow.setLayout(new FlowLayout());
@@ -133,7 +141,9 @@ public class MainFrame extends JFrame implements WindowListener {
 		aboutWindow.pack();
 		aboutWindow.setVisible(true);
 	}
-
+	/**
+	 * Adds Tabs
+	 */
 	private void addTabs() {
 		Job job = employee.getJob();
 		if (job.hasPrivileges(Job.PRIVILEGE_ADMIN))
@@ -164,7 +174,9 @@ public class MainFrame extends JFrame implements WindowListener {
 			tabsPanel.addTab("Statistics", new JScrollPane(new StatisticsTab(
 					services)));
 	}
-	
+	/**
+	 * Logs out current user
+	 */
 	private void logOut() {
 		Calendar now = Calendar.getInstance();
 		double deltaSeconds = now.get(Calendar.SECOND)

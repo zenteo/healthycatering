@@ -212,7 +212,11 @@ public class Job extends DatabaseRow {
 		super.tryFetch();
 		this.privileges = privileges | this.privileges;
 	}
-
+	/**
+	 * Checks if someone has privileges
+	 * @param privileges
+	 * @return Yes/no
+	 */
 	public boolean hasPrivileges(int privileges) {
 		assert (privileges >= 0);
 		super.tryFetch();
@@ -238,7 +242,10 @@ public class Job extends DatabaseRow {
 		super.tryFetch();
 		return this.privileges;
 	}
-
+	/**
+	 * Prints out which privileges someone has
+	 * @return privileges
+	 */
 	private String printPrivileges() {
 		String printPriv = "";
 		if ((privileges & PRIVILEGE_ADMIN) != 0) {

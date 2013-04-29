@@ -18,7 +18,12 @@ import edu.hist.team3.catering.gui.panel.DishEditPanel;
 @SuppressWarnings("serial")
 public class DishEditFrame extends JFrame {
 	private DishEditPanel dishPanel;
-
+	/**
+	 * Creates a new instance of DishEditFrame based on dish and services
+	 * also known as Dish editor
+	 * @param dish
+	 * @param services
+	 */
 	public DishEditFrame(Dish dish, Services services) {
 		addWindowListener(new WindowAdapter() {
 			@Override

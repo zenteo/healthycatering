@@ -18,20 +18,30 @@ public class JobEditFrame extends JFrame implements ActionListener {
 	private JButton applyButton;
 	private Services services;
 	private Job job;
-	
+	/**
+	 * Creates a new instance of JobEditFrame Based on services
+	 * @param services
+	 */
 	public JobEditFrame(Services services) {
 		this.services = services;
 		this.job = null;
 		init("Create job");
 	}
-	
+	/**
+	 * Create a new instance of JobEditFrame based on services and job
+	 * @param services
+	 * @param job
+	 */
 	public JobEditFrame(Services services, Job job) {
 		this.services = services;
 		this.job = job;
 		init("Save changes");
 		editPanel.fillInfo(job);
 	}
-	
+	/**
+	 * Initializing the job Editor
+	 * @param buttonText
+	 */
 	private void init(String buttonText) {
 		editPanel = new JobEditPanel();
 		applyButton = new JButton(buttonText);

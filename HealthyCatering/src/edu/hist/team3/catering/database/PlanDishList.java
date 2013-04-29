@@ -9,16 +9,27 @@ import java.util.Iterator;
 public class PlanDishList {
 	private HashSet<PlanDish> links = null;
 	private final Plan plan;
-	
+	/**
+	 * Creates a new instance of PlanDishList
+	 * @param plan
+	 */
 	public PlanDishList(Plan plan) {
 		assert(plan != null);
 		this.plan = plan;
 	}
-	
+	/**
+	 * Gives the plan
+	 * @return Plan
+	 */
 	public Plan getPlan() {
 		return plan;
 	}
-	
+	/**
+	 * Adds a dish to plan
+	 * @param dish
+	 * @return PlanDish
+	 * @throws SQLException
+	 */
 	public PlanDish add(Dish dish) throws SQLException {
 		assert(dish != null);
 		PlanDish link = plan.getManager().createPlanDish(plan, dish);
@@ -27,7 +38,11 @@ public class PlanDishList {
 		}
 		return link;
 	}
-	
+	/**
+	 * Gives a plandish based on dish
+	 * @param dish
+	 * @return plandish
+	 */
 	public PlanDish get(Dish dish) {
 		assert(dish != null);
 		tryFetch();
@@ -41,7 +56,11 @@ public class PlanDishList {
 		}
 		return null;
 	}
-	
+	/**
+	 * Removes a dish
+	 * @param dish
+	 * @throws SQLException
+	 */
 	public void remove(Dish dish) throws SQLException {
 		assert(dish != null);
 		PlanDish link = get(dish);
@@ -52,7 +71,11 @@ public class PlanDishList {
 			}
 		}
 	}
-	
+	/**
+	 * Removes a plandish
+	 * @param planDish
+	 * @throws SQLException
+	 */
 	public void remove(PlanDish planDish) throws SQLException {
 		assert(planDish != null);
 		planDish.remove();
@@ -60,7 +83,10 @@ public class PlanDishList {
 			links.remove(planDish);
 		}
 	}
-	
+	/**
+	 * Removes all 
+	 * @throws SQLException
+	 */
 	public void removeAll() throws SQLException {
 		Iterator<PlanDish> it = iterator();
 		while (it.hasNext()) {
@@ -68,7 +94,11 @@ public class PlanDishList {
 		}
 		links.clear();
 	}
-	
+	/**
+	 * Checks if plandish contains dish
+	 * @param dish
+	 * @return yes/no
+	 */
 	public boolean contains(Dish dish) {
 		tryFetch();
 		return links.contains(plan.getManager().getPlanDish(plan, dish));

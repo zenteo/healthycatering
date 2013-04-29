@@ -12,6 +12,9 @@ public abstract class SearchPanel<T> extends JPanel implements SearchListener {
 	protected SearchBar searchBar;
 	protected JList<LabeledObject<T>> searchResult;
 	
+	/**
+	 * Create a new SearchPanel.
+	 */
 	public SearchPanel() {
 		setLayout(new BorderLayout());
 		searchResult = new JList<LabeledObject<T>>();
@@ -22,20 +25,35 @@ public abstract class SearchPanel<T> extends JPanel implements SearchListener {
 		add(new JScrollPane(searchResult), BorderLayout.CENTER);
 	}
 	
+	/**
+	 * Returns T.
+	 * @return
+	 */
 	public T getSelected() {
 		if (getResultList().getSelectedValue() == null)
 			return null;
 		return getResultList().getSelectedValue().getObject();
 	}
 	
+	/**
+	 * This method does a search.
+	 */
 	public void doSearch() {
 		searchBar.doSearch();
 	}
 	
+	/**
+	 * Returns the SearchBar.
+	 * @return
+	 */
 	public SearchBar getSearchBar() {
 		return searchBar;
 	}
 	
+	/**
+	 * Returns a JList with results.
+	 * @return
+	 */
 	public JList<LabeledObject<T>> getResultList() {
 		return searchResult;
 	}

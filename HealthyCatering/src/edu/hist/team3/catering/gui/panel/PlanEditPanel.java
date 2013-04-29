@@ -43,6 +43,11 @@ public class PlanEditPanel extends JPanel {
 	private Dish selectedDish;
 	private DishSearchFrame dishSearchFrame;
 	
+	/**
+	 * Creates a new PlanEditPanel.
+	 * @param plan
+	 * @param services
+	 */
 	public PlanEditPanel(final Plan plan, Services services) {
 		this.plan = plan;
 		startDate = new JTextField();
@@ -199,6 +204,9 @@ public class PlanEditPanel extends JPanel {
 		fillInfo();
 	}
 	
+	/**
+	 * Fills the panel with information.
+	 */
 	public void fillInfo() {
 		startDate.setText(plan.getStartDate().toString());
 		if (plan.getEndDate() != null) {
@@ -213,6 +221,9 @@ public class PlanEditPanel extends JPanel {
 		sundays.setSelected(plan.isDeliveredOn(Plan.DAY_SUNDAY));
 	}
 	
+	/**
+	 * Applies changes.
+	 */
 	public void apply() {
 		try {
 			Date sDate = Date.valueOf(startDate.getText());

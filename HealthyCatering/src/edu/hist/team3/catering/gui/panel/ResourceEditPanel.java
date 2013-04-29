@@ -38,6 +38,9 @@ public class ResourceEditPanel extends JPanel {
 	private JFormattedTextField calories;
 	private JFormattedTextField healthiness;
 	
+	/**
+	 * Creates a new ResourceEditPanel.
+	 */
 	public ResourceEditPanel() {
 		this.name = new JTextField();
 		this.category = new JTextField();
@@ -82,6 +85,10 @@ public class ResourceEditPanel extends JPanel {
 		add(healthiness);
 	}
 	
+	/**
+	 * Fills the panel with information.
+	 * @param res
+	 */
 	public void fillInfo(Resource res) {
 		name.setText(res.getName());
 		category.setText(res.getCategory());
@@ -96,6 +103,11 @@ public class ResourceEditPanel extends JPanel {
 		healthiness.setValue(res.getHealthiness() * 100.0);
 	}
 	
+	/**
+	 * Applies changes.
+	 * @param res
+	 * @throws SQLException
+	 */
 	public void apply(Resource res) throws SQLException {
 		res.setName(name.getText());
 		res.setCategory(category.getText());

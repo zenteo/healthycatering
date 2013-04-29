@@ -11,11 +11,18 @@ import edu.hist.team3.catering.database.manager.Services;
 public class ResourceSearch extends SearchPanel<Resource> {
 	private Services services;
 	
+	/**
+	 * Creates a new ResourceSearch.
+	 * @param services
+	 */
 	public ResourceSearch(Services services) {
 		this.services = services;
 		doSearch();
 	}
 
+	/**
+	 * This method searches for resources with the selected search text.
+	 */
 	@Override
 	public void onSearch(String text) {
 		DefaultListModel<LabeledObject<Resource>> model;

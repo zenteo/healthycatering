@@ -11,11 +11,19 @@ import edu.hist.team3.catering.database.manager.Services;
 public class JobSearch extends SearchPanel<Job> {
 	private Services services;
 	
+	/**
+	 * Creates a new JobSearch object with Services as parameter.
+	 * 
+	 * @param services
+	 */
 	public JobSearch(Services services) {
 		this.services = services;
 		onSearch("");
 	}
 	
+	/**
+	 * This method will search for jobs with the selected text.
+	 */
 	@Override
 	public void onSearch(String text) {
 		ArrayList<Job> ret = services.getJobManager().findJob(text);

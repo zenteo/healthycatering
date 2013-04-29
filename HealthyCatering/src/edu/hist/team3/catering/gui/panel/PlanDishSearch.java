@@ -11,11 +11,18 @@ import edu.hist.team3.catering.database.PlanDish;
 public class PlanDishSearch extends SearchPanel<PlanDish> {
 	private Plan plan;
 
+	/**
+	 * Create a new PlanDishSearch with selected plan.
+	 * @param plan
+	 */
 	public PlanDishSearch(Plan plan) {
 		this.plan = plan;
 		doSearch();
 	}
 
+	/**
+	 * This method will search for a link between a plan and dish with selected search text.
+	 */
 	@Override
 	public void onSearch(String text) {
 		DefaultListModel<LabeledObject<PlanDish>> model = (DefaultListModel<LabeledObject<PlanDish>>) getResultList()

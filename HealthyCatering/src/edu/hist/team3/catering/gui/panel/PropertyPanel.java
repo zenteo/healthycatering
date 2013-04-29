@@ -11,10 +11,21 @@ public class PropertyPanel<T extends Component> extends JPanel {
 	private JLabel label;
 	private T field;
 	
+	/**
+	 * Creates a new PropertyPanel.
+	 * @param label
+	 * @param field
+	 */
 	public PropertyPanel(String label, T field) {
 		this(label, field, true);
 	}
 	
+	/**
+	 * Creates a new PropertyPanel.
+	 * @param label
+	 * @param field
+	 * @param labelFirst
+	 */
 	public PropertyPanel(String label, T field, boolean labelFirst) {
 		this.label = new JLabel(label);
 		this.field = field;

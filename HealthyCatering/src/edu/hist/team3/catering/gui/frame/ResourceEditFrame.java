@@ -18,20 +18,29 @@ public class ResourceEditFrame extends JFrame implements ActionListener {
 	private ResourceEditPanel resourceEdit;
 	private JButton button;
 	private Resource resource = null;
-
+	/**
+	 * Creates a new instance of ResourceEditFrame based on services
+	 * @param services
+	 */
 	public ResourceEditFrame(Services services) {
 		super("Add resource");
 		this.services = services;
 		init("Create");
 	}
-
+	/**
+	 * Creates a new instance of ResourceEditFrame based on resource
+	 * @param resource
+	 */
 	public ResourceEditFrame(Resource resource) {
 		super("Edit resource");
 		this.resource = resource;
 		init("Save");
 		resourceEdit.fillInfo(resource);
 	}
-
+	/**
+	 * Initializing the Resource Editor 
+	 * @param buttonText
+	 */
 	private void init(String buttonText) {
 		this.setLayout(new BorderLayout());
 		resourceEdit = new ResourceEditPanel();

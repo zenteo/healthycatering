@@ -13,12 +13,23 @@ import edu.hist.team3.catering.database.Plan;
 public class DeliveryManager {
 	private DatabaseManager manager;
 	private Services services;
-
+	
+	/**
+	 * Creates a new DeliveryManager with DatabaseManager and Services as parameters.
+	 * @param manager
+	 * @param services
+	 */
 	public DeliveryManager(DatabaseManager manager, Services services) {
 		this.manager = manager;
 		this.services = services;
 	}
 
+	/**
+	 * Returns a new delivery, with a plan and date as parameter
+	 * @param plan
+	 * @param date
+	 * @return
+	 */
 	public Delivery createDelivery(Plan plan, Date date) {
 		// TODO: Check if it can be delivered on this day of week.
 		if (getDelivery(plan, date) != null)
@@ -34,7 +45,12 @@ public class DeliveryManager {
 		}
 		return null;
 	}
-
+	
+	/**
+	 * Returns an ArrayList of deliveries with date as parameter
+	 * @param date
+	 * @return
+	 */
 	public ArrayList<Delivery> createDeliveries(Date date) {
 		Calendar now = Calendar.getInstance();
 		now.setTime(date);
@@ -59,7 +75,13 @@ public class DeliveryManager {
 		}
 		return ret;
 	}
-
+	
+	/**
+	 * Returns a delivery with selected date and plan
+	 * @param plan
+	 * @param date
+	 * @return
+	 */
 	public Delivery getDelivery(Plan plan, Date date) {
 		try (ResultSet result = manager
 				.performSql("SELECT id FROM Delivery WHERE plan_id = "
@@ -74,6 +96,11 @@ public class DeliveryManager {
 		return null;
 	}
 
+	/**
+	 * Returns an ArrayList of deliveries with date as parameter.
+	 * @param date
+	 * @return
+	 */
 	public ArrayList<Delivery> getDeliveries(Date date) {
 		ArrayList<Delivery> ret = new ArrayList<Delivery>();
 		try (ResultSet result = manager
@@ -88,6 +115,10 @@ public class DeliveryManager {
 		return ret;
 	}
 
+	/**
+	 * Get total outcome of all deliveries.
+	 * @return double
+	 */
 	public double getTotalOutcome() {
 		try (ResultSet result = manager
 				.performSql("SELECT SUM(DELIVERY.SUM_OUTCOME) AS total_outcome FROM DELIVERY")) {
@@ -100,6 +131,10 @@ public class DeliveryManager {
 		return -1.0;
 	}
 
+	/**
+	 * Get total income of all deliveries.
+	 * @return double
+	 */
 	public double getTotalIncome() {
 		try (ResultSet result = manager.performSql("SELECT SUM(DELIVERY.SUM_INCOME) AS total_income FROM DELIVERY")) {
 			if (result.next()) {
@@ -111,6 +146,12 @@ public class DeliveryManager {
 		return -1.0;
 	}
 	
+	/**
+	 * Get profit between selected dates.
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
 	public double getProfitOver(String startDate, String endDate) {
 		try (ResultSet result = manager.performSql(
 				"SELECT SUM(DELIVERY.SUM_INCOME) AS total_income, SUM(DELIVERY.SUM_OUTCOME) AS total_outcome FROM DELIVERY WHERE DATE BETWEEN '" + startDate + "' AND '" + endDate + "'")) {

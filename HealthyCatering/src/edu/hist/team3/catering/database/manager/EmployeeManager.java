@@ -12,6 +12,10 @@ import edu.hist.team3.catering.database.Job;
 public class EmployeeManager {
 	private DatabaseManager manager;
 	
+	/**
+	 * Creates a new EmployeeManager with DatabaseManager as parameter.
+	 * @param manager
+	 */
 	public EmployeeManager(DatabaseManager manager) {
 		this.manager = manager;
 	}
@@ -45,18 +49,41 @@ public class EmployeeManager {
 		return manager.getEmployee(id);
 	}
 	
+	/**
+	 * Returns a new employee with job as parameter.
+	 * @param job
+	 * @return
+	 * @throws SQLException
+	 */
 	public Employee addEmployee(Job job)throws SQLException{
 		return manager.createEmployee(job);
 	}
 	
+	/** 
+	 * Returns an employee with customer and job as parameters.
+	 * @param base
+	 * @param job
+	 * @return
+	 * @throws SQLException
+	 */
 	public Employee addEmployee(Customer base, Job job)throws SQLException{
 		return manager.createEmployee(base, job);
 	}
 	
+	/**
+	 * Removes an employee with parameter id.
+	 * @param id
+	 * @throws SQLException
+	 */
 	public void removeEmployee(int id)throws SQLException{
 		getEmployee(id).remove();
 	}
 	
+	/**
+	 * Returns an ArrayList of Employees which contains the search text.
+	 * @param searchText
+	 * @return
+	 */
 	public ArrayList<Employee> findEmployee(String searchText) {
 		searchText = searchText.toLowerCase();
 		ArrayList<Employee> employees = new ArrayList<Employee>();
